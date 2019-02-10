@@ -1,0 +1,49 @@
+{
+  "singUp": [
+    {
+      "id": 1,
+      "ApiResult": {
+        "status": "SUCCESS",
+        "payload": null,
+        "messages": [
+          "Sign up successful. Use your user/email to sign in"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "ApiResult": {
+        "status": "ERROR",
+        "payload": null,
+        "messages": [
+          "User is this email is already exists"
+        ]
+      }
+    }
+  ],
+  "signIn": [
+    {
+      "id": 1,
+      "ApiResult": {
+        "status": "SUCCESS",
+        "payload": {
+          "id": 1,
+          "lastName": "Лучезарный",
+          "firstName": "Стив",
+          "cityId": 2,
+          "userName": "SteveRadiant19",
+          "alias": "Лучик"
+        },
+        "messages": null
+      }
+    },
+    {
+      "id": 2,
+      "ApiResult": {
+        "status": "ERROR",
+        "payload": null,
+        "messages": ["Invalid username/password"]
+      }
+    }
+  ]
+}
