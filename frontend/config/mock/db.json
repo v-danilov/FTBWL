@@ -1,0 +1,31 @@
+{
+  "singUp": [
+    {
+      "payload": null
+    }
+  ],
+  "signIn": [
+    {
+      "payload": {
+        "id": 1,
+        "lastName": "Лучезарный",
+        "firstName": "Стив",
+        "cityId": 2,
+        "username": "SteveRadiant19",
+        "alias": "Лучик"
+      }
+    }
+  ],
+  "getCitiesByPrefix": {
+    "payload": [
+      {
+        "cid": 1,
+        "title": "Москва"
+      },
+      {
+        "cid": 2,
+        "title": "Новая Москва"
+      }
+    ]
+  }
+}

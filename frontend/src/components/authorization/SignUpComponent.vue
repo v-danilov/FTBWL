@@ -61,7 +61,7 @@
         <!--User name-->
         <v-flex xs12 md4>
           <v-text-field
-            v-model="userData.userName"
+            v-model="userData.username"
             :rules="userNameRules"
             label="User name"
             required
@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import {AuthorizationTextConstants, AuthorizationEndPoints} from './AuthorizationFormConstants'
+import {AuthorizationTextConstants, AuthorizationEndPoints} from './constants/AuthorizationFormConstants'
 import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
 import _ from 'lodash'
 
@@ -158,7 +158,7 @@ export default {
       firstName: '',
       cityId: 0,
       email: '',
-      userName: '',
+      username: '',
       alias: '',
       password: ''
     },
@@ -189,6 +189,7 @@ export default {
     }
   }),
   watch: {
+    // TODO метод срабатывает при загрузке формы - запрашивает по пустому префиксу
     cityPrefix: _.debounce(function (prefix) {
       this.searchCityByPrefix(prefix)
     }, 700),
@@ -198,18 +199,14 @@ export default {
   },
   methods: {
     searchCityByPrefix (prefix) {
+      // TODO делать search() только если комбобокс не имеет вариантов по предложенному префиксу
       this.cities = []
-      this.$jsonp(AuthorizationEndPoints.GET_CITIES_ENDPOINT,
-        {
-          country_id: 1,
-          q: prefix,
-          count: 5,
-          access_token: '36fcfb9736fcfb9736fcfb97e5369469e9336fc36fcfb976aa26ab91232983e52bd77b0',
-          v: 'V'
-        })
+      this.$http.get(AuthorizationEndPoints.GET_CITIES_BY_PREFIX)
         .then(response => {
-          let data = response.response
+          console.log(response.data)
+          let data = response.data.payload
           data.forEach(element => this.cities.push({id: element.cid, name: element.title}))
+          console.log(this.cities)
         })
         .catch(e => {
           console.log(e)
@@ -224,12 +221,12 @@ export default {
       this.toastBox.isActive = true
     },
     onSubmit () {
-      this.$jsonp(AuthorizationEndPoints.SIGN_UP_ENDPOINT, this.userData)
+      this.$http.post(AuthorizationEndPoints.SIGN_UP, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
-            console.log('successful sign up')
-            console.log(response)
+            this.displayToastWithMessage('Successful sign up')
           } else {
+            console.log(response)
             this.displayToastWithMessage(response.statusText)
           }
         })

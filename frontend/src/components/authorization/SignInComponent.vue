@@ -16,7 +16,7 @@
         <!--User name-->
         <v-flex xs12 md4>
           <v-text-field
-            v-model="userData.userName"
+            v-model="userData.username"
             label="User name or email"
             :rules="checkNotEmpty"
           ></v-text-field>
@@ -81,8 +81,7 @@
 </template>
 
 <script>
-import {AuthorizationTextConstants, AuthorizationEndPoints} from './AuthorizationFormConstants'
-import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
+import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
 
 export default {
   name: 'SignInComponent',
@@ -90,7 +89,7 @@ export default {
     return {
       formIsValid: false,
       userData: {
-        userName: '',
+        username: '',
         password: ''
       },
       toastBox: {
@@ -109,20 +108,14 @@ export default {
       this.toastBox.isActive = true
     },
     onSubmit () {
-      this.$jsonp(AuthorizationEndPoints.SING_IN_ENDPOINT, this.userData)
-        .then(response => {
-          if (response.status === HTTPResponseStatusConstants.OK) {
-            console.log('successful sign in')
-            console.log(response)
-          } else {
-            console.log(response)
-            this.displayToastWithMessage(response.statusText)
-          }
-        })
-        .catch(e => {
-          this.displayToastWithMessage('Internal error. Please contact with administrator.')
-          console.log(e)
-        })
+      const {username, password} = this.userData
+      this.$store.dispatch('SIGNIN_ACTION', {username, password}).then(() => {
+        if (this.$store.getters.isAuthenticated) {
+          this.$router.push('/')
+        } else {
+          this.displayToastWithMessage('Wrong credentials')
+        }
+      })
     }
   }
 }

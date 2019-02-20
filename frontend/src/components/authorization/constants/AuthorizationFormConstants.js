@@ -18,7 +18,7 @@ export const AuthorizationTextConstants = {
 }
 
 export const AuthorizationEndPoints = {
-  SIGN_UP_ENDPOINT: 'http://localhost:3000/signUp/1',
-  SING_IN_ENDPOINT: 'http://localhost:3000/signIn',
-  GET_CITIES_ENDPOINT: 'https://api.vk.com/method/database.getCities'
+  SIGN_UP: '/api/signUp',
+  SIGN_IN: '/signIn',
+  GET_CITIES_BY_PREFIX: '/api/getCitiesByPrefix'
 }

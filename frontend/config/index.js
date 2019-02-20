@@ -13,8 +13,9 @@ module.exports = {
     proxyTable: {
       // proxy all webpack dev-server requests starting with /api to our Spring Boot backend (localhost:8088)
       '/api': {
-        target: 'http://localhost:8088',
-        changeOrigin: true
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        // secure: false
       }
     },
 
@@ -25,7 +26,6 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
