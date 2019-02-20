@@ -8,12 +8,21 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "fake-server": "json-server --watch config\\mock\\db.json --routes config\\mock\\routes.json  --middlewares config\\mock\\login-middleware.js"
   },
   "dependencies": {
+    "json-server": "^0.14.2",
     "peer": "^0.2.10",
+    "axios": "^0.18.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-axios": "^2.1.4",
+    "vue-cookie": "^1.1.4",
+    "vue-jsonp": "^0.1.8",
+    "vue-lodash": "^2.0.0",
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.5.0",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -41,7 +50,8 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.1",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
@@ -59,7 +69,8 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^3.1.14",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.0.0",
     "webpack-merge": "^4.1.0"
   },
   "engines": {

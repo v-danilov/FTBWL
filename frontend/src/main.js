@@ -4,11 +4,30 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import colors from 'vuetify/es5/util/colors'
+
+import { store } from './store/store'
+import axios from 'axios'
+
+axios.defaults.baseURL = '/api'
+Vue.prototype.$http = axios
+// lodash
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#7cb342', // #7cb342
+    secondary: colors.red.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
+  }
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'
