@@ -1,145 +1,152 @@
 <template>
-  <v-form
-    v-model="formIsValid"
-    @submit.prevent="onSubmit">
-    <v-container fluid>
-      <v-avatar
-        :tile="false"
-        :size="300"
-        color="grey lighten-4"
-      >
-        <!--This is very strange. Doesn't work from root '/'-->
-        <img src="../../assets/ftbwlLogo.png" alt="logo">
-      </v-avatar>
-      <!--Human data block-->
-      <v-layout wrap>
-        <!--Last name-->
-        <v-flex xs12 md4>
-          <v-text-field
-            v-model="userData.lastName"
-            :rules="nameRules"
-            label="Last name"
-            required
-          ></v-text-field>
-        </v-flex>
-        <!--First name-->
-        <v-flex xs12 md4>
-          <v-text-field
-            v-model="userData.firstName"
-            :rules="nameRules"
-            label="First name"
-            required
-          ></v-text-field>
-        </v-flex>
-        <!--City-->
-        <v-flex xs12 md4>
-          <v-combobox
-            v-model="selectedCity"
-            :search-input.sync="cityPrefix"
-            label="City"
-            item-text="name"
-            :items="cities"
-            :return-object="true"
-            required>
-          </v-combobox>
-        </v-flex>
-      </v-layout>
+  <v-container>
+    <v-layout row wrap justify-center >
+      <v-flex xs7>
+        <v-form
 
-      <!--User data block-->
-      <v-layout wrap>
+          v-model="formIsValid"
+          @submit.prevent="onSubmit">
+          <v-container fluid>
+            <v-avatar
+              :tile="false"
+              :size="300"
+              color="grey lighten-4"
+            >
+              <!--This is very strange. Doesn't work from root '/'-->
+              <img src="../../assets/ftbwlLogo.png" alt="logo">
+            </v-avatar>
+            <!--Human data block-->
+            <v-layout wrap>
+              <!--Last name-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  v-model="userData.lastName"
+                  :rules="nameRules"
+                  label="Last name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <!--First name-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  v-model="userData.firstName"
+                  :rules="nameRules"
+                  label="First name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <!--City-->
+              <v-flex xs12 md4>
+                <v-combobox
+                  v-model="selectedCity"
+                  :search-input.sync="cityPrefix"
+                  label="City"
+                  item-text="name"
+                  :items="cities"
+                  :return-object="true"
+                  required>
+                </v-combobox>
+              </v-flex>
+            </v-layout>
 
-        <!--Email-->
-        <v-flex xs12 md4>
-          <v-text-field
-            type="email"
-            v-model="userData.email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-flex>
-        <!--User name-->
-        <v-flex xs12 md4>
-          <v-text-field
-            v-model="userData.username"
-            :rules="userNameRules"
-            label="User name"
-            required
-          ></v-text-field>
-        </v-flex>
-        <!--User alias-->
-        <v-flex xs12 md4>
-          <v-text-field
-            v-model="userData.alias"
-            label="Alias"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
+            <!--User data block-->
+            <v-layout wrap>
 
-      <!--Security data block-->
-      <v-layout wrap>
-        <!--Password-->
-        <v-flex xs12 md4>
-          <v-text-field
-            type="password"
-            v-model="userData.password"
-            :rules="passwordRules"
-            label="Password"
-            required
-          ></v-text-field>
-        </v-flex>
-        <!--Confirm password-->
-        <v-flex xs12 md4>
-          <v-text-field
-            :rules="confirmPasswordRules"
-            type="password"
-            label="Confirm password"
-            required
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
+              <!--Email-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  type="email"
+                  v-model="userData.email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <!--User name-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  v-model="userData.username"
+                  :rules="userNameRules"
+                  label="User name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <!--User alias-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  v-model="userData.alias"
+                  label="Alias"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
 
-      <v-layout wrap>
-        <v-flex xs12 md4></v-flex>
-        <v-flex xs12 md4>
-          <v-btn
-            :disabled="!formIsValid"
-            type="submit"
-            round
-            large
-            color="primary">
-            Sign up
-          </v-btn>
-          <v-btn
-            :depressed="true"
-            :flat="true"
-            round
-            color="primary"
-            to="signIn"
-            :replace="true">
-            Sign in
-          </v-btn>
-        </v-flex>
-      </v-layout>
+            <!--Security data block-->
+            <v-layout wrap>
+              <!--Password-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  type="password"
+                  v-model="userData.password"
+                  :rules="passwordRules"
+                  label="Password"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <!--Confirm password-->
+              <v-flex xs12 md4>
+                <v-text-field
+                  :rules="confirmPasswordRules"
+                  type="password"
+                  label="Confirm password"
+                  required
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
 
-      <v-snackbar
-        v-model="toastBox.isActive"
-        :multi-line="false"
-        :right="true"
-        :timeout="5000"
-        :top="true"
-      >
-        {{ toastBox.text }}
-        <v-btn
-          color="red"
-          flat
-          @click="toastBox.isActive = false"
-        >
-          Close
-        </v-btn>
-      </v-snackbar>
-    </v-container>
-  </v-form>
+            <v-layout wrap>
+              <v-flex xs12 md4></v-flex>
+              <v-flex xs12 md4>
+                <v-btn
+                  :disabled="!formIsValid"
+                  type="submit"
+                  round
+                  large
+                  color="primary">
+                  Sign up
+                </v-btn>
+                <v-btn
+                  :depressed="true"
+                  :flat="true"
+                  round
+                  color="primary"
+                  to="signIn"
+                  :replace="true">
+                  Sign in
+                </v-btn>
+              </v-flex>
+            </v-layout>
+
+            <v-snackbar
+              v-model="toastBox.isActive"
+              :multi-line="false"
+              :right="true"
+              :timeout="5000"
+              :top="true"
+            >
+              {{ toastBox.text }}
+              <v-btn
+                color="red"
+                flat
+                @click="toastBox.isActive = false"
+              >
+                Close
+              </v-btn>
+            </v-snackbar>
+          </v-container>
+        </v-form>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

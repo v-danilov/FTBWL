@@ -1,0 +1,116 @@
+import {HTTPResponseStatusConstants} from '../../components/util/constants/CommonConstants'
+import Axios from 'axios'
+/* global state, getters, mutations, actions  */
+/* exported state, getters, mutations, actions */
+const state = {
+  formats: localStorage.getItem('formats') || [],
+  countries: localStorage.getItem('countries') || [],
+  cities: localStorage.getItem('cities') || [],
+  places: localStorage.getItem('places') || [],
+  organizers: localStorage.getItem('organizers') || [],
+  statuses: localStorage.getItem('statuses') || []
+}
+const getters = {
+  cachedFormats: state => state.formats,
+  cachedCountries: state => state.countries,
+  cachedCities: state => state.cities,
+  cachedPlaces: state => state.places,
+  cachedOrganizers: state => state.organizers,
+  cachedStatuses: state => state.statuses
+}
+// this.$store.commit(“SET_USER”, user) synchronous
+const mutations = {
+  SET_FORMATS: (state, payload) => {
+    state.formats = payload
+  },
+  SET_COUNTRIES: (state, payload) => {
+    state.countries = payload
+  },
+  SET_CITIES: (state, payload) => {
+    state.cities = payload
+  },
+  SET_PLACES: (state, payload) => {
+    state.places = payload
+  },
+  SET_ORGANIZERS: (state, payload) => {
+    state.organizers = payload
+  },
+  SET_STATUSES: (state, payload) => {
+    state.statuses = payload
+  }
+}
+// this.$store.dispatch("SET_USER",user) asynchronous
+
+const actions = {
+  INIT_FORMATS: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_FORMATS', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache formats 🤷‍♂️')
+      })
+  },
+  INIT_COUNTRIES: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_COUNTRIES', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache countries 🤷‍♂️')
+      })
+  },
+
+  INIT_CITIES: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_CITIES', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache cities 🤷‍♂️')
+      })
+  },
+  INIT_PLACES: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_PLACES', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache places 🤷‍♂️')
+      })
+  },
+  INIT_ORGANIZERS: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_ORGANIZERS', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache organizers 🤷‍♂️')
+      })
+  },
+  INIT_STATUSES: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_STATUSES', response.data.payload)
+        }
+      })
+      .catch(reason => {
+        console.log('Failed to cache statuses 🤷‍♂️')
+      })
+  }
+}
+
+export default {
+  state, getters, mutations, actions
+}
