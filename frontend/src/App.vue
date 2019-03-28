@@ -1,13 +1,11 @@
 <template>
   <v-app>
-    <v-content app>
+    <NavigatorComponent/>
+    <v-content>
       <v-container fill-height fluid grid-list-{0} class="pa-0">
         <v-layout row>
-          <v-flex xs1 sm1 md1>
-            <NavigatorComponent/>
-          </v-flex>
-          <v-flex xs11 sm11 md11>
-          <router-view/>
+          <v-flex>
+            <router-view/>
           </v-flex>
         </v-layout>
       </v-container>

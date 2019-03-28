@@ -1,6 +1,21 @@
 <template>
-  <v-navigation-drawer class="primary" permanent>
-    <v-layout align-center justify-center column fill-height>
+  <v-navigation-drawer class="primary"
+                       permanent
+                       mini-variant
+                       :mini-variant-width="100"
+                       app>
+    <v-layout column justify-center fill-height>
+    <v-list
+      v-for="(element, index) in navigationElements"
+      :key="index" class="mt-5">
+      <v-list-tile-action>
+        <v-btn large flat icon color="white">
+          <v-icon large>{{element.icon}}</v-icon>
+        </v-btn>
+      </v-list-tile-action>
+    </v-list>
+    </v-layout>
+    <!--<v-layout align-center justify-center column fill-height>
       <template v-for="element in navigationElements">
         <v-btn large flat icon color="white" :key="element.name" >
           <v-icon large>{{element.icon}}</v-icon>
@@ -10,7 +25,7 @@
       <v-btn large flat icon color="white">
         <v-icon large>help</v-icon>
       </v-btn>
-    </v-layout>
+    </v-layout>-->
   </v-navigation-drawer>
 </template>
 <script>

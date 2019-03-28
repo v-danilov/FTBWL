@@ -17,7 +17,7 @@
         </span>
       <span
         v-if="elements.length === 1"
-      >{{ item[mainProperty] }}</span>
+      >{{slicedName(item[mainProperty])}}</span>
     </template>
   </v-select>
 </template>
@@ -49,6 +49,12 @@ export default {
     handleInput (e) {
       console.log('here')
       this.$emit('input', this.elements)
+    },
+    slicedName (value) {
+      if (value.length > 11) {
+        return value.substring(0, 11) + '...'
+      }
+      return value
     }
   }
 }

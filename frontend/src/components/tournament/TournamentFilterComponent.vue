@@ -82,17 +82,19 @@
         </v-layout>
       </v-card-title>
       <v-card-actions>
-        <v-btn round flat color="primary" @click="resetFilterForm">Сбросить</v-btn>
+        <v-btn round flat color="accent" @click="resetFilterForm">Сбросить</v-btn>
         <v-btn round color="primary">Применить</v-btn>
         <v-spacer></v-spacer>
-        <v-btn flat icon color="primary"
+        <v-btn flat icon color="accent"
                @click="filterIsActive = !filterIsActive">
           <v-icon>close</v-icon>
         </v-btn>
       </v-card-actions>
       <v-spacer></v-spacer>
     </v-card>
-    <v-btn v-else round color="primary"
+    <v-btn v-else
+           round color="primary"
+           class="align-start"
            @click="filterIsActive = !filterIsActive">
       <v-icon large>search</v-icon>
       Открыть фильтр
