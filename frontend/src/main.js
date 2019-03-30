@@ -6,7 +6,6 @@ import router from './router'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import colors from 'vuetify/es5/util/colors'
 
 import { store } from './store/store'
 import axios from 'axios'
@@ -16,10 +15,12 @@ Vue.prototype.$http = axios
 // lodash
 Vue.use(Vuetify, {
   theme: {
-    primary: '#7cb342', // #7cb342
-    secondary: colors.red.lighten4, // #FFCDD2
-    accent: colors.indigo.base // #3F51B5
+    primary: '#7cb342', // Primary system color
+    secondary: '#348C5D', // Secondary system color
+    accent: '#C66549', // Accent color for elements to pay attention
+    additional: '#AC4068' // Extra color
   }
+  // If you are not designer: https://colorscheme.ru/#2x41TkdoRvymD
 })
 
 Vue.config.productionTip = false

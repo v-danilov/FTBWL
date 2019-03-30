@@ -1,16 +1,26 @@
 <template>
   <v-app>
-    <v-content app>
-      <v-container fluid>
-        <router-view/>
+    <NavigatorComponent/>
+    <v-content>
+      <v-container fill-height fluid grid-list-{0} class="pa-0">
+        <v-layout row>
+          <v-flex>
+            <router-view/>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import NavigatorComponent from './components/NavigatorComponent'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {NavigatorComponent},
+  beforeMount () {
+  }
 }
 </script>
 

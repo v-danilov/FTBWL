@@ -1,3 +1,10 @@
 {
-  "/api/*": "/$1"
+  "/api/*": "/$1",
+  "/formats/getAll":"/formats",
+  "/countries/getAll":"/countries",
+  "/cities/getAll":"/cities",
+  "/places/getAll":"/places",
+  "/organizers/getAll":"/organizers",
+  "/statuses/getAll":"/statuses",
+  "/tournaments/getAll": "/tournaments"
 }

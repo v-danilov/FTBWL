@@ -27,5 +27,158 @@
         "title": "Новая Москва"
       }
     ]
+  },
+  "formats": {
+    "payload": [
+      {
+        "id": 1,
+        "name": "PVP"
+      },
+      {
+        "id": 2,
+        "name": "PVE"
+      }
+    ]
+  },
+  "countries": {
+    "payload": [
+      {
+        "id": 1,
+        "name": "Раша"
+      },
+      {
+        "id": 2,
+        "name": "Бульбаша"
+      },
+      {
+        "id": 3,
+        "name": "Америсоска"
+      }
+    ]
+  },
+  "cities": {
+    "payload": [
+      {
+        "id": 1,
+        "name": "Москва"
+      },
+      {
+        "id": 2,
+        "name": "Санкт-Петербург"
+      },
+      {
+        "id": 3,
+        "name": "Екатеринбург"
+      }
+    ]
+  },
+  "places": {
+    "payload": [
+      {
+        "id": 1,
+        "name": "Лиговка"
+      }, {
+        "id": 2,
+        "name": "Не лиговка"
+      }, {
+        "id": 3,
+        "name": "Черноголвка"
+      }, {
+        "id": 4,
+        "name": "Белоголовка"
+      }
+    ]
+  },
+  "organizers": {
+    "payload": [
+      {
+        "id": 1,
+        "surname": "Борисов",
+        "name": "Клавдий",
+        "patronymic": "Денисович",
+        "alias": "BorisovKlavdiy183"
+      }, {
+        "id": 2,
+        "surname":  "Скачков",
+        "name":  "Каллистрат",
+        "patronymic": "Вениаминович",
+        "alias": "SkachkovKallistrat344"
+      }, {
+        "id": 3,
+        "surname":  "Голубева",
+        "name":  "Анна",
+        "patronymic": "Борисовна",
+        "alias": "GolubevaAnna203"
+      }, {
+        "id": 4,
+        "surname":  "Морозова",
+        "name":  "Тамара",
+        "patronymic": "Дмитриевна",
+        "alias": "MorozovaTamara341"
+      }, {
+        "id": 5,
+        "surname":  "Куколевская",
+        "name":  "Пелагея",
+        "patronymic": "Стпановна",
+        "alias": "KukolevskayaPelageya334"
+      }
+    ]
+  },
+  "statuses": {
+    "payload": [
+      {
+        "id": 1,
+        "status": 1,
+        "desc": "Регистрация"
+      }, {
+        "id":  3,
+        "status":  0,
+        "desc": "Окончен"
+      }, {
+        "id":  2,
+        "status":  2,
+        "desc": "Игра"
+      }
+    ]
+  },
+  "tournaments": {
+    "payload": [
+      {
+        "id": 1,
+        "status": "Открыта регистрация",
+        "city": "Санкт-Петербург",
+        "place": "Хобби центр Geek Wars",
+        "organizer": "Николаев Николай",
+        "startDate": "22.04.2019, 11:30",
+        "endDate": "22.04.2019, 18.00",
+        "price": "1724",
+        "format": "50 SS",
+        "name": "Турик намбер ван"
+      },
+      {
+        "id": 2,
+        "status": "Запланирован",
+        "city": "Москва",
+        "place": "Хобби центр Geek Wars",
+        "organizer": "Сергеев Сергей",
+        "startDate": "7.07.2020, 10:00",
+        "endDate": "8.07.2020, 20:00",
+        "price": "2617",
+        "format": "35 SS",
+        "name": "Турик намбер ту"
+      },
+      {
+        "id": 3,
+        "status": "Окончен",
+        "city": "Гродно",
+        "place": "ул. Солнечная, д. 24, ТЦ 'Бульбашка-молдовашка'",
+        "organizer": "Катеринова Екатерина",
+        "startDate": "",
+        "endDate": "12.02.2019",
+        "price": "819",
+        "format": "50 SS",
+        "name": "Турик намбер сри"
+      }
+    ]
   }
 }

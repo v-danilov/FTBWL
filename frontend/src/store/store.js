@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authorizationModule from './modules/authorizationModule'
+import filterCacheModule from './modules/filterCacheModule'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export const store = new Vuex.Store({
   // this.$store.dispatch("SET_USER",user) asynchronous
   actions: {},
   modules: {
-    authorizationModule
+    authorizationModule,
+    filterCacheModule
   }
 })
