@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import SignUpComponent from '../components/authorization/SignUpComponent'
 import SignInComponent from '../components/authorization/SignInComponent'
 import TournamentPanelComponent from '../components/tournament/TournamentPanelComponent'
+import TournamentInfoMainComponent from '../components/tournament/info/TournamentInfoMainComponent'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/tournaments',
       name: 'TournamentPanelComponent',
       component: TournamentPanelComponent
+    },
+    {
+      path: '/tournamentInfo',
+      name: 'TournamentInfoMainComponent',
+      component: TournamentInfoMainComponent
     }
   ]
 })

@@ -7,7 +7,8 @@
               label="Формат"
               main-property="name"
               :data-array=this.$store.getters.cachedFormats
-              :selected-elements="filterFormParams.formats"></FilterSelectorComponent>
+              :selected-elements="filterFormParams.formats">
+            </FilterSelectorComponent>
           </v-flex>
           <v-flex xs6 sm4 md2>
             <FilterSelectorComponent

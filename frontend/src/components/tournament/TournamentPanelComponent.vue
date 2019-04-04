@@ -1,5 +1,4 @@
  <template>
-  <v-container fluid >
     <v-layout column>
       <!--Filter -->
       <v-flex>
@@ -13,7 +12,6 @@
         </TournamentCardComponent>
       </v-flex>
     </v-layout>
-  </v-container>
 </template>
 
 <script>
@@ -34,7 +32,7 @@ export default {
     this.$http.get(END_POINTS.GET_ALL.TOURNAMENTS)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
-          this.tournaments = response.data.payload
+          this.tournaments = response.data
         }
       })
       .catch(reason => {
