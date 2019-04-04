@@ -9,16 +9,17 @@ import 'vuetify/dist/vuetify.min.css'
 
 import { store } from './store/store'
 import axios from 'axios'
+import { COLORS } from './components/util/constants/colorConstants'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
 // lodash
 Vue.use(Vuetify, {
   theme: {
-    primary: '#7cb342', // Primary system color
-    secondary: '#348C5D', // Secondary system color
-    accent: '#C66549', // Accent color for elements to pay attention
-    additional: '#AC4068' // Extra color
+    primary: COLORS.PRIMARY, // Primary system color
+    secondary: COLORS.SECONDARY, // Secondary system color
+    accent: COLORS.ACCENT, // Accent color for elements to pay attention
+    additional: COLORS.ADDITIONAL // Extra color
   }
   // If you are not designer: https://colorscheme.ru/#2x41TkdoRvymD
 })

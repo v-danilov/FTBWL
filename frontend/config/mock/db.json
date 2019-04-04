@@ -141,8 +141,8 @@
       }
     ]
   },
-  "tournaments": {
-    "payload": [
+  "tournaments":
+  [
       {
         "id": 1,
         "status": "Открыта регистрация",
@@ -179,6 +179,78 @@
         "format": "50 SS",
         "name": "Турик намбер сри"
       }
-    ]
-  }
+    ],
+  "tournament": [
+    {
+      "id": 1,
+      "name": "Турик намбер ван",
+      "place": "Geek Wars СПб, Санкт-Петербург, Лиговский пр. 111-113-115",
+      "date": "18.07.2018, 11.00 - 18.07.2018, 18.00",
+      "format": "50 SS",
+      "roundsNumber": 3,
+      "schemePool": "GG2018",
+      "colorRequirements": "Лидер и хенчманы",
+      "status": "Проводится",
+      "participantsNumber": 16,
+      "price": 500,
+      "organizer": "Эдуар 'Панда' Валентукович",
+      "rounds": [
+        {
+          "id": 1,
+          "roundNum": 1,
+          "startDate": "08.07.2018 11:15",
+          "endDate": "08.07.2018 13:15",
+          "status": "Завершен",
+          "arrangement": "Standard",
+          "strategy": "Ply for information",
+          "schemes": "Схема 1, Схема 2, Схема 3, Схема 4, Схема 5",
+          "tables": [
+            {
+              "tableNumber": 1,
+              "firstPlayer": {
+                "name": "Ярослав 'Солнышко' Скоробогатько",
+                "fraction": "Arcanists",
+                "tp": 3,
+                "vp": 10
+              },
+              "secondPlayer": {
+                "name": "Владислав 'Любовничек' Суглобов",
+                "fraction": "Gremlins",
+                "tp": 0,
+                "vp": 9
+              },
+              "winner": "left"
+            },
+            {
+              "tableNumber": 2,
+              "firstPlayer": {
+                "name": "Ярослав 'Солнышко' Скоробогатько",
+                "fraction": "Arcanists",
+                "tp": 5,
+                "vp": 5
+              },
+              "secondPlayer": {
+                "name": "Владислав 'Любовничек' Суглобов",
+                "fraction": "Gremlins",
+                "tp": 3,
+                "vp": 10
+              },
+              "winner": "right"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "roundNum": 2,
+          "startDate": "08.07.2018 14:00",
+          "endDate": "08.07.2018",
+          "status": "Открыт",
+          "arrangement": "Standard",
+          "strategy": "Ply for information",
+          "schemes": "Схема 1, Схема 2, Схема 3, Схема 4, Схема 5",
+          "tables": []
+        }
+      ]
+    }
+  ]
 }
