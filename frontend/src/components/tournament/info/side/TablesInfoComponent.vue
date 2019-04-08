@@ -30,7 +30,7 @@
 export default {
   name: 'TablesInfoComponent',
   props: {
-    tables: [],
+    tables: Array,
     vuetifyTheme: {}
   }
 }
