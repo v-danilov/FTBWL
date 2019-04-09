@@ -1,7 +1,7 @@
  <template>
     <v-layout column>
       <!--Filter -->
-      <v-flex>
+      <v-flex text-xs-left>
         <TournamentFilterComponent/>
       </v-flex>
       <v-flex >

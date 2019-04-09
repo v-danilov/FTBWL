@@ -32,11 +32,11 @@
     "payload": [
       {
         "id": 1,
-        "name": "PVP"
+        "name": "50 SS"
       },
       {
         "id": 2,
-        "name": "PVE"
+        "name": "30 SS"
       }
     ]
   },
