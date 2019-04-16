@@ -141,8 +141,7 @@
       }
     ]
   },
-  "tournaments":
-  [
+  "tournaments": [
       {
         "id": 1,
         "status": "Открыта регистрация",
@@ -251,6 +250,36 @@
           "tables": []
         }
       ]
+    }
+  ],
+  "fractions": [
+    {
+    "id": 1,
+    "name": "Arcanists"
+    },
+    {
+      "id": 2,
+      "name": "The guild"
+    },
+    {
+      "id": 3,
+      "name": "Bayou"
+    },
+    {
+      "id": 4,
+      "name": "Neverborn"
+    },
+    {
+      "id": 5,
+      "name": "Ten Thunders"
+    },
+    {
+      "id": 6,
+      "name": "Resurrectionists"
+    },
+    {
+      "id": 7,
+      "name": "Outcasts"
     }
   ]
 }

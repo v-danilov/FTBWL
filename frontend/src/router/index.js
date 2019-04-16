@@ -2,16 +2,25 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SignUpComponent from '../components/authorization/SignUpComponent'
 import SignInComponent from '../components/authorization/SignInComponent'
-import TournamentPanelComponent from '../components/tournament/TournamentPanelComponent'
+import TournamentPanelComponent from '../components/tournament/panel/TournamentPanelComponent'
 import TournamentInfoMainComponent from '../components/tournament/info/TournamentInfoMainComponent'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
+    // Main redirect to start
     {
       path: '/',
       redirect: '/tournaments'
+    },
+    // Redirect for 404
+    {
+      path: '*',
+      component: {
+        template: '<h3> НУ НЕ ШМОГЛА(</h3>'
+      }
     },
     {
       path: '/signUp',
@@ -29,9 +38,12 @@ export default new Router({
       component: TournamentPanelComponent
     },
     {
-      path: '/tournamentInfo',
+      path: '/tournamentInfo/:tournamentId',
       name: 'TournamentInfoMainComponent',
-      component: TournamentInfoMainComponent
+      component: TournamentInfoMainComponent,
+      props: true
     }
   ]
 })
+
+export default router

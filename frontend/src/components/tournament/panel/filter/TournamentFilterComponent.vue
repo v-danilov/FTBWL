@@ -173,8 +173,6 @@
     </v-btn>
 </template>
 <script>
-import {ACTIONS} from '../util/constants/ActionConstants'
-import {END_POINTS} from '../util/constants/EndPointsConstants'
 import FilterSelectorComponent from './FilterSelectorComponent'
 
 export default {
@@ -224,14 +222,6 @@ export default {
 
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
-    },
-    initStoreValues () {
-      this.$store.dispatch(ACTIONS.CACHE_INIT.FORMATS, END_POINTS.GET_ALL.FORMATS)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.COUNTRIES, END_POINTS.GET_ALL.COUNTRIES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.CITIES, END_POINTS.GET_ALL.CITIES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.PLACES, END_POINTS.GET_ALL.PLACES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.ORGANIZERS, END_POINTS.GET_ALL.ORGANIZERS)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.STATUSES, END_POINTS.GET_ALL.STATUSES)
     }
   },
   computed: {

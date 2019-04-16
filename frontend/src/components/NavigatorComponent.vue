@@ -9,7 +9,7 @@
       v-for="(element, index) in navigationElements"
       :key="index" class="mt-5">
       <v-list-tile-action>
-        <v-btn large flat icon color="white">
+        <v-btn large flat icon color="white" @click="navigate(element.path)">
           <v-icon large>{{element.icon}}</v-icon>
         </v-btn>
       </v-list-tile-action>
@@ -40,6 +40,11 @@ export default {
         {path: '/ratings', name: 'Рейтинги', icon: 'star'},
         {path: '/statistic', name: 'Статистика', icon: 'bar_chart'}]
       // {path: '/help', name: 'Помощь', icon: 'help'}]
+    }
+  },
+  methods: {
+    navigate (path) {
+      this.$router.replace(path)
     }
   }
 }
