@@ -1,4 +1,4 @@
-import { COLORS } from './constants/colorConstants'
+import { COLORS } from './constants/ColorsConstants'
 /* exported statusColorize */
 export default function statusColorize (status) {
   if (status === 'Запланирован') {

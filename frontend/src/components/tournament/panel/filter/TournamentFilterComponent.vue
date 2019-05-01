@@ -231,9 +231,6 @@ export default {
     formattedDateEnd () {
       return this.formatDate(this.filterFormParams.endDate)
     }
-  },
-  beforeMount () {
-    this.initStoreValues()
   }
 }
 </script>

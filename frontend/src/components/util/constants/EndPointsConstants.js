@@ -11,5 +11,10 @@ export const END_POINTS = {
   },
   TOURNAMENT: {
     REG_USER: '/tournament/regUser'
+  },
+  AUTHORIZATION: {
+    SIGN_UP: '/api/signUp',
+    SIGN_IN: '/signIn',
+    GET_CITIES_BY_PREFIX: '/api/getCitiesByPrefix'
   }
 }

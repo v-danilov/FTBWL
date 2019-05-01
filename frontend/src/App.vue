@@ -41,7 +41,7 @@ export default {
       this.$store.dispatch(ACTIONS.CACHE_INIT.PLACES, END_POINTS.GET_ALL.PLACES)
       this.$store.dispatch(ACTIONS.CACHE_INIT.ORGANIZERS, END_POINTS.GET_ALL.ORGANIZERS)
       this.$store.dispatch(ACTIONS.CACHE_INIT.STATUSES, END_POINTS.GET_ALL.STATUSES)
-      this.$store.dispatch('INIT_FRACTIONS', END_POINTS.GET_ALL.FRACTIONS)
+      this.$store.dispatch(ACTIONS.CACHE_INIT.FRACTIONS, END_POINTS.GET_ALL.FRACTIONS)
     }
   },
 
@@ -58,15 +58,6 @@ export default {
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 0;
-  }
-
   span {
     font-weight: bold;
     color: var(--v-color-primary);

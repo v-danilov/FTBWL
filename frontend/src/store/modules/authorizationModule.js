@@ -1,5 +1,5 @@
-import {AuthorizationEndPoints} from '../../components/authorization/constants/AuthorizationFormConstants'
 import {HTTPResponseStatusConstants} from '../../components/util/constants/CommonConstants'
+import {END_POINTS} from '../../components/util/constants/EndPointsConstants'
 import Axios from 'axios'
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
@@ -22,7 +22,7 @@ const mutations = {
 
 const actions = {
   SIGNIN_ACTION: async (context, payload) => {
-    await Axios.post(AuthorizationEndPoints.SIGN_IN, payload)
+    await Axios.post(END_POINTS.AUTHORIZATION.SIGN_IN, payload)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_USER', payload)

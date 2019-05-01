@@ -16,10 +16,3 @@ export const AuthorizationTextConstants = {
   // For required filed
   FIELD_MUST_BE_NOT_EMPTY: 'Must be not empty'
 }
-
-// TODO 22.03.2019 перенести в общий файл?
-export const AuthorizationEndPoints = {
-  SIGN_UP: '/api/signUp',
-  SIGN_IN: '/signIn',
-  GET_CITIES_BY_PREFIX: '/api/getCitiesByPrefix'
-}

@@ -1,22 +1,27 @@
 <template>
   <v-container>
-    <v-layout row wrap justify-center >
+    <v-layout row justify-center >
       <v-flex xs7>
         <v-form
 
           v-model="formIsValid"
           @submit.prevent="onSubmit">
-          <v-container fluid>
-            <v-avatar
-              :tile="false"
-              :size="300"
-              color="grey lighten-4"
-            >
-              <!--This is very strange. Doesn't work from root '/'-->
-              <img src="../../assets/ftbwlLogo.png" alt="logo">
-            </v-avatar>
+          <v-container >
+            <v-layout>
+              <v-flex xs12 md12 class="text-xs-center">
+                <v-avatar
+                  :tile="false"
+                  :size="300"
+                  color="grey lighten-4"
+                >
+                  <!--This is very strange. Doesn't work from root '/'-->
+                  <img src="../../assets/ftbwlLogo.png" alt="logo">
+                </v-avatar>
+              </v-flex>
+            </v-layout>
+
             <!--Human data block-->
-            <v-layout wrap>
+            <v-layout justify-center>
               <!--Last name-->
               <v-flex xs12 md4>
                 <v-text-field
@@ -50,8 +55,7 @@
             </v-layout>
 
             <!--User data block-->
-            <v-layout wrap>
-
+            <v-layout justify-center>
               <!--Email-->
               <v-flex xs12 md4>
                 <v-text-field
@@ -81,7 +85,7 @@
             </v-layout>
 
             <!--Security data block-->
-            <v-layout wrap>
+            <v-layout justify-center>
               <!--Password-->
               <v-flex xs12 md4>
                 <v-text-field
@@ -103,8 +107,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout wrap>
-              <v-flex xs12 md4></v-flex>
+            <v-layout justify-center>
               <v-flex xs12 md4>
                 <v-btn
                   :disabled="!formIsValid"
@@ -114,6 +117,8 @@
                   color="primary">
                   Sign up
                 </v-btn>
+              </v-flex>
+                <v-flex xs12 md4>
                 <v-btn
                   :depressed="true"
                   :flat="true"
@@ -150,9 +155,10 @@
 </template>
 
 <script>
-import {AuthorizationTextConstants, AuthorizationEndPoints} from './constants/AuthorizationFormConstants'
+import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
 import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
 import _ from 'lodash'
+import {END_POINTS} from '../util/constants/EndPointsConstants'
 
 export default {
   name: 'SignUpComponent',
@@ -208,7 +214,7 @@ export default {
     searchCityByPrefix (prefix) {
       // TODO делать search() только если комбобокс не имеет вариантов по предложенному префиксу
       this.cities = []
-      this.$http.get(AuthorizationEndPoints.GET_CITIES_BY_PREFIX)
+      this.$http.get(END_POINTS.AUTHORIZATION.GET_CITIES_BY_PREFIX)
         .then(response => {
           console.log(response.data)
           let data = response.data.payload
@@ -228,7 +234,7 @@ export default {
       this.toastBox.isActive = true
     },
     onSubmit () {
-      this.$http.post(AuthorizationEndPoints.SIGN_UP, this.userData)
+      this.$http.post(END_POINTS.AUTHORIZATION.SIGN_UP, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
             this.displayToastWithMessage('Successful sign up')

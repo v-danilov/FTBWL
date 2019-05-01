@@ -5,17 +5,20 @@
         <v-form
           v-model="formIsValid"
           @submit.prevent="onSubmit">
-          <v-container fluid>
-            <v-avatar
-              :tile="false"
-              :size="300"
-              color="grey lighten-4"
-            >
-              <!--This is very strange. Doesn't work from root '/'-->
-              <img src="../../assets/ftbwlLogo.png" alt="logo">
-            </v-avatar>
-            <v-layout wrap>
-              <v-flex xs12 md4></v-flex>
+          <v-container>
+            <v-layout>
+              <v-flex xs12 md12 class="text-xs-center">
+                <v-avatar
+                  :tile="false"
+                  :size="300"
+                  color="grey lighten-4"
+                >
+                  <!--This is very strange. Doesn't work from root '/'-->
+                  <img src="../../assets/ftbwlLogo.png" alt="logo">
+                </v-avatar>
+              </v-flex>
+            </v-layout>
+            <v-layout justify-center>
               <!--User name-->
               <v-flex xs12 md4>
                 <v-text-field
@@ -25,8 +28,7 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
-            <v-layout wrap>
-              <v-flex xs12 md4></v-flex>
+            <v-layout justify-center>
               <!--Password-->
               <v-flex xs12 md4>
                 <v-text-field
@@ -39,8 +41,7 @@
             </v-layout>
 
             <!-- Submit button -->
-            <v-layout wrap>
-              <v-flex xs12 md4></v-flex>
+            <v-layout justify-center>
               <v-flex xs12 md4>
                 <v-btn
                   :disabled="!formIsValid"
@@ -55,7 +56,7 @@
                   :flat="true"
                   round
                   color="primary"
-                  to="signUp"
+                  to="SignUp"
                   :replace="true">
                   Sign up
                 </v-btn>
@@ -118,7 +119,7 @@ export default {
       const {username, password} = this.userData
       this.$store.dispatch(ACTIONS.AUTHORIZATION.SIGN_IN, {username, password}).then(() => {
         if (this.$store.getters.isAuthenticated) {
-          this.$router.push('/main')
+          this.$router.push('/')
         } else {
           this.displayToastWithMessage('Wrong credentials')
         }

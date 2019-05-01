@@ -9,7 +9,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 import { store } from './store/store'
 import axios from 'axios'
-import { COLORS } from './components/util/constants/colorConstants'
+import { COLORS } from './components/util/constants/ColorsConstants'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
