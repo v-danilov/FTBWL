@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import authorizationModule from './modules/authorizationModule'
 import filterCacheModule from './modules/filterCacheModule'
+import commonModule from './modules/commonModule'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export const store = new Vuex.Store({
   actions: {},
   modules: {
     authorizationModule,
-    filterCacheModule
+    filterCacheModule,
+    commonModule
   }
 })

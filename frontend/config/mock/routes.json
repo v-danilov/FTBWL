@@ -6,5 +6,6 @@
   "/places/getAll":"/places",
   "/organizers/getAll":"/organizers",
   "/statuses/getAll":"/statuses",
-  "/tournaments/getAll": "/tournaments"
+  "/tournaments/getAll": "/tournaments",
+  "/fractions/getAll": "/fractions"
 }

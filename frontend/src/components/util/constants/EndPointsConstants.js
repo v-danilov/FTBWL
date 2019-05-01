@@ -6,6 +6,10 @@ export const END_POINTS = {
     PLACES: '/places/getAll',
     ORGANIZERS: '/organizers/getAll',
     STATUSES: '/statuses/getAll',
-    TOURNAMENTS: '/tournaments/getAll'
+    TOURNAMENTS: '/tournaments/getAll',
+    FRACTIONS: '/fractions/getAll'
+  },
+  TOURNAMENT: {
+    REG_USER: '/tournament/regUser'
   }
 }
