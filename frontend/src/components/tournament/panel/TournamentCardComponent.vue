@@ -3,31 +3,31 @@
     <v-card class="mt-3 mx-auto" slot-scope="{ hover }"
             :class="`elevation-${hover ? 12 : 2}`">
       <v-card-title primary-title>
-        <h2 class="mr-2">{{tournament.name}}</h2>
+        <h2 class="mr-2 primary-color">{{tournament.name}}</h2>
         <v-icon  :style="{color : statusInfo.color}" class="mr-1">{{statusInfo.icon}}</v-icon>
-        <span :style="{color : statusInfo.color}">{{tournament.status}}</span>
+        <span class="text-highlight-primary" :style="{color : statusInfo.color}">{{tournament.status}}</span>
         <v-spacer></v-spacer>
         <h2 :style="{color : themeColors.secondary}">{{tournament.price}} ₽</h2>
       </v-card-title>
       <v-card-title @click.stop="openTournament(tournament.id)" class="pb-0 pt-0">
         <v-layout row wrap>
           <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Где: </span>
+            <span class="text-highlight-primary">Где: </span>
             <a href="#" :style="{color : themeColors.secondary}">{{tournament.place}}</a>
           </v-flex>
           <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Организатор:</span>
+            <span class="text-highlight-primary">Организатор:</span>
             <a href="#" :style="{color : themeColors.secondary}">{{tournament.organizer}}</a>
           </v-flex>
           <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Когда: </span>
+            <span class="text-highlight-primary">Когда: </span>
             <template v-if="!! tournament.startDate">
               {{tournament.startDate}} -
             </template>
             {{tournament.endDate}}
           </v-flex>
           <v-flex xs5 sm5 md5 class="text-xs-left text-sm-left text-md-left">
-            <span>Формат: </span>
+            <span class="text-highlight-primary">Формат: </span>
             {{tournament.format}}
           </v-flex>
         </v-layout>

@@ -58,12 +58,12 @@ export default {
 </script>
 
 <style>
-  span {
+  .text-highlight-primary {
     font-weight: bold;
     color: var(--v-color-primary);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  .primary-color {
     color: var(--v-color-primary);
   }
 </style>

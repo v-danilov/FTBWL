@@ -13,14 +13,14 @@
             <!-- Round status -->
             <v-layout row text-xs-left>
               <v-flex xs3>
-                <span>Дата начала: </span> {{round.startDate}}
+                <span class="text-highlight-primary">Дата начала: </span> {{round.startDate}}
               </v-flex>
               <v-flex xs3>
-                <span>Дата окончания: </span> {{round.endDate}}
+                <span class="text-highlight-primary">Дата окончания: </span> {{round.endDate}}
               </v-flex>
               <v-spacer></v-spacer>
               <v-flex xs2>
-                <span>Статус: </span> {{round.status}}
+                <span class="text-highlight-primary">Статус: </span> {{round.status}}
               </v-flex>
             </v-layout>
             <!--Round parameters -->
@@ -28,13 +28,13 @@
               <v-flex xs1>
                 <v-layout column>
                   <v-flex>
-                    <span>Расстановка:</span>
+                    <span class="text-highlight-primary">Расстановка:</span>
                   </v-flex>
                   <v-flex>
-                    <span>Стратегия:</span>
+                    <span class="text-highlight-primary">Стратегия:</span>
                   </v-flex>
                   <v-flex>
-                    <span>Схемы:</span>
+                    <span class="text-highlight-primary">Схемы:</span>
                   </v-flex>
                 </v-layout>
               </v-flex>

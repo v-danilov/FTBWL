@@ -3,7 +3,7 @@
         <v-card class="ma-1" v-for="table in tables" :key="table.tableNumber">
             <v-card-text>
                 <v-layout row>
-                    <v-flex xs2><h3>Стол</h3></v-flex>
+                    <v-flex xs2><h3 class="primary-color">Стол</h3></v-flex>
                     <v-flex xs8>{{table.firstPlayer.name}}</v-flex>
                     <v-flex xs1>{{table.firstPlayer.tp}}</v-flex>
                     <v-flex xs1>{{table.firstPlayer.vp}}</v-flex>
@@ -17,7 +17,7 @@
                     <v-flex xs1>VP</v-flex>
                 </v-layout>
                 <v-layout row>
-                    <v-flex xs2><h3>№{{table.tableNumber}}</h3></v-flex>
+                    <v-flex xs2><h3 class="primary-color">№{{table.tableNumber}}</h3></v-flex>
                     <v-flex xs8>{{table.secondPlayer.name}}</v-flex>
                     <v-flex xs1>{{table.secondPlayer.tp}}</v-flex>
                     <v-flex xs1>{{table.secondPlayer.vp}}</v-flex>

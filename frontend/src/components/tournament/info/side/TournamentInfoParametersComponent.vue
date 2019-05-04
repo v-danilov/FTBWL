@@ -7,16 +7,16 @@
                 <v-flex xs3 sm3 md3 text-xs-left offset-xs1>
                     <v-layout column>
                         <v-flex>
-                            <span>Формат проведения</span>
+                            <span class="text-highlight-primary">Формат проведения</span>
                         </v-flex>
                         <v-flex>
-                            <span>Количество туров</span>
+                            <span class="text-highlight-primary">Количество туров</span>
                         </v-flex>
                         <v-flex>
-                            <span>Схемпул</span>
+                            <span class="text-highlight-primary">Схемпул</span>
                         </v-flex>
                         <v-flex>
-                            <span>Требования к покрасу</span>
+                            <span class="text-highlight-primary">Требования к покрасу</span>
                         </v-flex>
                     </v-layout>
                 </v-flex>
@@ -43,16 +43,16 @@
                 <v-flex xs3 sm3 md3 text-xs-left>
                     <v-layout column>
                         <v-flex>
-                            <span>Статус туринра</span>
+                            <span class="text-highlight-primary">Статус туринра</span>
                         </v-flex>
                         <v-flex>
-                            <span>Стоимость участия</span>
+                            <span class="text-highlight-primary">Стоимость участия</span>
                         </v-flex>
                         <v-flex>
-                            <span>Участников</span>
+                            <span class="text-highlight-primary">Участников</span>
                         </v-flex>
                         <v-flex>
-                            <span>Организатор</span>
+                            <span class="text-highlight-primary">Организатор</span>
                         </v-flex>
                     </v-layout>
                 </v-flex>

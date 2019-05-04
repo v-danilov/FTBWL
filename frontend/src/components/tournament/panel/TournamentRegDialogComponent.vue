@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" persistent max-width="500px">
     <v-card>
       <v-card-title>
-        <span class="headline">Регистрация на турнир</span>
+        <span class="headline text-highlight-primary">Регистрация на турнир</span>
       </v-card-title>
       <v-card-text>
         <v-container grid-list-md>

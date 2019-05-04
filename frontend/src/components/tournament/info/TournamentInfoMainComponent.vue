@@ -13,7 +13,7 @@
               <v-avatar size="60%">
                 <img src="https://i.pinimg.com/originals/0a/ec/eb/0aecebf4c937d4e947e96c1c5f6d63c7.jpg">
               </v-avatar>
-              <h3>ТУРИК 404. ОТПРАВЛЯЮСЬ НА ПОИСКИ!</h3>
+              <h3 class="primary-color">ТУРИК 404. ОТПРАВЛЯЮСЬ НА ПОИСКИ!</h3>
             </v-card-text>
           </v-card>
         </v-flex>
