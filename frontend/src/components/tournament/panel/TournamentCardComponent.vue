@@ -43,6 +43,7 @@
 </template>
 <script>
 import statusColorize from '../../util/statusIconWithColor'
+import UserSession from '../../../store/cookie/userSessionClass'
 
 export default {
   name: 'TournamentCardComponent',
@@ -60,7 +61,7 @@ export default {
       this.$router.push(`/tournamentInfo/${tournamentId}`)
     },
     emitOpenDialogEvent () {
-      if (this.$store.getters.isAuthenticated) {
+      if (UserSession.isAuthenticated()) {
         this.$emit('open-dialog', {id: this.tournament.id})
       } else {
         this.$router.push('SignIn')

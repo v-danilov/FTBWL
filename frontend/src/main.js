@@ -13,7 +13,6 @@ import { COLORS } from './components/util/constants/ColorsConstants'
 
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
-// lodash
 Vue.use(Vuetify, {
   theme: {
     primary: COLORS.PRIMARY, // Primary system color
@@ -23,7 +22,8 @@ Vue.use(Vuetify, {
   }
   // If you are not designer: https://colorscheme.ru/#2x41TkdoRvymD
 })
-
+var VueCookie = require('vue-cookie')
+Vue.use(VueCookie)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
