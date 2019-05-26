@@ -14,6 +14,7 @@ const router = new Router({
     {
       path: '/',
       redirect: '/tournaments'
+      // meta: { requiresAuth: true }
     },
     // Redirect for 404
     {
@@ -45,5 +46,12 @@ const router = new Router({
     }
   ]
 })
+/* router.beforeEach((to, from, next) => {
+  if (to.meta.requiredAuth && notAuthintecated) {
+    router.push('SignIn')
+  } else {
+    next()
+  }
+}) */
 
 export default router

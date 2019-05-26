@@ -89,7 +89,9 @@
 
 <script>
 import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
-import {ACTIONS} from '../util/constants/ActionConstants'
+import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
+import {END_POINTS} from '../util/constants/EndPointsConstants'
+import UserSession from '../../store/cookie/userSessionClass'
 
 export default {
   name: 'SignInComponent',
@@ -117,13 +119,17 @@ export default {
     },
     onSubmit () {
       const {username, password} = this.userData
-      this.$store.dispatch(ACTIONS.AUTHORIZATION.SIGN_IN, {username, password}).then(() => {
-        if (this.$store.getters.isAuthenticated) {
-          this.$router.push('/')
-        } else {
-          this.displayToastWithMessage('Wrong credentials')
-        }
-      })
+      if (!UserSession.isAuthenticated()) {
+        this.$http.post(END_POINTS.AUTHORIZATION.SIGN_IN, {username, password})
+          .then(response => {
+            if (response.status === HTTPResponseStatusConstants.OK) {
+              UserSession.setUser(response.data)
+              this.$router.push('/')
+            } else {
+              this.displayToastWithMessage('Wrong credentials')
+            }
+          })
+      }
     }
   }
 }
