@@ -11,7 +11,8 @@ export const END_POINTS = {
   },
   TOURNAMENT: {
     REG_USER: '/tournament/regUser',
-    START: '/tournament/start/'
+    START: '/tournament/start/',
+    UPDATE_STATUS: '/tournament/statusUpdate'
   },
   AUTHORIZATION: {
     SIGN_UP: '/api/signUp',
