@@ -10,7 +10,8 @@ export const END_POINTS = {
     FRACTIONS: '/fractions/getAll'
   },
   TOURNAMENT: {
-    REG_USER: '/tournament/regUser'
+    REG_USER: '/tournament/regUser',
+    START: '/tournament/start/'
   },
   AUTHORIZATION: {
     SIGN_UP: '/api/signUp',

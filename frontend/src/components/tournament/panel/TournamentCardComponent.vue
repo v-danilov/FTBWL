@@ -34,6 +34,18 @@
       </v-card-title>
       <v-card-actions class="pt-0">
          <v-spacer></v-spacer>
+        <v-btn
+          color="primary"
+          round
+          @click="openConfirmDialog"
+        >
+          Начать турнир
+        </v-btn>
+        <ConfirmationDialogComponent header-text="Подтвердите начало проведения турнира"
+                                     v-bind:body-text=confirmationText
+                                     v-bind:is-multi-action="true"
+                                     ref="confirmationDialogComponent">
+        </ConfirmationDialogComponent>
         <v-btn icon @click="emitOpenDialogEvent" class="pb-7">
           <v-icon color="primary" large>assignment_turned_in</v-icon>
         </v-btn>
@@ -44,6 +56,8 @@
 <script>
 import statusColorize from '../../util/statusIconWithColor'
 import UserSession from '../../../store/cookie/userSessionClass'
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 
 export default {
   name: 'TournamentCardComponent',
@@ -66,11 +80,36 @@ export default {
       } else {
         this.$router.push('SignIn')
       }
+    },
+    openConfirmDialog () {
+      console.log(this.$refs)
+      this.$refs.confirmationDialogComponent.pop().then(result => {
+        if (result === true) {
+          this.$http.get(END_POINTS.TOURNAMENT.START + this.tournament.id).then(response => {
+            if (response.status === HTTPResponseStatusConstants.OK) {
+              // TODO create endpoint
+              this.$router.push('')
+            }
+          })
+        }
+      })
     }
   },
   computed: {
     statusInfo () {
       return statusColorize(this.tournament.status)
+    },
+    confirmationText () {
+      return '<div>' +
+        '<div>' +
+        '<span>Название турнира: </span>' +
+        this.tournament.name +
+        '</div>' +
+        '<div>' +
+        '<span>Дата начала проведения: </span>' +
+        '27 июня 2019 19:45' +
+        '</div>' +
+        '</div>'
     }
   }
 }
