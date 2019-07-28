@@ -144,7 +144,10 @@
   "tournaments": [
       {
         "id": 1,
-        "status": "Открыта регистрация",
+        "status":{
+         "name": "Открыта регистрация",
+          "systemName": "REGISTRATION_OPEN"
+        },
         "city": "Санкт-Петербург",
         "place": "Хобби центр Geek Wars",
         "organizer": "Николаев Николай",
@@ -156,7 +159,10 @@
       },
       {
         "id": 2,
-        "status": "Запланирован",
+        "status": {
+          "name":"Запланирован",
+          "systemName": "SCHEDULED"
+        },
         "city": "Москва",
         "place": "Хобби центр Geek Wars",
         "organizer": "Сергеев Сергей",
@@ -168,7 +174,10 @@
       },
       {
         "id": 3,
-        "status": "Окончен",
+        "status": {
+          "name": "Завершен",
+          "systemName": "CLOSED"
+        },
         "city": "Гродно",
         "place": "ул. Солнечная, д. 24, ТЦ 'Бульбашка-молдовашка'",
         "organizer": "Катеринова Екатерина",

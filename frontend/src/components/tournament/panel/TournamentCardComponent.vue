@@ -5,7 +5,7 @@
       <v-card-title primary-title>
         <h2 class="mr-2">{{tournament.name}}</h2>
         <v-icon  :style="{color : statusInfo.color}" class="mr-1">{{statusInfo.icon}}</v-icon>
-        <span :style="{color : statusInfo.color}">{{tournament.status}}</span>
+        <span :style="{color : statusInfo.color}">{{tournamentStatusText}}</span>
         <v-spacer></v-spacer>
         <h2 :style="{color : themeColors.secondary}">{{tournament.price}} ₽</h2>
       </v-card-title>
@@ -34,12 +34,37 @@
       </v-card-title>
       <v-card-actions class="pt-0">
          <v-spacer></v-spacer>
-        <v-btn
+        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_CLOSED"
           color="primary"
           round
-          @click="openConfirmDialog"
+          small
+          @click="startTournament"
         >
           Начать турнир
+        </v-btn>
+        <v-btn v-if="tournament.status.systemName === statusMap.OPEN"
+               color="accent"
+               round
+               small
+               @click="closeTournament"
+        >
+          Завершить турнир
+        </v-btn>
+        <v-btn v-if="tournament.status.systemName === statusMap.SCHEDULED"
+               color="primary"
+               round
+               small
+               @click="updateTournamentStatus(statusMap.REGISTRATION_OPEN)"
+        >
+          Открыть регистрацию
+        </v-btn>
+        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_OPEN"
+               color="accent"
+               round
+               small
+               @click="updateTournamentStatus(statusMap.REGISTRATION_CLOSED)"
+        >
+          Закрыть регистрацию
         </v-btn>
         <ConfirmationDialogComponent header-text="Подтвердите начало проведения турнира"
                                      v-bind:body-text=confirmationText
@@ -58,16 +83,40 @@ import statusColorize from '../../util/statusIconWithColor'
 import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import {TOURNAMENT_STATUS_NAMES, TOURNAMENT_SYSTEM_NAMES} from '../../util/constants/TournamentStatusNames'
+import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 
 export default {
   name: 'TournamentCardComponent',
+  components: {ConfirmationDialogComponent},
   props: {
     tournament: Object,
     required: true
   },
   data () {
     return {
-      themeColors: this.$vuetify.theme
+      themeColors: this.$vuetify.theme,
+      statusMap: TOURNAMENT_SYSTEM_NAMES
+    }
+  },
+  computed: {
+    tournamentStatusText () {
+      return TOURNAMENT_STATUS_NAMES.get(this.tournament.status.systemName)
+    },
+    statusInfo () {
+      return statusColorize(this.tournament.status.systemName)
+    },
+    confirmationText () {
+      return '<div>' +
+        '<div>' +
+        '<span>Название турнира: </span>' +
+        this.tournament.name +
+        '</div>' +
+        '<div>' +
+        '<span>Дата начала проведения: </span>' +
+        '27 июня 2019 19:45' +
+        '</div>' +
+        '</div>'
     }
   },
   methods: {
@@ -81,8 +130,7 @@ export default {
         this.$router.push('SignIn')
       }
     },
-    openConfirmDialog () {
-      console.log(this.$refs)
+    startTournament () {
       this.$refs.confirmationDialogComponent.pop().then(result => {
         if (result === true) {
           this.$http.get(END_POINTS.TOURNAMENT.START + this.tournament.id).then(response => {
@@ -93,23 +141,17 @@ export default {
           })
         }
       })
-    }
-  },
-  computed: {
-    statusInfo () {
-      return statusColorize(this.tournament.status)
     },
-    confirmationText () {
-      return '<div>' +
-        '<div>' +
-        '<span>Название турнира: </span>' +
-        this.tournament.name +
-        '</div>' +
-        '<div>' +
-        '<span>Дата начала проведения: </span>' +
-        '27 июня 2019 19:45' +
-        '</div>' +
-        '</div>'
+    updateTournamentStatus (newStatus) {
+      this.$http.post(END_POINTS.TOURNAMENT.UPDATE_STATUS, {tournamentId: this.tournament.id, status: newStatus})
+        .then(response => {
+          if (response.status !== HTTPResponseStatusConstants.OK) {
+            console.log('Произошла ошибка обновления статуса турнира.')
+          }
+        })
+    },
+    closeTournament () {
+      console.log('Турнир закрыт. Пакеда.')
     }
   }
 }
