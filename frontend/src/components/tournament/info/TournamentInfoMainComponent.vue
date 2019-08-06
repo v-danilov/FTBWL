@@ -1,9 +1,12 @@
 <template>
   <div>
     <template v-if="!loadingError">
-    <TournamentInfoHeaderComponent :selected-tournament="selectedTournament"/>
-    <TournamentInfoParametersComponent :selected-tournament="selectedTournament"/>
-    <TournamentInfoBodyComponent :rounds="selectedTournament.rounds || []"/>
+    <TournamentInfoHeaderComponent v-if="componentsHidden"
+                                   :selected-tournament="selectedTournament"/>
+    <TournamentInfoParametersComponent v-if="componentsHidden"
+                                       :selected-tournament="selectedTournament"/>
+    <TournamentInfoBodyComponent @hide-info-components="changeVisibility"
+                                 :rounds="selectedTournament.rounds || []"/>
     </template>
     <template v-else>
       <v-layout>
@@ -35,10 +38,16 @@ export default {
   data () {
     return {
       loadingError: false,
-      selectedTournament: Object
+      selectedTournament: Object,
+      componentsHidden: true
     }
   },
-  methods: {},
+  methods: {
+    changeVisibility (value) {
+      console.log(value)
+      this.componentsHidden = value
+    }
+  },
   beforeMount () {
     this.$http.get(`/tournament/${this.tournamentId}`)
       .then(response => {

@@ -1,24 +1,34 @@
- <template>
-    <v-layout column>
-      <!--Filter -->
-      <v-flex>
-        <TournamentFilterComponent/>
-      </v-flex>
-      <v-flex >
-        <TournamentCardComponent
+<template>
+  <v-layout column>
+    <!--Filter -->
+    <v-flex>
+      <TournamentFilterComponent/>
+      <v-btn color="primary"
+             round
+             @click="showCreateTournamentDialog = !showCreateTournamentDialog">
+        <v-icon large>add_circle_outline</v-icon>
+        Создать турнир
+      </v-btn>
+      <TournamentCreateComponent v-if="showCreateTournamentDialog"
+                                 :visible="showCreateTournamentDialog"
+                                 @close-tournament-create-dialog="showCreateTournamentDialog = false">
+      </TournamentCreateComponent>
+    </v-flex>
+    <v-flex>
+      <TournamentCardComponent
         v-for="(tournamentElement, index) in tournaments"
         :key=index
         :tournament=tournamentElement
         @click="openTournament(tournament.id)"
         v-on:open-dialog="openDialog">
-        </TournamentCardComponent>
-      </v-flex>
-      <TournamentRegDialogComponent
-        :visible = "showRegForm"
-        :tournamentId="focusedTournamentId"
-        @close-reg-dialog="showRegForm = false">
-      </TournamentRegDialogComponent>
-    </v-layout>
+      </TournamentCardComponent>
+    </v-flex>
+    <TournamentRegDialogComponent
+      :visible="showRegForm"
+      :tournamentId="focusedTournamentId"
+      @close-reg-dialog="showRegForm = false">
+    </TournamentRegDialogComponent>
+  </v-layout>
 </template>
 
 <script>
@@ -27,14 +37,21 @@ import TournamentCardComponent from './TournamentCardComponent'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import TournamentRegDialogComponent from './TournamentRegDialogComponent'
+import TournamentCreateComponent from './TournamentCreateComponent'
 
 export default {
   name: 'TournamentPanelComponent',
-  components: {TournamentRegDialogComponent, TournamentCardComponent, TournamentFilterComponent},
+  components: {
+    TournamentCreateComponent,
+    TournamentRegDialogComponent,
+    TournamentCardComponent,
+    TournamentFilterComponent
+  },
   data () {
     return {
       tournaments: [],
       showRegForm: false,
+      showCreateTournamentDialog: false,
       focusedTournamentId: 0
     }
   },

@@ -15,9 +15,9 @@
                         <v-flex>
                             <span>Схемпул</span>
                         </v-flex>
-                        <v-flex>
+                       <!-- <v-flex>
                             <span>Требования к покрасу</span>
-                        </v-flex>
+                        </v-flex>-->
                     </v-layout>
                 </v-flex>
                 <!-- Data -->
@@ -32,9 +32,9 @@
                         <v-flex>
                             {{this.selectedTournament.schemePool || 'Не указан'}}
                         </v-flex>
-                        <v-flex>
+                       <!-- <v-flex>
                             {{this.selectedTournament.colorRequirements || 'Не предъявляются'}}
-                        </v-flex>
+                        </v-flex>-->
                     </v-layout>
                 </v-flex>
 

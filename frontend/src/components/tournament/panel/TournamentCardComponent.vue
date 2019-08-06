@@ -34,38 +34,6 @@
       </v-card-title>
       <v-card-actions class="pt-0">
          <v-spacer></v-spacer>
-        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_CLOSED"
-          color="primary"
-          round
-          small
-          @click="startTournament"
-        >
-          Начать турнир
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.OPEN"
-               color="accent"
-               round
-               small
-               @click="closeTournament"
-        >
-          Завершить турнир
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.SCHEDULED"
-               color="primary"
-               round
-               small
-               @click="updateTournamentStatus(statusMap.REGISTRATION_OPEN)"
-        >
-          Открыть регистрацию
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_OPEN"
-               color="accent"
-               round
-               small
-               @click="updateTournamentStatus(statusMap.REGISTRATION_CLOSED)"
-        >
-          Закрыть регистрацию
-        </v-btn>
         <ConfirmationDialogComponent header-text="Подтвердите начало проведения турнира"
                                      v-bind:body-text=confirmationText
                                      v-bind:is-multi-action="true"
