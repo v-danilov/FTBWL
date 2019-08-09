@@ -6,10 +6,8 @@ import io.jsonwebtoken.impl.DefaultClaims;
 import lombok.*;
 
 /**
- * AuthenticatedUser - TODO: description
+ * User info generate - TODO: description
  *
- * @author Borisevich Eugene (EBorisevich)
- * @since 15.02.2017
  */
 public class JwtUserClaims extends DefaultClaims {
     public static final String USER_ID = "userId";

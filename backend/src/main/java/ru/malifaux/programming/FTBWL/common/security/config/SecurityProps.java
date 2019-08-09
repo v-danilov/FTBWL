@@ -15,25 +15,25 @@ import org.springframework.stereotype.Component;
 @Setter @Getter
 public class SecurityProps {
 
-    @Value("${auth.login.path:/api/v1/authorization/login}")
+    @Value("${auth.login.path}")
     private String loginPath;
 
-    @Value("${auth.self.path:/api/v1/administration/people/find_with_authorities}")
+    @Value("${auth.self.path}")
     private String selfPath;
 
-    @Value("${auth.token.path:/api/v1/authorization/token}")
+    @Value("${auth.token.path}")
     private String tokenPath;
 
-    @Value("${auth.header.username:X-Auth-Username}")
+    @Value("${auth.header.username}")
     private String usernameHeaderName;
 
-    @Value("${auth.header.password:X-Auth-Password}")
+    @Value("${auth.header.password}")
     private String passwordHeaderName;
 
-    @Value("${auth.header.token:X-Auth-Token}")
+    @Value("${auth.header.token}")
     private String tokenHeaderName;
 
-    @Value("${jwt.secret:GremlinKey$#15}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     //Pandora box

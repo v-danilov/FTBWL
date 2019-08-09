@@ -20,7 +20,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FTBWL</name>
-    <description>From the Bayo with love</description>
+    <description>From the Bayou with love</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -65,6 +65,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
