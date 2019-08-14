@@ -1,34 +1,51 @@
 <template>
-  <v-layout column>
-    <!--Filter -->
-    <v-flex>
-      <TournamentFilterComponent/>
-      <v-btn color="primary"
-             round
-             @click="showCreateTournamentDialog = !showCreateTournamentDialog">
-        <v-icon large>add_circle_outline</v-icon>
-        Создать турнир
-      </v-btn>
-      <TournamentCreateComponent v-if="showCreateTournamentDialog"
-                                 :visible="showCreateTournamentDialog"
-                                 @close-tournament-create-dialog="showCreateTournamentDialog = false">
-      </TournamentCreateComponent>
-    </v-flex>
-    <v-flex>
-      <TournamentCardComponent
-        v-for="(tournamentElement, index) in tournaments"
-        :key=index
-        :tournament=tournamentElement
-        @click="openTournament(tournament.id)"
-        v-on:open-dialog="openDialog">
-      </TournamentCardComponent>
-    </v-flex>
-    <TournamentRegDialogComponent
-      :visible="showRegForm"
-      :tournamentId="focusedTournamentId"
-      @close-reg-dialog="showRegForm = false">
-    </TournamentRegDialogComponent>
-  </v-layout>
+  <v-row align="stretch">
+    <v-col>
+      <v-row>
+        <!--Filter -->
+        <v-col :cols="filterWidth">
+          <div transition="scroll-y-transition">
+            <v-btn v-if="filter.isHidden"
+                   rounded color="primary"
+                   @click="filter.isHidden = !filter.isHidden">
+              <v-icon large>search</v-icon>
+              Открыть фильтр
+            </v-btn>
+            <TournamentFilterComponent v-else @close-tournament-filter="filter.isHidden = true"/>
+          </div>
+        </v-col>
+        <v-col cols="3">
+          <v-btn color="primary"
+                 rounded
+                 @click="showCreateTournamentDialog = !showCreateTournamentDialog">
+            <v-icon large>add_circle_outline</v-icon>
+            Создать турнир
+          </v-btn>
+          <TournamentCreateComponent v-if="showCreateTournamentDialog"
+                                     :visible="showCreateTournamentDialog"
+                                     @close-tournament-create-dialog="showCreateTournamentDialog = false">
+          </TournamentCreateComponent>
+        </v-col>
+        <v-col class="text-left" cols="1">
+          <v-text-field label="Ширина карточки (1-12)" v-model="cardWidth"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col :cols="cardWidth" v-for="(tournamentElement, index) in tournaments" :key=index>
+          <TournamentCardComponent
+            :tournament=tournamentElement
+            @click="openTournament(tournament.id)"
+            v-on:open-dialog="openDialog">
+          </TournamentCardComponent>
+        </v-col>
+        <TournamentRegDialogComponent
+          :visible="showRegForm"
+          :tournamentId="focusedTournamentId"
+          @close-reg-dialog="showRegForm = false">
+        </TournamentRegDialogComponent>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -49,6 +66,10 @@ export default {
   },
   data () {
     return {
+      cardWidth: 3,
+      filter: {
+        isHidden: true
+      },
       tournaments: [],
       showRegForm: false,
       showCreateTournamentDialog: false,
@@ -59,6 +80,11 @@ export default {
     openDialog (event) {
       this.focusedTournamentId = event.id
       this.showRegForm = true
+    }
+  },
+  computed: {
+    filterWidth () {
+      return this.filter.isHidden ? 3 : 12
     }
   },
   created () {

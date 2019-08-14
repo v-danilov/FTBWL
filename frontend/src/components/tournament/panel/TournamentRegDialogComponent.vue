@@ -5,9 +5,9 @@
         <span class="headline">Регистрация на турнир</span>
       </v-card-title>
       <v-card-text>
-        <v-container grid-list-md>
-          <v-layout wrap>
-            <v-flex xs12>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
               <v-select label="Выберите фракцию"
                         v-model="selectedFraction"
                         :items="storedElements"
@@ -28,13 +28,13 @@
                   </div>
                 </template>
               </v-select>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="accent" flat @click="dialog = false">Отмена</v-btn>
+        <v-btn color="accent" text @click="dialog = false">Отмена</v-btn>
         <v-btn color="primary" round @click="registerUser">Зарегистрироваться</v-btn>
       </v-card-actions>
     </v-card>
@@ -53,7 +53,7 @@ export default {
       required: true
     },
     tournamentId: {
-      type: Number
+      type: Number // TODO full object or DTO with name, date and time
     }
   },
   data () {

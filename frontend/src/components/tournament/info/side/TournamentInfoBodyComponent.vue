@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-tabs color="primary" dark fixed-tabs slider-color="primary" class="mt-3">
+  <v-tabs slider-color="additional" background-color="primary" fixed-tabs class="mt-3">
     <v-tab ripple>
       Участники
     </v-tab>
@@ -7,74 +7,68 @@
       <v-card>
         <!-- Header -->
         <v-card-title>
-          <v-layout row>
-            <v-flex xs1>
-              <h2>№</h2>
-            </v-flex>
-            <v-flex xs3>
-              <h2>Игрок</h2>
-            </v-flex>
-            <v-flex xs2>
-              <h2>Фракция</h2>
-            </v-flex>
-            <v-flex xs1>
-              <h2>TP</h2>
-            </v-flex>
-            <v-flex xs1>
-              <h2>VP</h2>
-            </v-flex>
-            <v-flex xs1>
-              <h2>Diff</h2>
-            </v-flex>
-            <v-flex class="text-xs-center" xs3>
-              <h2>Управление</h2>
-            </v-flex>
-          </v-layout>
+          <v-row dense>
+            <v-col cols="1">
+              <span>№</span>
+            </v-col>
+            <v-col cols="3">
+              <span>Игрок</span>
+            </v-col>
+            <v-col cols="2">
+              <span>Фракция</span>
+            </v-col>
+            <v-col class="text-center" cols="1">
+              <span>TP</span>
+            </v-col>
+            <v-col class="text-center" cols="1">
+              <span>VP</span>
+            </v-col>
+            <v-col class="text-center" cols="1">
+              <span>Diff</span>
+            </v-col>
+            <v-col class="text-center" cols="3">
+              <span>Управление</span>
+            </v-col>
+          </v-row>
         </v-card-title>
         <!-- Body -->
         <v-card-text>
           <v-hover v-slot:default="{ hover }" v-for="(player, index) in players" :key="index">
-            <v-layout align-center justify-center row class="selected-row"
-                      :class="{ 'on-hover': hover }">
-              <v-flex xs1 v-bind:class="{ 'disabled-player': player.isCanceled }">
+            <v-row class="selected-row" dense :class="{ 'on-hover': hover }" justify="center">
+              <v-col cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{index + 1}}
-              </v-flex>
-              <v-flex xs3 v-bind:class="{ 'disabled-player': player.isCanceled }">
+              </v-col>
+              <v-col cols="3" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.name}}
-              </v-flex>
-              <v-flex xs2 v-bind:class="{ 'disabled-player': player.isCanceled }">
+              </v-col>
+              <v-col cols="2" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.faction}}
-              </v-flex>
-              <v-flex xs1 v-bind:class="{ 'disabled-player': player.isCanceled }">
+              </v-col>
+              <v-col cols="1" class="text-center" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.tp}}
-              </v-flex>
-              <v-flex xs1 v-bind:class="{ 'disabled-player': player.isCanceled }">
+              </v-col>
+              <v-col class="text-center" cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.vp}}
-              </v-flex>
-              <v-flex xs1 v-bind:class="{ 'disabled-player': player.isCanceled }">
+              </v-col>
+              <v-col cols="1" class="text-center" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.diff}}
-              </v-flex>
-              <v-flex xs3>
-                <v-layout align-start justify-center row>
-                  <v-flex xs2>
-                    <v-btn text icon small @click="players[index].isCanceled = !players[index].isCanceled">
-                      <v-icon v-if="!player.isCanceled" color="additional">block</v-icon>
-                      <v-icon v-else color="secondary">restore</v-icon>
-                    </v-btn>
-                  </v-flex>
-                  <v-flex xs2>
-                    <v-btn text icon small @click="rageQuit(index)">
-                      <v-icon color="accent">exit_to_app</v-icon>
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-            </v-layout>
+              </v-col>
+              <v-col class="text-center" cols="3">
+                <v-btn text icon small class="mr-4"
+                       @click="players[index].isCanceled = !players[index].isCanceled">
+                  <v-icon v-if="!player.isCanceled" color="additional">block</v-icon>
+                  <v-icon v-else color="secondary">restore</v-icon>
+                </v-btn>
+                <v-btn text icon small @click="rageQuit(index)">
+                  <v-icon color="accent">exit_to_app</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-hover>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text outline round color="primary"
+          <v-btn text outlined rounded color="primary"
                  :loading="playersDataSaving"
                  :disabled="playersDataSaving"
                  @click="savePlayers">
@@ -99,59 +93,56 @@
         <v-card>
           <v-card-text>
             <!-- Round status -->
-            <v-layout row text-xs-left>
-              <v-flex xs3>
-                <span>Дата начала: </span> {{round.startDate}}
-              </v-flex>
-              <v-flex xs3>
-                <span>Дата окончания: </span> {{round.endDate}}
-              </v-flex>
+            <v-row>
+              <v-col cols="1">
+                <span>Дата начала:</span>
+              </v-col>
+              <v-col cols="1">
+                {{round.startDate}}
+              </v-col>
+              <v-col cols="1">
+                <span>Дата окончания:</span>
+              </v-col>
+              <v-col cols="1">
+                {{round.endDate}}
+              </v-col>
               <v-spacer></v-spacer>
-              <v-flex xs2>
-                <span>Статус: </span> {{round.status}}
-              </v-flex>
-            </v-layout>
+              <v-col cols="1">
+                <span>Статус: </span>
+              </v-col>
+              <v-col cols="1">
+                {{round.status}}
+              </v-col>
+            </v-row>
             <!--Round parameters -->
-            <v-layout row text-xs-left mt-2>
-              <v-flex xs1>
-                <v-layout column>
-                  <v-flex>
-                    <span>Расстановка:</span>
-                  </v-flex>
-                  <v-flex>
-                    <span>Стратегия:</span>
-                  </v-flex>
-                  <v-flex>
-                    <span>Схемы:</span>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-              <v-flex>
-                <v-layout column>
-                  <v-flex>
-                    {{round.arrangement}}
-                  </v-flex>
-                  <v-flex>
-                    {{round.strategy}}
-                  </v-flex>
-                  <v-flex>
-                    {{round.schemes}}
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-            </v-layout>
+            <v-row no-gutters>
+              <v-col cols="1">
+                <span>Расстановка:</span>
+              </v-col>
+              <v-col>{{round.arrangement}}</v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col cols="1">
+                <span>Стратегия:</span>
+              </v-col>
+              <v-col>{{round.strategy}}</v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col cols="1">
+                <span>Стратегия:</span>
+              </v-col>
+              <v-col>{{round.schemes}}</v-col>
+            </v-row>
           </v-card-text>
         </v-card>
-        <v-layout row wrap>
+        <v-row>
           <!-- Left column with tables -->
-          <v-flex xs6>
-            <TablesInfoComponent :tables="oddTables" :vuetify-theme="vuetifyTheme"/>
-          </v-flex>
+          <v-col cols="4" v-for="(table, index) in rounds[selectedRoundNumber].tables" :key="index">
+            <TablesInfoComponent :table="table"/>
+          </v-col>
           <!-- Right column with tables -->
-          <v-flex xs6>
-            <TablesInfoComponent :tables="evenTables" :vuetify-theme="vuetifyTheme"/>
-          </v-flex>
-        </v-layout>
+          <!--<TablesInfoComponent :tables="evenTables"/>-->
+        </v-row>
       </v-tab-item>
     </template>
     <v-spacer></v-spacer>

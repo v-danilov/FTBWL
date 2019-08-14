@@ -20,8 +20,8 @@
       <v-stepper-items>
         <!-- Выбор системы-->
         <v-stepper-content step="1">
-          <v-layout align-center justify-center row fill-height>
-            <v-flex xs6>
+          <v-row class="fill-height" align="center" justify="center">
+            <v-col cols="6">
               <v-combobox v-model="systemsCombobox.selected"
                           :items="systemsCombobox.items"
                           item-text="name"
@@ -29,8 +29,8 @@
                           required
                           label="Выберите систему для проведения турнира">
               </v-combobox>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
           <v-btn
             :disabled="systemsCombobox.selected === null"
             color="primary"
@@ -43,170 +43,150 @@
 
         <!-- Информация о турнире-->
         <v-stepper-content step="2">
-          <v-layout justify-space-around column>
+          <v-row justify="center">
             <!-- Название -->
-            <v-flex>
+            <v-col cols="8">
               <v-text-field v-model="tournamentName" label="Название"></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-layout align-center justify-space-around row>
-                <!-- Формат проведения -->
-                <v-flex xs4>
-                  <v-combobox v-model="formatsCombobox.selected"
-                              :items="formatsCombobox.items"
-                              item-text="name"
-                              :return-object="true"
-                              label="Формат"
-                              required>
-                  </v-combobox>
-                </v-flex>
-                <!-- Схемпул (рулпак) -->
-                <v-flex xs4>
-                  <v-combobox v-model="rulesPacksCombobox.selected"
-                              :items="rulesPacksCombobox.items"
-                              item-text="name"
-                              :return-object="true"
-                              label="Rulepack"
-                              required>
-                  </v-combobox>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-            <v-flex>
-              <v-layout align-center justify-space-around row>
-                <!-- Место проведения -->
-                <v-flex xs4>
-                  <v-combobox v-model="placesCombobox.selected"
-                              :items="placesCombobox.items"
-                              item-text="name"
-                              :return-object="true"
-                              append-icon="location_on"
-                              label="Площадка"
-                              required>
-                  </v-combobox>
-                </v-flex>
-                <!-- Стоимость -->
-                <v-flex xs4>
-                  <v-text-field append-icon="monetization_on" label="Стоимость" v-model="price"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-flex>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <!-- Формат проведения -->
+            <v-col cols="4">
+              <v-combobox v-model="formatsCombobox.selected"
+                          :items="formatsCombobox.items"
+                          item-text="name"
+                          :return-object="true"
+                          label="Формат"
+                          required>
+              </v-combobox>
+            </v-col>
+            <!-- Схемпул (рулпак) -->
+            <v-col cols="4">
+              <v-combobox v-model="rulesPacksCombobox.selected"
+                          :items="rulesPacksCombobox.items"
+                          item-text="name"
+                          :return-object="true"
+                          label="Rulepack"
+                          required>
+              </v-combobox>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <!-- Место проведения -->
+            <v-col cols="4">
+              <v-combobox v-model="placesCombobox.selected"
+                          :items="placesCombobox.items"
+                          item-text="name"
+                          :return-object="true"
+                          append-icon="location_on"
+                          label="Площадка"
+                          required>
+              </v-combobox>
+            </v-col>
+            <!-- Стоимость -->
+            <v-col cols="4">
+              <v-text-field append-icon="monetization_on" label="Стоимость" v-model="price"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
             <!-- Организатор -->
-            <v-flex>
+            <v-col cols="8">
               <v-text-field disabled value="Параллельный 'Мерзкий' Лион" label="Организатор"></v-text-field>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
           <v-btn
             color="primary"
             @click="e1 = 3"
           >
             Продолжить
           </v-btn>
-
         </v-stepper-content>
 
         <v-stepper-content step="3">
           <!-- Заголовок -->
-          <v-layout align-center justify-center class="text-xs-center" row>
-            <v-flex>
+          <v-row align="center" justify="center" class="text-center">
+            <v-col>
               <h3>Настройка раунда</h3>
-            </v-flex>
-            <v-flex>
+            </v-col>
+            <v-col>
               <h3>Сохранённые раунды</h3>
-            </v-flex>
-          </v-layout>
-          <!-- Данные -->
-          <v-layout row class="mt-2">
-            <!-- Создание раундов-->
-            <v-flex xs6>
-              <v-layout column>
+            </v-col>
+          </v-row>
+          <!-- Создание раундов -->
+          <v-row>
+            <v-col>
+              <v-row dense align="center">
                 <!-- Дата игрового дня -->
-                <v-flex xs6>
-                  <v-layout row>
-                    <v-flex xs6>
-                      <span>Дата раунда</span>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs1>
-                  <v-layout row>
-                    <v-flex xs9>
-                      <v-menu
-                        ref="menu"
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :return-value.sync="date"
-                        transition="scale-transition"
-                        offset-y
-                        lazy
-                        full-width
-                        min-width="290px"
-                      >
-                        <template v-slot:activator="{ on }">
-                          <v-text-field
-                            v-model="date"
-                            prepend-icon="event"
-                            readonly
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker v-model="date"
-                                       no-title
-                                       scrollable
-                                       color="secondary">
-                          <v-spacer></v-spacer>
-                          <v-btn text round flat color="accent" @click="menu = false">Отмена</v-btn>
-                          <v-btn text round flat color="secondary" @click="$refs.menu.save(date)">OK</v-btn>
-                        </v-date-picker>
-                      </v-menu>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs6>
-                  <span>Время раунда</span>
-                </v-flex>
-                <v-flex>
-                  <v-layout justify-space-around>
-                    <v-flex xs4>
-                      <v-text-field v-model="timeStart" v-mask="timeMask" single-line label="Начало"></v-text-field>
-                    </v-flex>
-                    <v-flex xs4>
-                      <v-text-field  v-model="timeEnd" v-mask="timeMask" single-line  label="Конец"></v-text-field>
-                    </v-flex>
-                    <v-flex xs2>
-                      <v-btn icon fab flat round color="primary"
-                             :disabled="saveIsActive" class="mx-1"
-                             @click="saveRoundTime">
-                        <v-icon>
-                          queue
-                        </v-icon>
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-            <!-- Сохранённые раундыы-->
-            <v-flex xs6>
-              <v-layout column>
-                <v-flex>
-                  <v-layout align-start fill-height column>
-                    <v-flex v-for="(day, index) in this.roundsDates" :key="index">
-                      {{formatDate(day)}}
-                      <v-btn small color="accent"
-                             icon
-                             flat
-                             @click="deleteDay(index)"
-                             max-height="5px"
-                             max-widht="5px">
-                        <v-icon>delete_outline</v-icon>
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
+                <v-col cols="2">
+                  <span>Дата</span>
+                </v-col>
+                <v-col>
+                  <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="date"
+                    transition="scale-transition"
+                    offset-y
+                    lazy
+                    full-width
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date"
+                                   no-title
+                                   scrollable
+                                   color="secondary">
+                      <v-spacer></v-spacer>
+                      <v-btn text rounded color="accent" @click="menu = false">Отмена</v-btn>
+                      <v-btn text rounded color="secondary" @click="$refs.menu.save(date)">OK</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
+              <v-row dense align="center">
+                <v-col>
+                  <span>Время</span>
+                </v-col>
+                <v-col>
+                  <v-text-field v-model="timeStart" v-mask="timeMask" single-line label="Начало"></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field v-model="timeEnd" v-mask="timeMask" single-line label="Конец"></v-text-field>
+                </v-col>
+                <v-col cols="1">
+                  <v-btn icon fab text rounded color="primary"
+                         :disabled="saveIsActive" class="mx-1"
+                         @click="saveRoundTime">
+                    <v-icon>
+                      queue
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col>
+              <v-row dense
+                v-for="(day, index) in this.roundsDates" :key="index">
+                <v-col>
+                  {{formatDate(day)}}
+                  <v-btn small color="accent"
+                         icon
+                         text
+                         @click="deleteDay(index)">
+                    <v-icon>delete_outline</v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
 
           <v-btn
             color="primary"
@@ -217,31 +197,6 @@
           </v-btn>
 
         </v-stepper-content>
-
-        <!-- Создание раундов -->
-        <v-stepper-content step="4">
-          <v-card
-            class="mb-12"
-            color="grey lighten-1"
-            height="200px"
-          >
-            <v-card-title>
-              Создание раундов
-            </v-card-title>
-            <v-card-text>
-              Тут короче раунды по дням
-            </v-card-text>
-          </v-card>
-
-          <v-btn
-            color="primary"
-            @click="e1 = 1"
-          >
-            Продолжить
-          </v-btn>
-
-        </v-stepper-content>
-
       </v-stepper-items>
     </v-stepper>
   </v-dialog>
@@ -411,7 +366,7 @@ export default {
     formatDate (date) {
       let sDate = new Date(date.startDate)
       let eDate = new Date(date.endDate)
-      return sDate.getDate() + '' + '.' + sDate.getMonth() + '.' + sDate.getFullYear() +
+      return sDate.getDate() + '' + '.' + (sDate.getMonth() + 1) + '.' + sDate.getFullYear() +
         ' (' + sDate.getHours() + ':' + sDate.getMinutes() + ' - ' + eDate.getHours() + ':' + eDate.getMinutes() + ')'
     }
   }

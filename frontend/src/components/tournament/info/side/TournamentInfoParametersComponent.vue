@@ -1,81 +1,52 @@
 <template>
-    <v-card class="mt-2">
-        <v-card-text>
-            <v-layout row>
-                <!-- LEFT BLOCK -->
-                <!-- Labels -->
-                <v-flex xs3 sm3 md3 text-xs-left offset-xs1>
-                    <v-layout column>
-                        <v-flex>
-                            <span>Формат проведения</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Количество туров</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Схемпул</span>
-                        </v-flex>
-                       <!-- <v-flex>
-                            <span>Требования к покрасу</span>
-                        </v-flex>-->
-                    </v-layout>
-                </v-flex>
-                <!-- Data -->
-                <v-flex xs3 sm3 md3 text-xs-left>
-                    <v-layout column>
-                        <v-flex>
-                            {{ this.selectedTournament.format }}
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.roundsNumber || 'Не указано' }}
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.schemePool || 'Не указан'}}
-                        </v-flex>
-                       <!-- <v-flex>
-                            {{this.selectedTournament.colorRequirements || 'Не предъявляются'}}
-                        </v-flex>-->
-                    </v-layout>
-                </v-flex>
+  <v-card class="mt-2">
+    <v-card-text>
+      <v-row dense no-gutters>
+        <v-col cols="1">
+          <span>Формат </span>
+        </v-col>
+        <v-col cols="1">
+          {{ this.selectedTournament.format }}
+        </v-col>
 
-                <!-- RIGHT BLOCK -->
-                <!-- Labels-->
-                <v-flex xs3 sm3 md3 text-xs-left>
-                    <v-layout column>
-                        <v-flex>
-                            <span>Статус туринра</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Стоимость участия</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Участников</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Организатор</span>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <!-- Data -->
-                <v-flex xs3 sm3 md3 text-xs-left>
-                    <v-layout column>
-                        <v-flex>
-                            {{this.selectedTournament.status}}
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.price || 0}} ₽
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.participantsNumber || 'Не известно'}}
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.organizer}}
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
-        </v-card-text>
-    </v-card>
+        <v-col cols="1">
+          <span>Схемпул</span>
+        </v-col>
+        <v-col cols="1">
+          {{this.selectedTournament.schemePool}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Количество туров</span>
+        </v-col>
+        <v-col cols="1">
+          {{this.selectedTournament.roundsNumber || 'Не указано' }}
+        </v-col>
+      </v-row>
+      <v-row dense no-gutters>
+        <v-col cols="1">
+          <span>Участников</span>
+        </v-col>
+        <v-col cols="1">
+          {{this.selectedTournament.participantsNumber || 'Не известно'}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Статус турнира</span>
+        </v-col>
+        <v-col cols="1">
+          {{this.selectedTournament.status}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Организатор</span>
+        </v-col>
+        <v-col>
+          {{this.selectedTournament.organizer}}
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
 </template>
 <script>
 export default {

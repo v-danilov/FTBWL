@@ -1,37 +1,54 @@
 <template>
-    <v-layout column>
-        <v-card class="ma-1" v-for="table in tables" :key="table.tableNumber">
+        <v-card class="ma-1">
             <v-card-text>
-                <v-layout row>
-                    <v-flex xs2><h3>Стол</h3></v-flex>
-                    <v-flex xs8>{{table.firstPlayer.name}}</v-flex>
-                    <v-flex xs1>{{table.firstPlayer.tp}}</v-flex>
-                    <v-flex xs1>{{table.firstPlayer.vp}}</v-flex>
-                </v-layout>
-                <v-layout row>
-                    <v-flex xs2></v-flex>
-                    <v-flex xs8 class="pt-2">
-                        <v-divider :color="vuetifyTheme.additional"></v-divider>
-                    </v-flex>
-                    <v-flex xs1>TP</v-flex>
-                    <v-flex xs1>VP</v-flex>
-                </v-layout>
-                <v-layout row>
-                    <v-flex xs2><h3>№{{table.tableNumber}}</h3></v-flex>
-                    <v-flex xs8>{{table.secondPlayer.name}}</v-flex>
-                    <v-flex xs1>{{table.secondPlayer.tp}}</v-flex>
-                    <v-flex xs1>{{table.secondPlayer.vp}}</v-flex>
-                </v-layout>
+              <v-row dense align="center" justify="center">
+                <v-col cols="2">
+                  <h3>Стол №{{table.tableNumber}}</h3>
+                </v-col>
+              <v-col>
+                <v-row dense align="center" class="text-center" justify="center">
+                  <v-col>{{table.firstPlayer.name}}</v-col>
+                  <v-col cols="2"  :style="{'color': $vuetify.theme.currentTheme.additional}">
+                    {{table.firstPlayer.tp}}
+                  </v-col>
+                  <v-col cols="2"  :style="{'color': $vuetify.theme.currentTheme.secondary}">
+                    {{table.firstPlayer.vp}}
+                  </v-col>
+                </v-row>
+                <v-row dense align="center" class="text-center" justify="center">
+                  <v-col>
+                    <v-divider></v-divider>
+                  </v-col>
+                  <v-col cols="2" class="text-center"
+                         :style="{'color': $vuetify.theme.currentTheme.additional}">
+                    TP
+                  </v-col>
+                  <v-col cols="2"  class="text-center"  :style="{'color': $vuetify.theme.currentTheme.secondary}">
+                    VP
+                  </v-col>
+                </v-row>
+                <v-row dense align="center" class="text-center" justify="center">
+                  <v-col class="text-center">{{table.secondPlayer.name}}</v-col>
+                  <v-col cols="2"  :style="{'color': $vuetify.theme.currentTheme.additional}">
+                    {{table.secondPlayer.tp}}
+                  </v-col>
+                  <v-col cols="2"  :style="{'color': $vuetify.theme.currentTheme.secondary}">
+                    {{table.secondPlayer.vp}}
+                  </v-col>
+                </v-row>
+              </v-col>
+              </v-row>
             </v-card-text>
         </v-card>
-    </v-layout>
 </template>
 <script>
 export default {
   name: 'TablesInfoComponent',
   props: {
-    tables: Array,
-    vuetifyTheme: {}
+    table: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

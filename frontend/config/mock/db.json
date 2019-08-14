@@ -244,6 +244,54 @@
                 "vp": 10
               },
               "winner": "right"
+            },
+            {
+              "tableNumber": 3,
+              "firstPlayer": {
+                "name": "Троицкий 'Космический' Галактион",
+                "fraction": "Resurrectionists",
+                "tp": 5,
+                "vp": 5
+              },
+              "secondPlayer": {
+                "name": "Тайский 'Острый' Каллистрат",
+                "fraction": "The Guild",
+                "tp": 3,
+                "vp": 10
+              },
+              "winner": "right"
+            },
+            {
+              "tableNumber": 4,
+              "firstPlayer": {
+                "name": "Кузнецова 'Коралл' Клара",
+                "fraction": "Bayou",
+                "tp": 5,
+                "vp": 5
+              },
+              "secondPlayer": {
+                "name": "Романова 'Зелёная' Лиана",
+                "fraction": "Ten thunders",
+                "tp": 3,
+                "vp": 10
+              },
+              "winner": "right"
+            },
+            {
+              "tableNumber": 5,
+              "firstPlayer": {
+                "name": "Троицкий 'Космический' Галактион",
+                "fraction": "Resurrectionists",
+                "tp": 5,
+                "vp": 5
+              },
+              "secondPlayer": {
+                "name": "Тайский 'Острый' Каллистрат",
+                "fraction": "The Guild",
+                "tp": 3,
+                "vp": 10
+              },
+              "winner": "right"
             }
           ]
         },

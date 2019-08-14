@@ -1,14 +1,14 @@
 <template>
   <v-container>
-    <v-layout row justify-center >
-      <v-flex xs7>
+    <v-row  justify="center" >
+      <v-col cols="7">
         <v-form
 
           v-model="formIsValid"
           @submit.prevent="onSubmit">
           <v-container >
-            <v-layout>
-              <v-flex xs12 md12 class="text-xs-center">
+            <v-row>
+              <v-col cols="12" md="12" class="text-center">
                 <v-avatar
                   :tile="false"
                   :size="300"
@@ -17,31 +17,31 @@
                   <!--This is very strange. Doesn't work from root '/'-->
                   <img src="../../assets/ftbwlLogo.png" alt="logo">
                 </v-avatar>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <!--Human data block-->
-            <v-layout justify-center>
+            <v-row justify="center">
               <!--Last name-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="userData.lastName"
                   :rules="nameRules"
                   label="Last name"
                   required
                 ></v-text-field>
-              </v-flex>
+              </v-col>
               <!--First name-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="userData.firstName"
                   :rules="nameRules"
                   label="First name"
                   required
                 ></v-text-field>
-              </v-flex>
+              </v-col>
               <!--City-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-combobox
                   v-model="selectedCity"
                   :search-input.sync="cityPrefix"
@@ -51,13 +51,13 @@
                   :return-object="true"
                   required>
                 </v-combobox>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <!--User data block-->
-            <v-layout justify-center>
+            <v-row justify="center">
               <!--Email-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   type="email"
                   v-model="userData.email"
@@ -65,29 +65,29 @@
                   label="E-mail"
                   required
                 ></v-text-field>
-              </v-flex>
+              </v-col>
               <!--User name-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="userData.username"
                   :rules="userNameRules"
                   label="User name"
                   required
                 ></v-text-field>
-              </v-flex>
+              </v-col>
               <!--User alias-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="userData.alias"
                   label="Alias"
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <!--Security data block-->
-            <v-layout justify-center>
+            <v-row justify="center">
               <!--Password-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   type="password"
                   v-model="userData.password"
@@ -95,20 +95,20 @@
                   label="Password"
                   required
                 ></v-text-field>
-              </v-flex>
+              </v-col>
               <!--Confirm password-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   :rules="confirmPasswordRules"
                   type="password"
                   label="Confirm password"
                   required
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
-            <v-layout justify-center>
-              <v-flex xs12 md4>
+            <v-row justify="center">
+              <v-col cols="12" md="4">
                 <v-btn
                   :disabled="!formIsValid"
                   type="submit"
@@ -117,19 +117,19 @@
                   color="primary">
                   Sign up
                 </v-btn>
-              </v-flex>
-                <v-flex xs12 md4>
+              </v-col>
+                <v-col cols="12" md="4">
                 <v-btn
                   :depressed="true"
-                  :flat="true"
+                  :text="true"
                   round
                   color="primary"
                   to="signIn"
                   :replace="true">
                   Sign in
                 </v-btn>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <v-snackbar
               v-model="toastBox.isActive"
@@ -141,7 +141,7 @@
               {{ toastBox.text }}
               <v-btn
                 color="red"
-                flat
+                text
                 @click="toastBox.isActive = false"
               >
                 Close
@@ -149,8 +149,8 @@
             </v-snackbar>
           </v-container>
         </v-form>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

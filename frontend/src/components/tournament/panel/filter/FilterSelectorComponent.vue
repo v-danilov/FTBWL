@@ -11,17 +11,17 @@
     @input="handleInput"
   >
     <template v-slot:prepend-item>
-      <v-list-tile
+      <v-list-item
         ripple
         @click="toggle"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon :color="elements && elements.length > 0 ? 'secondary' : ''">{{ icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>Выбрать всё</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Выбрать всё</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-divider class="mt-2"></v-divider>
     </template>
     <template v-slot:selection="{ item, index }">
