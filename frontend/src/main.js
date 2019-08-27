@@ -22,10 +22,14 @@ const vuetifyOpts = {
         primary: COLORS.PRIMARY, // Primary system color
         secondary: COLORS.SECONDARY, // Secondary system color
         accent: COLORS.ACCENT, // Accent color for elements to pay attention
-        additional: COLORS.ADDITIONAL // Extra color
+        additional: COLORS.ADDITIONAL, // Extra color
+        background: COLORS.BACKROUND
       }
     }
     // If you are not designer: https://colorscheme.ru/#2x41TkdoRvymD
+  },
+  icons: {
+    iconfont: 'mdiSvg'
   }
 }
 Vue.use(Vuetify)

@@ -24,6 +24,7 @@ export default {
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme
+      console.log(this.$vuetify.theme)
       const out = {}
       for (const name of Object.keys(currentVTheme)) {
         out[`--v-color-${name}`] = currentVTheme[name]

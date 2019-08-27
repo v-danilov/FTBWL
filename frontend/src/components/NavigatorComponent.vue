@@ -2,7 +2,7 @@
   <v-navigation-drawer class="primary"
                        permanent
                        mini-variant
-                       :mini-variant-width="100"
+                       :mini-variant-width="70"
                        app>
     <v-list nav>
       <v-list-item link

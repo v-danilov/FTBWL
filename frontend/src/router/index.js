@@ -4,6 +4,7 @@ import SignUpComponent from '../components/authorization/SignUpComponent'
 import SignInComponent from '../components/authorization/SignInComponent'
 import TournamentPanelComponent from '../components/tournament/panel/TournamentPanelComponent'
 import TournamentInfoMainComponent from '../components/tournament/info/TournamentInfoMainComponent'
+import PairingMainComponent from '../components/tournament/pairing/PairingMainComponent'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ const router = new Router({
       name: 'TournamentInfoMainComponent',
       component: TournamentInfoMainComponent,
       props: true
+    },
+    {
+      path: '/statistic',
+      name: 'Name',
+      component: PairingMainComponent
     }
   ]
 })

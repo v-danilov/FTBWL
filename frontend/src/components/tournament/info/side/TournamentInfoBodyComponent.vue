@@ -1,5 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-tabs slider-color="additional" background-color="primary" fixed-tabs class="mt-3">
+    <!-- Вкладка участников -->
     <v-tab ripple>
       Участники
     </v-tab>
@@ -82,6 +83,7 @@
         </v-card-actions>
       </v-card>
     </v-tab-item>
+    <!-- Вкладки раундов -->
     <template v-for="(round, index) in rounds">
       <v-tab :key="index"
              ripple
@@ -93,45 +95,53 @@
         <v-card>
           <v-card-text>
             <!-- Round status -->
-            <v-row>
-              <v-col cols="1">
+            <v-row no-gutters>
+              <v-col>
                 <span>Дата начала:</span>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 {{round.startDate}}
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 <span>Дата окончания:</span>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 {{round.endDate}}
               </v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="1">
+              <v-col>
                 <span>Статус: </span>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 {{round.status}}
               </v-col>
             </v-row>
             <!--Round parameters -->
             <v-row no-gutters>
-              <v-col cols="1">
+              <v-col>
                 <span>Расстановка:</span>
               </v-col>
               <v-col>{{round.arrangement}}</v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col cols="1">
+
+              <v-col>
                 <span>Стратегия:</span>
               </v-col>
               <v-col>{{round.strategy}}</v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col cols="1">
+
+              <v-col>
                 <span>Стратегия:</span>
               </v-col>
               <v-col>{{round.schemes}}</v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col>
+                <v-btn rounded color="additional" class="white--text"
+                       @click="roundSettingDialog = !roundSettingDialog">
+                  Начать раунд
+                </v-btn>
+                <RoundSettingsComponent v-if="roundSettingDialog"
+                                        :round-number="index"
+                                        :round-data="round"></RoundSettingsComponent>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>
@@ -160,10 +170,11 @@
 <script>
 import TablesInfoComponent from './TablesInfoComponent'
 import {END_POINTS} from '../../../util/constants/EndPointsConstants'
+import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 
 export default {
   name: 'TournamentInfoBodyComponent',
-  components: {TablesInfoComponent},
+  components: {RoundSettingsComponent, TablesInfoComponent},
   props: {
     rounds: {
       type: Array,
@@ -172,9 +183,10 @@ export default {
   },
   data () {
     return {
-      hideTournamentInfo: false,
-      selectedRoundNumber: 0,
       vuetifyTheme: this.$vuetify.theme,
+      hideTournamentInfo: false,
+      roundSettingDialog: false,
+      selectedRoundNumber: 0,
       playersDataSaving: false,
       players: [
         {

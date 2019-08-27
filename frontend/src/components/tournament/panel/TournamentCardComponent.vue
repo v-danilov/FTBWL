@@ -6,12 +6,6 @@
         <span class="mr-2">
           {{tournament.name}}
         </span>
-        <v-icon  :style="{color : statusInfo.color}" class="mr-1">
-          {{statusInfo.icon}}
-        </v-icon>
-        <span :style="{color : statusInfo.color}">
-          {{tournamentStatusText}}
-        </span>
         <v-spacer></v-spacer>
         <span :style="{color : themeColors.secondary}">{{tournament.price}} ₽</span>
       </v-card-title>
@@ -54,6 +48,12 @@
         </v-row>
       </v-card-text>
       <v-card-actions class="pt-0">
+        <v-icon  :style="{color : statusInfo.color}" class="mr-1">
+          {{statusInfo.icon}}
+        </v-icon>
+        <span :style="{color : statusInfo.color}">
+          {{tournamentStatusText}}
+        </span>
          <v-spacer></v-spacer>
         <v-btn icon @click="emitOpenDialogEvent" class="pb-7">
           <v-icon color="primary" large>assignment_turned_in</v-icon>
@@ -89,18 +89,6 @@ export default {
     },
     statusInfo () {
       return statusColorize(this.tournament.status.systemName)
-    },
-    confirmationText () {
-      return '<div>' +
-        '<div>' +
-        '<span>Название турнира: </span>' +
-        this.tournament.name +
-        '</div>' +
-        '<div>' +
-        '<span>Дата начала проведения: </span>' +
-        '27 июня 2019 19:45' +
-        '</div>' +
-        '</div>'
     }
   },
   methods: {

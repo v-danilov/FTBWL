@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="!loadingError">
-    <TournamentInfoHeaderComponent v-if="componentsHidden"
+    <TournamentInfoHeaderComponent v-if="!componentsHidden"
                                    :selected-tournament="selectedTournament"/>
     <!--<TournamentInfoParametersComponent v-if="componentsHidden"
                                        :selected-tournament="selectedTournament"/>-->

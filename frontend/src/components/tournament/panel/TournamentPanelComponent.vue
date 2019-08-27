@@ -26,12 +26,9 @@
                                      @close-tournament-create-dialog="showCreateTournamentDialog = false">
           </TournamentCreateComponent>
         </v-col>
-        <v-col class="text-left" cols="1">
-          <v-text-field label="Ширина карточки (1-12)" v-model="cardWidth"></v-text-field>
-        </v-col>
       </v-row>
       <v-row>
-        <v-col :cols="cardWidth" v-for="(tournamentElement, index) in tournaments" :key=index>
+        <v-col cols="4" v-for="(tournamentElement, index) in tournaments" :key=index>
           <TournamentCardComponent
             :tournament=tournamentElement
             @click="openTournament(tournament.id)"

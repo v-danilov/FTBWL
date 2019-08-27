@@ -1,22 +1,22 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="lable-highlighter">{{selectedTournament.name}} ({{selectedTournament.format}})</span>
+      <span class="label-highlighter">{{selectedTournament.name}} ({{selectedTournament.format}})</span>
     </v-card-title>
     <v-card-text>
       <!-- Место, дата, статус -->
-      <v-row dense>
+      <v-row no-gutters>
         <v-col cols="3">
-          <span class=" lable-highlighter">Место проведения</span>
+          <span class=" label-highlighter">Место проведения</span>
         </v-col>
         <v-col cols="3">
-          <span class=" lable-highlighter">Даты проведения</span>
+          <span class=" label-highlighter">Даты проведения</span>
         </v-col>
         <v-col cols="3">
-          <span class=" lable-highlighter">Статус</span>
+          <span class=" label-highlighter">Статус</span>
         </v-col>
       </v-row>
-      <v-row dense>
+      <v-row no-gutters>
         <v-col cols="3">
           <div class="">{{this.selectedTournament.place}}</div>
         </v-col>
@@ -27,26 +27,6 @@
           <div class="">{{this.selectedTournament.status}}</div>
         </v-col>
       </v-row>
-      <!--<v-row dense>
-        <v-col cols="1">
-          <span class="title lable-highlighter">Место проведения</span>
-        </v-col>
-        <v-col cols="3">
-          <div class="title">{{this.selectedTournament.place}}</div>
-        </v-col>
-        <v-col cols="1">
-          <span class="title lable-highlighter">Даты проведения</span>
-        </v-col>
-        <v-col cols="2">
-          <div class="title">{{this.selectedTournament.date}}</div>
-        </v-col>
-        <v-col cols="1">
-          <span class="title lable-highlighter">Статус</span>
-        </v-col>
-        <v-col>
-          <div class="title">{{this.selectedTournament.status}}</div>
-        </v-col>
-      </v-row>-->
       <v-row align="center" justify="center">
         <v-col>
           <v-divider></v-divider>
@@ -69,7 +49,7 @@
         </v-col>
 
         <v-col cols="1">
-          <span>Количество туров</span>
+          <span>Туров</span>
         </v-col>
         <v-col cols="1">
           {{this.selectedTournament.roundsNumber || 'Не указано' }}
@@ -110,7 +90,7 @@ export default {
 }
 </script>
 <style scoped>
-  .lable-highlighter {
+  .label-highlighter {
     color: var(--v-color-secondary);
   }
 </style>
