@@ -4,21 +4,65 @@
       <!-- Header (toolbar) -->
       <v-app-bar app dark clipped-left color="primary">
         <v-toolbar-title>Раунд {{roundNumber + 1}}</v-toolbar-title>
-        <div class="flex-grow-1"></div>
-        <v-btn icon fab color="accent"
+        <v-spacer></v-spacer>
+        <v-btn icon fab>
+          <v-icon color="white">
+            refresh
+          </v-icon>
+        </v-btn>
+        <v-btn icon fab
         @click="dialog = !dialog">
           <v-icon color="white">
             close
           </v-icon>
         </v-btn>
-        <v-btn icon color="primary" fab>
+        <v-btn icon fab>
           <v-icon color="white">
             save
           </v-icon>
         </v-btn>
+        <!-- Extension with player swap view -->
+        <template v-if="!isEmpty(firstPlayerFowSwap) || !isEmpty(secondPlayerForSwap)" #extension>
+          <v-row justify="center">
+            <v-toolbar-items>
+              <!-- Left player chip -->
+              <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(firstPlayerFowSwap)">
+                <v-avatar left>
+                  <v-img :src="firstPlayerFowSwap.player.avatar"></v-img>
+                </v-avatar>
+                {{firstPlayerFowSwap.player.name}} (Стол {{defineTableNumber(firstPlayerFowSwap.playerIndex)}})
+              </v-chip>
+              <!-- Swap button -->
+              <v-btn text rounded icon
+                     v-if="!isEmpty(firstPlayerFowSwap.player) && !isEmpty(secondPlayerForSwap.player)"
+                     @click="swapPlayers">
+                <v-icon>
+                  swap_horiz
+                </v-icon>
+              </v-btn>
+              <!-- Right player chip -->
+              <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(secondPlayerForSwap)">
+                <v-avatar left>
+                  <v-img :src="secondPlayerForSwap.player.avatar"></v-img>
+                </v-avatar>
+                {{secondPlayerForSwap.player.name}} (Стол
+                {{defineTableNumber(secondPlayerForSwap.playerIndex)}})
+              </v-chip>
+              <!-- Clear button -->
+              <v-btn text icon
+                     @click="clearSwapData"
+                     @mouseover="clearButtonHovered = true"
+                     @mouseleave="clearButtonHovered = false">
+                <v-icon>
+                  close
+                </v-icon>
+              </v-btn>
+            </v-toolbar-items>
+          </v-row>
+        </template>
       </v-app-bar>
       <!-- Sidebar (navbar) -->
-      <v-navigation-drawer
+      <!--<v-navigation-drawer
         class="compact-form"
         app
         v-model="drawer"
@@ -96,11 +140,14 @@
             ></v-select>
           </v-col>
         </v-row>
-      </v-navigation-drawer>
+      </v-navigation-drawer>-->
       <v-content id="body-container"
                  class="pl-200 overflow-y-hidden">
         <v-container fluid >
-          <PairingMainComponent></PairingMainComponent>
+          <PairingMainComponent
+            ref="pairingMainComponent"
+            @swap-players="clearSwapData"
+          ></PairingMainComponent>
         </v-container>
       </v-content>
     </v-card>
@@ -109,6 +156,8 @@
 
 <script>
 import PairingMainComponent from '../pairing/PairingMainComponent'
+import _ from 'lodash'
+
 export default {
   name: 'RoundSettingsComponent',
   components: {PairingMainComponent},
@@ -121,6 +170,7 @@ export default {
   },
   data () {
     return {
+      dialog: true,
       selectorData: [
         {id: 0, name: 'Element 1'},
         {id: 1, name: 'Element 2'},
@@ -128,17 +178,42 @@ export default {
         {id: 3, name: 'Element 4'},
         {id: 4, name: 'Element 5'}
       ],
-      dialog: true,
-      notifications: false,
-      sound: true,
-      widgets: false
+      clearButtonHovered: false
     }
   },
   computed: {
-    clientScreenSize () {
-      return window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight
+    firstPlayerFowSwap: {
+      get: function () {
+        return this.$store.getters.firstPairingPlayer
+      },
+      set: function (newValue) {
+        this.$store.dispatch('INIT_FIRST_PAIRING_PLAYER', {})
+      }
+
+    },
+    secondPlayerForSwap: {
+      get: function () {
+        return this.$store.getters.secondPairingPlayer
+      },
+      set: function (newValue) {
+        this.$store.dispatch('INIT_SECOND_PAIRING_PLAYER', {})
+      }
+    }
+  },
+  methods: {
+    isEmpty: _.isEmpty,
+    clearSwapData () {
+      this.firstPlayerFowSwap = {}
+      this.secondPlayerForSwap = {}
+      // Сбрасываем индекс расстановки для верного заполнения игроков при следующем выборе
+      this.$refs.pairingMainComponent.nextPlayerIndex = 0
+      this.clearButtonHovered = false
+    },
+    swapPlayers () {
+      this.$refs.pairingMainComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
+    },
+    defineTableNumber (playerIndex) {
+      return playerIndex % 2 === 0 ? (playerIndex / 2 + 1) : Math.round(playerIndex / 2)
     }
   }
 }
