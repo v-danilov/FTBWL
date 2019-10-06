@@ -12,7 +12,10 @@ export const END_POINTS = {
   TOURNAMENT: {
     REG_USER: '/tournament/regUser',
     START: '/tournament/start/',
-    UPDATE_STATUS: '/tournament/statusUpdate'
+    UPDATE_STATUS: '/tournament/statusUpdate',
+    CREATE: '/tournament/create',
+    // TODO replace parameters
+    SAVE_PLAYERS: '/tournament/{id}/savePlayers'
   },
   AUTHORIZATION: {
     SIGN_UP: '/api/signUp',

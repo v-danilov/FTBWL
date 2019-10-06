@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <v-layout row wrap justify-center>
-      <v-flex xs10>
+    <v-row   justify="center">
+      <v-col cols="10">
         <v-form
           v-model="formIsValid"
           @submit.prevent="onSubmit">
           <v-container>
-            <v-layout>
-              <v-flex xs12 md12 class="text-xs-center">
+            <v-row>
+              <v-col cols="12" md="12" class="text-center">
                 <v-avatar
                   :tile="false"
                   :size="300"
@@ -16,33 +16,33 @@
                   <!--This is very strange. Doesn't work from root '/'-->
                   <img src="../../assets/ftbwlLogo.png" alt="logo">
                 </v-avatar>
-              </v-flex>
-            </v-layout>
-            <v-layout justify-center>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
               <!--User name-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="userData.username"
                   label="User name or email"
                   :rules="checkNotEmpty"
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
-            <v-layout justify-center>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
               <!--Password-->
-              <v-flex xs12 md4>
+              <v-col cols="12" md="4">
                 <v-text-field
                   type="password"
                   v-model="userData.password"
                   label="Password"
                   :rules="checkNotEmpty"
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <!-- Submit button -->
-            <v-layout justify-center>
-              <v-flex xs12 md4>
+            <v-row justify="center">
+              <v-col cols="12" md="4">
                 <v-btn
                   :disabled="!formIsValid"
                   type="submit"
@@ -53,15 +53,15 @@
                 </v-btn>
                 <v-btn
                   :depressed="true"
-                  :flat="true"
+                  :text="true"
                   round
                   color="primary"
                   to="SignUp"
                   :replace="true">
                   Sign up
                 </v-btn>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
 
             <!-- Toast -->
             <v-snackbar
@@ -74,7 +74,7 @@
               {{ toastBox.text }}
               <v-btn
                 color="red"
-                flat
+                text
                 @click="toastBox.isActive = false"
               >
                 Close
@@ -82,8 +82,8 @@
             </v-snackbar>
           </v-container>
         </v-form>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

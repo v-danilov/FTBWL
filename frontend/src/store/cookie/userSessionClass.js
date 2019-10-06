@@ -13,6 +13,7 @@ export default class UserSession {
     if (this.isAuthenticated()) {
       return this.iterationCopy(Vue.cookie.get('user'))
     }
+    // fixme if not?
   }
 
   static iterationCopy (obj) {

@@ -2,14 +2,12 @@
   <v-app :style="cssTheme">
     <NavigatorComponent/>
     <v-content>
-      <v-container fill-height fluid grid-list-{0} class="pa-0">
-        <v-layout row>
-          <v-flex>
-            <v-container fluid>
-              <router-view/>
-            </v-container>
-          </v-flex>
-        </v-layout>
+      <v-container fluid class="fill-height grid-list-{0}">
+        <v-row class="fill-height">
+          <v-col>
+            <router-view/>
+          </v-col>
+        </v-row>
       </v-container>
     </v-content>
   </v-app>
@@ -25,10 +23,11 @@ export default {
   components: {NavigatorComponent},
   computed: {
     cssTheme () {
+      const currentVTheme = this.$vuetify.theme.currentTheme
+      console.log(this.$vuetify.theme)
       const out = {}
-
-      for (const name of Object.keys(this.$vuetify.theme)) {
-        out[`--v-color-${name}`] = this.$vuetify.theme[name]
+      for (const name of Object.keys(currentVTheme)) {
+        out[`--v-color-${name}`] = currentVTheme[name]
       }
       return out
     }

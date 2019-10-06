@@ -3,74 +3,58 @@
     <v-card class="mt-3 mx-auto" slot-scope="{ hover }"
             :class="`elevation-${hover ? 12 : 2}`">
       <v-card-title primary-title>
-        <h2 class="mr-2">{{tournament.name}}</h2>
-        <v-icon  :style="{color : statusInfo.color}" class="mr-1">{{statusInfo.icon}}</v-icon>
-        <span :style="{color : statusInfo.color}">{{tournamentStatusText}}</span>
+        <span class="mr-2">
+          {{tournament.name}}
+        </span>
         <v-spacer></v-spacer>
-        <h2 :style="{color : themeColors.secondary}">{{tournament.price}} ₽</h2>
+        <span :style="{color : themeColors.secondary}">{{tournament.price}} ₽</span>
       </v-card-title>
-      <v-card-title @click.stop="openTournament(tournament.id)" class="pb-0 pt-0">
-        <v-layout row wrap>
-          <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Где: </span>
-            <a href="#" :style="{color : themeColors.secondary}">{{tournament.place}}</a>
-          </v-flex>
-          <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Организатор:</span>
-            <a href="#" :style="{color : themeColors.secondary}">{{tournament.organizer}}</a>
-          </v-flex>
-          <v-flex xs6 sm6 md6 class="text-xs-left text-sm-left text-md-left">
-            <span>Когда: </span>
+      <v-card-text @click.stop="openTournament(tournament.id)">
+        <v-row no-gutters>
+          <v-col>
+            <span>Где</span>
+          </v-col>
+          <v-col>
+            <span>Когда</span>
+          </v-col>
+        </v-row>
+        <v-row no-gutters>
+          <v-col>
+            <a href="#" :style="{color: themeColors.secondary}">
+              {{tournament.place}}
+            </a>
+          </v-col>
+          <v-col>
             <template v-if="!! tournament.startDate">
               {{tournament.startDate}} -
             </template>
             {{tournament.endDate}}
-          </v-flex>
-          <v-flex xs5 sm5 md5 class="text-xs-left text-sm-left text-md-left">
-            <span>Формат: </span>
-            {{tournament.format}}
-          </v-flex>
-        </v-layout>
-      </v-card-title>
+          </v-col>
+        </v-row>
+        <v-row class="ma-2">
+          <v-divider></v-divider>
+        </v-row>
+        <v-row no-gutters>
+          <v-col>
+            <span>Формат</span>
+          </v-col>
+          <v-col>
+            <span>Организатор</span>
+          </v-col>
+        </v-row>
+        <v-row no-gutters>
+          <v-col>{{tournament.format}}</v-col>
+          <v-col>{{tournament.organizer}}</v-col>
+        </v-row>
+      </v-card-text>
       <v-card-actions class="pt-0">
+        <v-icon  :style="{color : statusInfo.color}" class="mr-1">
+          {{statusInfo.icon}}
+        </v-icon>
+        <span :style="{color : statusInfo.color}">
+          {{tournamentStatusText}}
+        </span>
          <v-spacer></v-spacer>
-        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_CLOSED"
-          color="primary"
-          round
-          small
-          @click="startTournament"
-        >
-          Начать турнир
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.OPEN"
-               color="accent"
-               round
-               small
-               @click="closeTournament"
-        >
-          Завершить турнир
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.SCHEDULED"
-               color="primary"
-               round
-               small
-               @click="updateTournamentStatus(statusMap.REGISTRATION_OPEN)"
-        >
-          Открыть регистрацию
-        </v-btn>
-        <v-btn v-if="tournament.status.systemName === statusMap.REGISTRATION_OPEN"
-               color="accent"
-               round
-               small
-               @click="updateTournamentStatus(statusMap.REGISTRATION_CLOSED)"
-        >
-          Закрыть регистрацию
-        </v-btn>
-        <ConfirmationDialogComponent header-text="Подтвердите начало проведения турнира"
-                                     v-bind:body-text=confirmationText
-                                     v-bind:is-multi-action="true"
-                                     ref="confirmationDialogComponent">
-        </ConfirmationDialogComponent>
         <v-btn icon @click="emitOpenDialogEvent" class="pb-7">
           <v-icon color="primary" large>assignment_turned_in</v-icon>
         </v-btn>
@@ -95,7 +79,7 @@ export default {
   },
   data () {
     return {
-      themeColors: this.$vuetify.theme,
+      themeColors: this.$vuetify.theme.currentTheme,
       statusMap: TOURNAMENT_SYSTEM_NAMES
     }
   },
@@ -105,18 +89,6 @@ export default {
     },
     statusInfo () {
       return statusColorize(this.tournament.status.systemName)
-    },
-    confirmationText () {
-      return '<div>' +
-        '<div>' +
-        '<span>Название турнира: </span>' +
-        this.tournament.name +
-        '</div>' +
-        '<div>' +
-        '<span>Дата начала проведения: </span>' +
-        '27 июня 2019 19:45' +
-        '</div>' +
-        '</div>'
     }
   },
   methods: {

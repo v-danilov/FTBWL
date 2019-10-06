@@ -1,40 +1,85 @@
 <template>
-    <v-card>
-        <v-card-title>
-            <v-layout row justify-center wrap>
-                <v-flex xs12 sm12 md12>
-                    <h1 :style="{color: this.$vuetify.theme.primary}">{{selectedTournament.name}}</h1>
-                </v-flex>
-                <v-flex xs12 sm12 md12>
-                    <h3 :style="{color: this.$vuetify.theme.primary}">{{selectedTournament.format}}</h3>
-                </v-flex>
-            </v-layout>
-        </v-card-title>
-        <v-card-text>
-            <v-layout row>
-                <v-flex xs6 sm12 md3 text-xs-left offset-xs1>
-                    <v-layout column>
-                        <v-flex>
-                            <span>Место проведения</span>
-                        </v-flex>
-                        <v-flex>
-                            <span>Даты проведения</span>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs6 sm12 md9 text-xs-left>
-                    <v-layout column>
-                        <v-flex>
-                            {{this.selectedTournament.place}}
-                        </v-flex>
-                        <v-flex>
-                            {{this.selectedTournament.date}}
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
-        </v-card-text>
-    </v-card>
+  <v-card>
+    <v-card-title>
+      <span class="label-highlighter">{{selectedTournament.name}} ({{selectedTournament.format}})</span>
+    </v-card-title>
+    <v-card-text>
+      <!-- Место, дата, статус -->
+      <v-row no-gutters>
+        <v-col cols="3">
+          <span class=" label-highlighter">Место проведения</span>
+        </v-col>
+        <v-col cols="3">
+          <span class=" label-highlighter">Даты проведения</span>
+        </v-col>
+        <v-col cols="3">
+          <span class=" label-highlighter">Статус</span>
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col cols="3">
+          <div class="">{{this.selectedTournament.place}}</div>
+        </v-col>
+        <v-col cols="3">
+          <div class="">{{this.selectedTournament.date}}</div>
+        </v-col>
+        <v-col cols="3">
+          <div class="">{{this.selectedTournament.status}}</div>
+        </v-col>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col>
+          <v-divider></v-divider>
+        </v-col>
+      </v-row>
+      <!-- Формат, схемпул, количество туров -->
+      <v-row dense no-gutters>
+        <v-col cols="1">
+          <span>Формат</span>
+        </v-col>
+        <v-col cols="3">
+          {{ this.selectedTournament.format }}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Схемпул</span>
+        </v-col>
+        <v-col cols="2">
+          {{this.selectedTournament.schemePool}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Туров</span>
+        </v-col>
+        <v-col cols="1">
+          {{this.selectedTournament.roundsNumber || 'Не указано' }}
+        </v-col>
+      </v-row>
+      <!-- Участников, стоимость, организатор -->
+      <v-row dense no-gutters>
+        <v-col cols="1">
+          <span>Участников</span>
+        </v-col>
+        <v-col cols="3">
+          {{this.selectedTournament.participantsNumber || 'Не известно'}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Стоимость</span>
+        </v-col>
+        <v-col cols="2">
+          {{this.selectedTournament.price + '₽' || 'Не указано'}}
+        </v-col>
+
+        <v-col cols="1">
+          <span>Организатор</span>
+        </v-col>
+        <v-col>
+          {{this.selectedTournament.organizer}}
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
 </template>
 <script>
 export default {
@@ -44,3 +89,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .label-highlighter {
+    color: var(--v-color-secondary);
+  }
+</style>

@@ -22,16 +22,14 @@
         <v-btn v-if="isMultiAction"
                color="primary"
                round
-               flat
                text
                @click="confirm">
           Подтвердить
         </v-btn>
         <v-btn
           color="accent"
-          flat
-          round
           text
+          round
           @click="cancel"
         >
           Отмена

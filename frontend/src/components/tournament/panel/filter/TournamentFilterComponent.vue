@@ -1,27 +1,27 @@
 <template>
-    <v-card v-if="filterIsActive">
+    <v-card>
       <v-card-text>
-        <v-layout row wrap justify-space-around>
+        <v-row dense justify="space-around">
           <!-- Формат -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="formatSelector"
               label="Формат"
               main-property="name"
               :data-array=this.$store.getters.cachedFormats
               :selected-elements="filterFormParams.formats"/>
-          </v-flex>
+          </v-col>
           <!-- Страна -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="countrySelector"
               label="Страна"
               main-property="name"
               :data-array=this.$store.getters.cachedCountries
               :selected-elements="filterFormParams.countries"/>
-          </v-flex>
+          </v-col>
           <!-- Город -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="citySelector"
               v-model="filterFormParams.cities"
@@ -29,9 +29,9 @@
               main-property="name"
               :data-array=this.$store.getters.cachedCities
               :selected-elements="filterFormParams.cities"/>
-          </v-flex>
+          </v-col>
           <!-- Площадка -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="placeSelector"
               label="Площадка"
@@ -39,9 +39,9 @@
               main-property="name"
               :data-array=this.$store.getters.cachedPlaces
               :selected-elements="filterFormParams.places"/>
-          </v-flex>
+          </v-col>
           <!-- Организатор -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="organizerSelector"
               label="Организатор"
@@ -50,28 +50,28 @@
               :data-array=this.$store.getters.cachedOrganizers
               v-model="filterFormParams.organizers"
               />
-          </v-flex>
-        </v-layout>
-        <v-layout row wrap justify-space-around>
+          </v-col>
+        </v-row>
+        <v-row dense justify="space-around">
           <!-- Название -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <v-text-field
               label="Название"
               placeholder=""
               v-model="filterFormParams.name"
             >
             </v-text-field>
-          </v-flex>
+          </v-col>
           <!-- Количество дней -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <v-select label="Кол-во дней"
                       v-model="filterFormParams.daysNumber"
                       clearable
                       :items="['1 день', '2 дня']">
             </v-select>
-          </v-flex>
+          </v-col>
           <!-- Дата начала -->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <v-menu
               ref="menuStartDate"
               v-model="menuStartDate"
@@ -96,18 +96,18 @@
                              color="secondary"
                              @input="menuEndDate = false">
                 <v-spacer></v-spacer>
-                <v-btn round flat color="accent" @click="menuStartDate = false">
+                <v-btn rounded text color="accent" @click="menuStartDate = false">
                   Отмена
                 </v-btn>
-                <v-btn round flat color="secondary"
+                <v-btn rounded text color="secondary"
                        @click="$refs.menuStartDate.save(filterFormParams.startDate)">
                   OK
                 </v-btn>
               </v-date-picker>
             </v-menu>
-          </v-flex>
+          </v-col>
           <!-- Дата окончания-->
-          <v-flex xs6 sm4 md2>
+          <v-col cols="6" sm="4" md="2">
             <v-menu
               ref="menuEndDate"
               v-model="menuEndDate"
@@ -132,45 +132,38 @@
                              color="secondary"
                              @input="menuEndDate = false">
                 <v-spacer></v-spacer>
-                <v-btn round flat color="accent"
+                <v-btn rounded text color="accent"
                        @click="menuEndDate = false">
                   Отмена
                 </v-btn>
-                <v-btn round flat color="secondary"
+                <v-btn rounded text color="secondary"
                        @click="$refs.menuEndDate.save(filterFormParams.endDate)">
                   OK
                 </v-btn>
               </v-date-picker>
             </v-menu>
-          </v-flex>
-          <v-flex xs6 sm4 md2>
+          </v-col>
+          <v-col cols="6" sm="4" md="2">
             <FilterSelectorComponent
               ref="statusSelector"
               label="Статус"
               main-property="desc"
               :data-array=this.$store.getters.cachedStatuses
               :selected-elements="filterFormParams.statuses"></FilterSelectorComponent>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn round flat color="accent" @click="resetFilterForm">Сбросить</v-btn>
-        <v-btn round color="primary">Применить</v-btn>
+        <v-btn rounded text color="accent" @click="resetFilterForm">Сбросить</v-btn>
+        <v-btn rounded color="primary">Применить</v-btn>
         <v-spacer></v-spacer>
-        <v-btn flat icon color="accent"
-               @click="filterIsActive = !filterIsActive">
+        <v-btn text icon color="accent"
+               @click="$emit('close-tournament-filter')">
           <v-icon>close</v-icon>
         </v-btn>
       </v-card-actions>
       <v-spacer></v-spacer>
     </v-card>
-    <v-btn v-else
-           round color="primary"
-           class="align-start"
-           @click="filterIsActive = !filterIsActive">
-      <v-icon large>search</v-icon>
-      Открыть фильтр
-    </v-btn>
 </template>
 <script>
 import FilterSelectorComponent from './FilterSelectorComponent'
@@ -180,7 +173,6 @@ export default {
   components: {FilterSelectorComponent},
   data () {
     return {
-      filterIsActive: false,
       menuStartDate: false,
       menuEndDate: false,
       filterFormParams: {
