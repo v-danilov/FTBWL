@@ -34,7 +34,7 @@ public class JwtTokenUtils {
 
     protected static Date expirationDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.add(Calendar.DAY_OF_YEAR, 120);
         return calendar.getTime();
     }
 }

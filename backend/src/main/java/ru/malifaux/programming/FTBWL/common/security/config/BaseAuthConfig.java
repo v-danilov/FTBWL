@@ -35,12 +35,13 @@ public class BaseAuthConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v*/public").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers("/api/v0/**").permitAll()
+                .anyRequest().authenticated();
+                //.and()
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        AuthenticationManager mgr = authenticationManager();
-        http.addFilterAfter(new JwtTokenFilter(mgr, getSecurityProps()), AbstractPreAuthenticatedProcessingFilter.class);
+        //AuthenticationManager mgr = authenticationManager();
+        //http.addFilterAfter(new JwtTokenFilter(mgr, getSecurityProps()), AbstractPreAuthenticatedProcessingFilter.class);
     }
 
     @Override
