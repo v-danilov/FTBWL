@@ -1,4 +1,4 @@
-package ru.malifaux.programming.FTBWL.dictionary;
+package ru.malifaux.programming.FTBWL.event.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,6 @@ public class EventStatusDtoConverter {
 
     public EventStatusDto convertToDto(@NotNull EventStatusEntity entity){
         EventStatusDto eventStatusDto = new EventStatusDto();
-        eventStatusDto.setId(entity.getId().toString());
         eventStatusDto.setCode(entity.getCode());
         eventStatusDto.setValue(entity.getValue());
         return eventStatusDto;

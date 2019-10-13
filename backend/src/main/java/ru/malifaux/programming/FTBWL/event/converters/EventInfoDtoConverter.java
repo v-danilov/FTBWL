@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.malifaux.programming.FTBWL.common.gateway.converters.UserDtoConverter;
 import ru.malifaux.programming.FTBWL.common.gateway.dto.UserDto;
-import ru.malifaux.programming.FTBWL.dictionary.EventStatusDtoConverter;
 import ru.malifaux.programming.FTBWL.dictionary.dto.EventStatusDto;
 import ru.malifaux.programming.FTBWL.event.dto.EventInfoDto;
 import ru.malifaux.programming.FTBWL.event.entity.EventEntity;
