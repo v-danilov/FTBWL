@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.NaturalId;
-import ru.malifaux.programming.FTBWL.common.locations.dto.CityDto;
+import ru.malifaux.programming.FTBWL.common.locations.dto.CityDTO;
 import ru.malifaux.programming.FTBWL.common.things.entity.AuditingEntity;
 
 import javax.persistence.*;
@@ -67,7 +67,7 @@ public class UserEntity extends AuditingEntity {
     private int cityIdOld;
 
     @Transient
-    private CityDto city;
+    private CityDTO city; //TODO убрать?
 
     /** Роли пользователя */
     @Valid

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlayerDto implements DTO {
+public class PlayerDTO implements DTO {
 
     private String id;
 

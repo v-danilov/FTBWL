@@ -7,6 +7,7 @@ import ru.malifaux.programming.FTBWL.common.gateway.entity.UserEntity;
 import ru.malifaux.programming.FTBWL.common.things.entity.AuditingEntity;
 import ru.malifaux.programming.FTBWL.dictionary.entity.EventFormatEntity;
 import ru.malifaux.programming.FTBWL.dictionary.entity.EventStatusEntity;
+import ru.malifaux.programming.FTBWL.dictionary.entity.PlaceEntity;
 import ru.malifaux.programming.FTBWL.dictionary.entity.RulepackEntity;
 
 import javax.persistence.*;
@@ -15,10 +16,18 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static ru.malifaux.programming.FTBWL.event.entity.EventEntity.EventEntityGraph.EVENT_ENTITY_WITH_ORGANIZER;
+import static ru.malifaux.programming.FTBWL.event.entity.EventEntity.EventEntityGraph.SIMPLE_EVENT_ENTITY;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity(name = "event")
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = SIMPLE_EVENT_ENTITY),
+        @NamedEntityGraph(name = EVENT_ENTITY_WITH_ORGANIZER,
+                attributeNodes = {@NamedAttributeNode("organiser")})
+})
 public class EventEntity extends AuditingEntity {
 
     /** Название эвента*/
@@ -30,13 +39,15 @@ public class EventEntity extends AuditingEntity {
     private EventStatusEntity status;
 
     /** Стоимость участия*/
+    @Column(name = "price")
     private BigDecimal price;
 
-    private String currency_id;
+    @Column(name = "currency")
+    private String currency;
 
-    //TODO: Изменить на нормальную сущность
-    @NotBlank
-    private String place_id;
+    @ManyToOne
+    @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false)
+    private PlaceEntity place;
 
     @NotNull
     private LocalDateTime timeStart;
@@ -63,4 +74,9 @@ public class EventEntity extends AuditingEntity {
     private RulepackEntity rulepack;
 
     //TODO: Добавить список раундов
+
+    public static class EventEntityGraph {
+        public static final String SIMPLE_EVENT_ENTITY = "event-entity-graph";
+        public static final String EVENT_ENTITY_WITH_ORGANIZER = "event-organiser-entity-graph";
+    }
 }

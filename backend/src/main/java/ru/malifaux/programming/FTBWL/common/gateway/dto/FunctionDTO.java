@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "code")
-public class FunctionDto {
+public class FunctionDTO {
 
     private String id;
 

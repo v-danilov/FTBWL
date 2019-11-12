@@ -3,7 +3,7 @@ package ru.malifaux.programming.FTBWL.dictionary.dto;
 import lombok.Data;
 
 @Data
-public class FactionDto {
+public class FactionDTO {
     /**
      * Системеное имя фракци
      */

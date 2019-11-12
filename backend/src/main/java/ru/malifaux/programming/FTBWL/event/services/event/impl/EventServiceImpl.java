@@ -1,32 +1,31 @@
 package ru.malifaux.programming.FTBWL.event.services.event.impl;
 
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.malifaux.programming.FTBWL.event.converters.EventInfoDtoConverter;
-import ru.malifaux.programming.FTBWL.event.dto.EventInfoDto;
 import ru.malifaux.programming.FTBWL.event.entity.EventEntity;
 import ru.malifaux.programming.FTBWL.event.repository.EventRepository;
 import ru.malifaux.programming.FTBWL.event.services.event.EventService;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
-    private final EventInfoDtoConverter eventInfoDtoConverter;
 
     @Override
-    public List<EventInfoDto> getAll() {
-        return eventRepository.findAll().stream().map(eventInfoDtoConverter::convertToDto).collect(Collectors.toList());
+    public List<EventEntity> getAll(EntityGraph eventEntityGraph) {
+        List<EventEntity> eventEntities = new ArrayList<>();
+        eventRepository.findAll(eventEntityGraph).forEach(eventEntities::add);
+        return eventEntities;
     }
 
     @Override
-    public EventEntity getByID(String id) {
-        return eventRepository.findById(id).orElse(null);
+    public EventEntity getByID(String id, EntityGraph eventEntityGraph) {
+        return eventRepository.findById(id, eventEntityGraph).orElseThrow(NullPointerException::new);
     }
 
     @Override

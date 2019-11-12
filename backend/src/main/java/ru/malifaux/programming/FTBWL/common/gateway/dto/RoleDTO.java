@@ -10,7 +10,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "name")
-public class RoleDto {
+public class RoleDTO {
 
     private String id;
 
@@ -22,5 +22,5 @@ public class RoleDto {
     /** Функции, которые доступны для роли*/
     @Singular
     @Size(min = 1)
-    private Set<FunctionDto> functions;
+    private Set<FunctionDTO> functions;
 }

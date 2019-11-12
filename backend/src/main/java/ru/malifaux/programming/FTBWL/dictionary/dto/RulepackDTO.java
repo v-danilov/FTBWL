@@ -3,7 +3,7 @@ package ru.malifaux.programming.FTBWL.dictionary.dto;
 import lombok.Data;
 
 @Data
-public class EventStatusDto {
+public class RulepackDTO {
     /** Значение*/
     private String value;
     /** Код*/
