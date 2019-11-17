@@ -3,9 +3,9 @@ package ru.malifaux.programming.FTBWL.common.locations.dto;
 import lombok.Data;
 
 @Data
-public class LocationDTO {
-    private String city;
-    private String place;
+public class PlaceDTO {
+    private CityDTO city;
+    private String name;
     private String street;
     private String building;
     private String coordinates;

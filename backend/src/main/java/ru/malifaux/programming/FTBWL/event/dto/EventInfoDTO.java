@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.malifaux.programming.FTBWL.common.gateway.dto.UserDTO;
-import ru.malifaux.programming.FTBWL.common.locations.dto.LocationDTO;
+import ru.malifaux.programming.FTBWL.common.locations.dto.PlaceDTO;
 import ru.malifaux.programming.FTBWL.dictionary.dto.EventFormatDTO;
 import ru.malifaux.programming.FTBWL.dictionary.dto.EventStatusDTO;
 import ru.malifaux.programming.FTBWL.dictionary.dto.GameSystemDTO;
@@ -27,7 +27,7 @@ public class EventInfoDTO implements DTO {
     /** event organiser*/
     private UserDTO organiser;
     /** event location*/
-    private LocationDTO location;
+    private PlaceDTO place;
     /** game system of event*/
     private GameSystemDTO gameType;
     /** event rule pack*/
