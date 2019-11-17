@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.malifaux.programming.FTBWL.dictionary.entity.GameSystemEntity;
 import ru.malifaux.programming.FTBWL.dictionary.repository.GameSystemRepository;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class GameSystemService {
@@ -16,6 +18,6 @@ public class GameSystemService {
     }
 
     public GameSystemEntity findById(String id){
-        return gameSystemRepository.findById(id).orElseThrow(() -> new RuntimeException("Game system not found"));
+        return gameSystemRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Game system not found"));
     }
 }

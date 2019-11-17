@@ -15,7 +15,7 @@ public class FactionService {
     private final FactionRepository factionRepository;
 
     public FactionEntity findByID(String id) {
-        return factionRepository.findById(id).orElse(null);
+        return factionRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
     public List<FactionEntity> findAll() {

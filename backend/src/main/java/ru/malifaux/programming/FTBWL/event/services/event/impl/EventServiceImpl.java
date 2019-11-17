@@ -9,6 +9,7 @@ import ru.malifaux.programming.FTBWL.event.services.event.EventService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventEntity getByID(String id, EntityGraph eventEntityGraph) {
-        return eventRepository.findById(id, eventEntityGraph).orElseThrow(NullPointerException::new);
+        return eventRepository.findById(UUID.fromString(id), eventEntityGraph).orElseThrow(NullPointerException::new);
     }
 
     @Override

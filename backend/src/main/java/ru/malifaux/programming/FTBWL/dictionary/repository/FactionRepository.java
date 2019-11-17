@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface FactionRepository extends JpaEntityRepository<FactionEntity> {
+public interface FactionRepository extends JpaEntityRepository<FactionEntity, UUID> {
     FactionEntity findBySystemName(String systemName);
 
     List<FactionEntity> findAllByGameSystemId(UUID id);

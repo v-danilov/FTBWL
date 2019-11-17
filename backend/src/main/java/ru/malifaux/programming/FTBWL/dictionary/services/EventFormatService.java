@@ -19,7 +19,7 @@ public class EventFormatService {
     }
 
     public EventFormatEntity findById(String id) {
-        return eventFormatRepository.findById(id).orElseThrow(() -> new RuntimeException("Format not found"));
+        return eventFormatRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Format not found"));
     }
 
     public List<EventFormatEntity> findByGameSystem(UUID gameSystemId){

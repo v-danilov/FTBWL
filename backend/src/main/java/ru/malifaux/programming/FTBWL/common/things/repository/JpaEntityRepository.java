@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import ru.malifaux.programming.FTBWL.common.things.filter.Filter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +17,8 @@ import java.util.Optional;
  */
 
 @NoRepositoryBean
-public interface JpaEntityRepository<T>
-        extends EntityGraphJpaRepository<T, String>, EntityGraphJpaSpecificationExecutor<T> {
+public interface JpaEntityRepository<T, E extends Serializable>
+        extends EntityGraphJpaRepository<T, E>, EntityGraphJpaSpecificationExecutor<T> {
 
     default Page<T> findAll(Filter<T> filter, Pageable pageable) {
         return filter == null ? findAll(pageable) : findAll(filter.toSpecification(), pageable);

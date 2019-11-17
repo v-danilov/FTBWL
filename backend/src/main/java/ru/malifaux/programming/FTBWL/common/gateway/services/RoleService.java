@@ -12,6 +12,7 @@ import ru.malifaux.programming.FTBWL.common.gateway.filters.RoleFilter;
 import ru.malifaux.programming.FTBWL.common.gateway.repository.RoleRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -37,6 +38,6 @@ public class RoleService {
     public RoleEntity findOne(String id){
         EntityGraph entityGraph = EntityGraphUtils.fromAttributePaths("functions");
 
-        return roleRepository.findById(id, entityGraph).orElse(null);
+        return roleRepository.findById(UUID.fromString(id), entityGraph).orElse(null);
     }
 }

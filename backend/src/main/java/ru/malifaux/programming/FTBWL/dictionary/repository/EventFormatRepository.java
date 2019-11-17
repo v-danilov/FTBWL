@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface EventFormatRepository extends DictionaryEntityRepository <EventFormatEntity> {
+public interface EventFormatRepository extends DictionaryEntityRepository<EventFormatEntity, UUID> {
 
     List<EventFormatEntity> findAllByGameSystemId(UUID id);
 }

@@ -6,6 +6,7 @@ import ru.malifaux.programming.FTBWL.dictionary.entity.EventStatusEntity;
 import ru.malifaux.programming.FTBWL.dictionary.repository.EventStatusRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class EventStatusService {
     }
 
     public EventStatusEntity findById(String id){
-        return eventStatusRepository.findById(id).orElseThrow(() -> new RuntimeException("Event status not found"));
+        return eventStatusRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Event status not found"));
     }
 
     public List<EventStatusEntity> findAll() {

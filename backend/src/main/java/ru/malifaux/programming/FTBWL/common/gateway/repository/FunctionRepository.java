@@ -4,10 +4,10 @@ import org.springframework.stereotype.Repository;
 import ru.malifaux.programming.FTBWL.common.gateway.entity.FunctionEntity;
 import ru.malifaux.programming.FTBWL.common.things.repository.JpaEntityRepository;
 
-import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface FunctionRepository extends JpaEntityRepository<FunctionEntity> {
+public interface FunctionRepository extends JpaEntityRepository<FunctionEntity, UUID> {
 
 
 }

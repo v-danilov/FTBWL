@@ -19,7 +19,7 @@ public class RulepackService {
     }
 
     public RulepackEntity findById(String id) {
-        return rulepackRepository.findById(id).orElseThrow(() -> new RuntimeException("Format not found"));
+        return rulepackRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Format not found"));
     }
 
     public List<RulepackEntity> findByGameSystem(UUID gameSystemId){

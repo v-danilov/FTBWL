@@ -12,6 +12,7 @@ import ru.malifaux.programming.FTBWL.dictionary.dto.RulepackDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,5 +41,9 @@ public class EventInfoDTO implements DTO {
     private LocalDateTime timeEnd;
     /** Cost of participation on event*/
     private BigDecimal price;
+    /**
+     * event players
+     **/
+    private List<PlayerDTO> players;
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface RulepackRepository extends DictionaryEntityRepository <RulepackEntity> {
+public interface RulepackRepository extends DictionaryEntityRepository<RulepackEntity, UUID> {
 
     List<RulepackEntity> findAllByGameSystemId(UUID id);
 }
