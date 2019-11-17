@@ -1,7 +1,7 @@
 package ru.malifaux.programming.FTBWL.common.gateway.dto;
 
 import lombok.*;
-import ru.malifaux.programming.FTBWL.common.locations.dto.CityDto;
+import ru.malifaux.programming.FTBWL.common.locations.dto.CityDTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto implements Serializable {
+public class UserDTO implements Serializable {
 
     private String id;
 
@@ -59,15 +59,15 @@ public class UserDto implements Serializable {
      * Признак служебного пользователя
      */
     @NotNull
-    private Boolean isService;
+    private boolean service;
 
     /**
      * Город
      */
-    private CityDto cities;
+    private CityDTO city;
 
     /**
      * Роли пользователя
      */
-    private Set<RoleDto> roles;
+    private Set<RoleDTO> roles;
 }

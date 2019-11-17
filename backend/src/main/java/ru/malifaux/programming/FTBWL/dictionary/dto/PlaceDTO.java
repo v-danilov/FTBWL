@@ -1,4 +1,4 @@
 package ru.malifaux.programming.FTBWL.dictionary.dto;
 
-public class FactionDto {
+public class PlaceDTO {
 }

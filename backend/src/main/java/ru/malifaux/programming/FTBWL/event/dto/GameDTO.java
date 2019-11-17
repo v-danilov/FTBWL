@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GameDto implements DTO {
+public class GameDTO implements DTO {
 
     private String id;
 
@@ -18,7 +18,7 @@ public class GameDto implements DTO {
     private String eventId;
 
     /** Первый игрок*/
-    private PlayerDto player1;
+    private PlayerDTO player1;
 
     /** Турнирные очки первого игрока*/
     private int player1_tp;
@@ -30,7 +30,7 @@ public class GameDto implements DTO {
     private int player1_diff;
 
     /** Первый игрок*/
-    private PlayerDto player2;
+    private PlayerDTO player2;
 
     /** Турнирные очки первого игрока*/
     private int player2_tp;

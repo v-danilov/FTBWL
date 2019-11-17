@@ -1,30 +1,35 @@
 package ru.malifaux.programming.FTBWL.event.controllers;
 
-import lombok.AllArgsConstructor;
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.malifaux.programming.FTBWL.event.dto.EventInfoDto;
+import ru.malifaux.programming.FTBWL.event.converters.OricaMapper;
+import ru.malifaux.programming.FTBWL.event.dto.EventInfoDTO;
 import ru.malifaux.programming.FTBWL.event.entity.EventEntity;
 import ru.malifaux.programming.FTBWL.event.services.event.EventService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping ("${api.version}/event")
+@RequestMapping("${api.version}")
 @RequiredArgsConstructor
 public class EventController {
 
     private final EventService eventService;
 
-    @GetMapping
-    public List<EventInfoDto> getAll(){
-        return eventService.getAll();
+    @GetMapping("/events")
+    public List<EventInfoDTO> getAll() {
+        EntityGraph eventEntityGraph = EntityGraphs.named(EventEntity.EventEntityGraph.EVENT_ENTITY_WITH_ORGANIZER);
+        List<EventEntity> events = eventService.getAll(eventEntityGraph);
+        return OricaMapper.mapListByDefault(events, EventInfoDTO.class);
     }
 
-    @GetMapping("/{id}")
-    public EventEntity findByID(@RequestParam String id) {
-        return eventService.getByID(id);
+    @GetMapping("event/{id}")
+    public EventInfoDTO findByID(@RequestParam String id) {
+        EntityGraph eventEntityGraph = EntityGraphs.named(EventEntity.EventEntityGraph.EVENT_ENTITY_WITH_ORGANIZER);
+        EventEntity event = eventService.getByID(id, eventEntityGraph);
+        return OricaMapper.mapByDefault(event, EventInfoDTO.class);
     }
 
     @PostMapping
