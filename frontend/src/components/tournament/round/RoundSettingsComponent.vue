@@ -155,10 +155,10 @@
 </template>
 
 <script>
-import PairingMainComponent from '../pairing/PairingMainComponent'
-import _ from 'lodash'
+    import PairingMainComponent from '../pairing/PairingMainComponent'
+    import _ from 'lodash'
 
-export default {
+    export default {
   name: 'RoundSettingsComponent',
   components: {PairingMainComponent},
   props: {
