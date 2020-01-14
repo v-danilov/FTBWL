@@ -7,7 +7,7 @@
             <FilterSelectorComponent
               ref="formatSelector"
               label="Формат"
-              main-property="name"
+              main-property="value"
               :data-array=this.$store.getters.cachedFormats
               :selected-elements="filterFormParams.formats"/>
           </v-col>
@@ -147,7 +147,7 @@
             <FilterSelectorComponent
               ref="statusSelector"
               label="Статус"
-              main-property="desc"
+              main-property="value"
               :data-array=this.$store.getters.cachedStatuses
               :selected-elements="filterFormParams.statuses"></FilterSelectorComponent>
           </v-col>

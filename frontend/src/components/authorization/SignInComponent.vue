@@ -46,7 +46,7 @@
                 <v-btn
                   :disabled="!formIsValid"
                   type="submit"
-                  round
+                  rounded
                   large
                   color="primary">
                   Sign in
@@ -54,7 +54,7 @@
                 <v-btn
                   :depressed="true"
                   :text="true"
-                  round
+                  rounded
                   color="primary"
                   to="SignUp"
                   :replace="true">

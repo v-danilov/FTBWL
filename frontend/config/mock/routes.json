@@ -1,5 +1,7 @@
 {
   "/api/*": "/$1",
+  "/dict/gameSystems": "/gameSystems",
+  "/dict/gameSystem/*": "/dicts",
   "/formats/getAll":"/formats",
   "/countries/getAll":"/countries",
   "/cities/getAll":"/cities",

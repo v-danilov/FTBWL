@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import filterCacheModule from './modules/filterCacheModule'
-import commonModule from './modules/commonModule'
+import dictCacheModule from './modules/dictCacheModule'
 import pairingPlayersModule from './modules/pairingPlayersModule'
 
 Vue.use(Vuex)
@@ -16,8 +15,7 @@ export const store = new Vuex.Store({
   // this.$store.dispatch("SET_USER",user) asynchronous
   actions: {},
   modules: {
-    commonModule,
-    filterCacheModule,
+    dictCacheModule,
     pairingPlayersModule
   }
 })

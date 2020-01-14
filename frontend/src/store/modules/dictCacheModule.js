@@ -3,6 +3,8 @@ import Axios from 'axios'
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
 const state = {
+  gameSystems: localStorage.getItem('gameSystems') || [],
+  fractions: localStorage.getItem('fractions') || [],
   formats: localStorage.getItem('formats') || [],
   countries: localStorage.getItem('countries') || [],
   cities: localStorage.getItem('cities') || [],
@@ -11,6 +13,8 @@ const state = {
   statuses: localStorage.getItem('statuses') || []
 }
 const getters = {
+  cachedGameSystems: state => state.gameSystems,
+  cachedFractions: state => state.fractions,
   cachedFormats: state => state.formats,
   cachedCountries: state => state.countries,
   cachedCities: state => state.cities,
@@ -20,6 +24,12 @@ const getters = {
 }
 // this.$store.commit(“SET_USER”, user) synchronous
 const mutations = {
+  SET_GAME_SYSTEMS: (state, payload) => {
+    state.gameSystems = payload
+  },
+  SET_FACTIONS: (state, payload) => {
+    state.fractions = payload
+  },
   SET_FORMATS: (state, payload) => {
     state.formats = payload
   },
@@ -42,14 +52,47 @@ const mutations = {
 // this.$store.dispatch("SET_USER",user) asynchronous
 
 const actions = {
+  INIT_DICTS: async (context, url) => {
+    await Axios.get(url)
+      .then(response => {
+        if (response.status === HTTPResponseStatusConstants.OK) {
+          context.commit('SET_FORMATS', response.data.eventFormats)
+          context.commit('SET_STATUSES', response.data.eventStatuses)
+          context.commit('SET_FACTIONS', response.data.factions)
+          context.commit('SET_PLACES', response.data.places)
+        }
+      }).catch(reason => {
+        console.log('Failed to cache dictionatries 🤷‍♂️' + reason)
+      })
+  },
+  INIT_GAME_SYSTEMS: (context, url) => {
+    return Axios.get(url).then(response => {
+      if (response.status === HTTPResponseStatusConstants.OK) {
+        context.commit('SET_GAME_SYSTEMS', response.data)
+        return response.data
+      }
+    }).catch(reason => {
+      console.log('URL is ' + url)
+      console.log('Failed to cache game systems 🤷‍♂️')
+    })
+  },
+  INIT_FACTIONS: (context, url) => {
+    Axios.get(url).then(response => {
+      if (response.status === HTTPResponseStatusConstants.OK) {
+        context.commit('SET_FACTIONS', response.data)
+      }
+    }).catch(reason => {
+      console.log('URL is ' + url)
+      console.log('Failed to cache fractions 🤷‍♂️')
+    })
+  },
   INIT_FORMATS: async (context, url) => {
     await Axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_FORMATS', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache formats 🤷‍♂️')
       })
   },
@@ -59,8 +102,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_COUNTRIES', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache countries 🤷‍♂️')
       })
   },
@@ -71,8 +113,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_CITIES', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache cities 🤷‍♂️')
       })
   },
@@ -82,8 +123,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_PLACES', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache places 🤷‍♂️')
       })
   },
@@ -93,8 +133,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_ORGANIZERS', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache organizers 🤷‍♂️')
       })
   },
@@ -104,8 +143,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_STATUSES', response.data.payload)
         }
-      })
-      .catch(reason => {
+      }).catch(reason => {
         console.log('Failed to cache statuses 🤷‍♂️')
       })
   }

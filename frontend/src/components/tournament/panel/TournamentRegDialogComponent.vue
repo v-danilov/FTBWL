@@ -35,7 +35,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="accent" text @click="dialog = false">Отмена</v-btn>
-        <v-btn color="primary" round @click="registerUser">Зарегистрироваться</v-btn>
+        <v-btn color="primary" rounded @click="registerUser">Зарегистрироваться</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -81,7 +81,9 @@ export default {
   },
   methods: {
     generateIconLink (name) {
-      return require('@/assets/fractions/' + name.toLowerCase().replace(' ', '-') + '.png')
+      return require('@/assets/fractions/' + name.toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/’/g, '') + '.png')
     },
     registerUser () {
       const userRegData = {

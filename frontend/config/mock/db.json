@@ -16,6 +16,132 @@
       }
     }
   ],
+  "gameSystems": [
+    {
+      "id": "d6b2a4b8-0784-48e3-83c1-a0b10c038b5d",
+      "value": "Malifaux",
+      "code": "MAL"
+    },
+    {
+      "id": "88c966e2-c77c-4247-b440-04c28eb7e71b",
+      "value": "The Other Side",
+      "code": "TOS"
+    }
+  ],
+  "dicts": {
+    "eventStatuses": [
+      {
+        "value": "Will be available soon",
+        "code": "REG_WAIT"
+      },
+      {
+        "value": "Registration",
+        "code": "REG_ON"
+      },
+      {
+        "value": "Registration is closed",
+        "code": "REG_OFF"
+      },
+      {
+        "value": "Started",
+        "code": "START"
+      },
+      {
+        "value": "Canceled",
+        "code": "CANCEL"
+      },
+      {
+        "value": "Now playing",
+        "code": "PLAY"
+      },
+      {
+        "value": "Finished",
+        "code": "END"
+      },
+      {
+        "value": "Pause",
+        "code": "PAUSE"
+      }
+    ],
+    "eventFormats": [
+      {
+        "value": "35 scrips",
+        "code": "T35SS"
+      },
+      {
+        "value": "50 scrips",
+        "code": "T50SS"
+      }
+    ],
+    "rulePacks": [
+      {
+        "value": "Malifaux 3rd Rulebook",
+        "code": "MAL_3ED_CORE"
+      }
+    ],
+    "factionEntities": [
+      {
+        "systemName": "Arcanists",
+        "name": "Arcanists"
+      },
+      {
+        "systemName": "Bayou",
+        "name": "Bayou"
+      },
+      {
+        "systemName": "Resurrectionists",
+        "name": "Resurrectionists"
+      },
+      {
+        "systemName": "Neverborn",
+        "name": "Neverborn"
+      },
+      {
+        "systemName": "Outcasts",
+        "name": "Outcasts"
+      },
+      {
+        "systemName": "Ten Thunders",
+        "name": "Ten Thunders"
+      },
+      {
+        "systemName": "The Guild",
+        "name": "The Guild"
+      }
+    ],
+    "places": [
+      {
+        "city": {
+          "id": "4",
+          "name": "Санкт-Петербург"
+        },
+        "name": "Хобби центр Geek Wars",
+        "street": "Лиговский просп.",
+        "building": "111-113-115И",
+        "coordinates": "59.919202, 30.352780"
+      },
+      {
+        "city": {
+          "id": "3",
+          "name": "Москва"
+        },
+        "name": "Котёл с чертями",
+        "street": "Третий поворот после второго",
+        "building": "17",
+        "coordinates": "42.434451, -83.9874014"
+      },
+      {
+        "city": {
+          "id": "4",
+          "name": "Санкт-Петербург"
+        },
+        "name": "Подвал с крысами",
+        "street": "Виа Делла Зизиола",
+        "building": "42",
+        "coordinates": "11.4867936, -91.1883723"
+      }
+    ]
+  },
   "getCitiesByPrefix": {
     "payload": [
       {
@@ -77,13 +203,16 @@
       {
         "id": 1,
         "name": "Лиговка"
-      }, {
+      },
+      {
         "id": 2,
         "name": "Не лиговка"
-      }, {
+      },
+      {
         "id": 3,
         "name": "Черноголвка"
-      }, {
+      },
+      {
         "id": 4,
         "name": "Белоголовка"
       }
@@ -97,28 +226,32 @@
         "name": "Клавдий",
         "patronymic": "Денисович",
         "alias": "BorisovKlavdiy183"
-      }, {
+      },
+      {
         "id": 2,
-        "surname":  "Скачков",
-        "name":  "Каллистрат",
+        "surname": "Скачков",
+        "name": "Каллистрат",
         "patronymic": "Вениаминович",
         "alias": "SkachkovKallistrat344"
-      }, {
+      },
+      {
         "id": 3,
-        "surname":  "Голубева",
-        "name":  "Анна",
+        "surname": "Голубева",
+        "name": "Анна",
         "patronymic": "Борисовна",
         "alias": "GolubevaAnna203"
-      }, {
+      },
+      {
         "id": 4,
-        "surname":  "Морозова",
-        "name":  "Тамара",
+        "surname": "Морозова",
+        "name": "Тамара",
         "patronymic": "Дмитриевна",
         "alias": "MorozovaTamara341"
-      }, {
+      },
+      {
         "id": 5,
-        "surname":  "Куколевская",
-        "name":  "Пелагея",
+        "surname": "Куколевская",
+        "name": "Пелагея",
         "patronymic": "Стпановна",
         "alias": "KukolevskayaPelageya334"
       }
@@ -130,64 +263,66 @@
         "id": 1,
         "status": 1,
         "desc": "Регистрация"
-      }, {
-        "id":  3,
-        "status":  0,
+      },
+      {
+        "id": 3,
+        "status": 0,
         "desc": "Окончен"
-      }, {
-        "id":  2,
-        "status":  2,
+      },
+      {
+        "id": 2,
+        "status": 2,
         "desc": "Игра"
       }
     ]
   },
   "tournaments": [
-      {
-        "id": 1,
-        "status":{
-         "name": "Открыта регистрация",
-          "systemName": "REGISTRATION_OPEN"
-        },
-        "city": "Санкт-Петербург",
-        "place": "Хобби центр Geek Wars",
-        "organizer": "Николаев Николай",
-        "startDate": "22.04.2019, 11:30",
-        "endDate": "22.04.2019, 18.00",
-        "price": "1724",
-        "format": "50 SS",
-        "name": "Турик намбер ван"
+    {
+      "id": 1,
+      "status": {
+        "name": "Открыта регистрация",
+        "systemName": "REGISTRATION_OPEN"
       },
-      {
-        "id": 2,
-        "status": {
-          "name":"Запланирован",
-          "systemName": "SCHEDULED"
-        },
-        "city": "Москва",
-        "place": "Хобби центр Geek Wars",
-        "organizer": "Сергеев Сергей",
-        "startDate": "7.07.2020, 10:00",
-        "endDate": "8.07.2020, 20:00",
-        "price": "2617",
-        "format": "35 SS",
-        "name": "Турик намбер ту"
+      "city": "Санкт-Петербург",
+      "place": "Хобби центр Geek Wars",
+      "organizer": "Николаев Николай",
+      "startDate": "22.04.2019, 11:30",
+      "endDate": "22.04.2019, 18.00",
+      "price": "1724",
+      "format": "50 SS",
+      "name": "Турик намбер ван"
+    },
+    {
+      "id": 2,
+      "status": {
+        "name": "Запланирован",
+        "systemName": "SCHEDULED"
       },
-      {
-        "id": 3,
-        "status": {
-          "name": "Завершен",
-          "systemName": "CLOSED"
-        },
-        "city": "Гродно",
-        "place": "ул. Солнечная, д. 24, ТЦ 'Бульбашка-молдовашка'",
-        "organizer": "Катеринова Екатерина",
-        "startDate": "",
-        "endDate": "12.02.2019",
-        "price": "819",
-        "format": "50 SS",
-        "name": "Турик намбер сри"
-      }
-    ],
+      "city": "Москва",
+      "place": "Хобби центр Geek Wars",
+      "organizer": "Сергеев Сергей",
+      "startDate": "7.07.2020, 10:00",
+      "endDate": "8.07.2020, 20:00",
+      "price": "2617",
+      "format": "35 SS",
+      "name": "Турик намбер ту"
+    },
+    {
+      "id": 3,
+      "status": {
+        "name": "Завершен",
+        "systemName": "CLOSED"
+      },
+      "city": "Гродно",
+      "place": "ул. Солнечная, д. 24, ТЦ 'Бульбашка-молдовашка'",
+      "organizer": "Катеринова Екатерина",
+      "startDate": "",
+      "endDate": "12.02.2019",
+      "price": "819",
+      "format": "50 SS",
+      "name": "Турик намбер сри"
+    }
+  ],
   "tournament": [
     {
       "id": 1,
@@ -311,8 +446,8 @@
   ],
   "fractions": [
     {
-    "id": 1,
-    "name": "Arcanists"
+      "id": 1,
+      "name": "Arcanists"
     },
     {
       "id": 2,

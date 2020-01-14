@@ -21,7 +21,7 @@
         <v-spacer></v-spacer>
         <v-btn v-if="isMultiAction"
                color="primary"
-               round
+               rounded
                text
                @click="confirm">
           Подтвердить
@@ -29,7 +29,7 @@
         <v-btn
           color="accent"
           text
-          round
+          rounded
           @click="cancel"
         >
           Отмена

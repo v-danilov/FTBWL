@@ -24,7 +24,6 @@ export default {
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme
-      console.log(this.$vuetify.theme)
       const out = {}
       for (const name of Object.keys(currentVTheme)) {
         out[`--v-color-${name}`] = currentVTheme[name]
@@ -34,13 +33,13 @@ export default {
   },
   methods: {
     initStoreValues () {
-      this.$store.dispatch(ACTIONS.CACHE_INIT.FORMATS, END_POINTS.GET_ALL.FORMATS)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.COUNTRIES, END_POINTS.GET_ALL.COUNTRIES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.CITIES, END_POINTS.GET_ALL.CITIES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.PLACES, END_POINTS.GET_ALL.PLACES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.ORGANIZERS, END_POINTS.GET_ALL.ORGANIZERS)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.STATUSES, END_POINTS.GET_ALL.STATUSES)
-      this.$store.dispatch(ACTIONS.CACHE_INIT.FRACTIONS, END_POINTS.GET_ALL.FRACTIONS)
+      // Initialize game system cache first
+      this.$store.dispatch(ACTIONS.CACHE_INIT.GAME_SYSTEMS, END_POINTS.GET_ALL.GAME_SYSTEMS).then(gameSystems => {
+        // Initialize dictionary cache after that
+        console.log(this.$store.getters.cachedGameSystems[0])
+        let malifauxID = this.$store.getters.cachedGameSystems[0].id // todo cache by selected game system
+        this.$store.dispatch(ACTIONS.CACHE_INIT.ALL_DICTS, END_POINTS.GET_ALL.DICTS_BY_GAME_SYSTEM + malifauxID)
+      })
     }
   },
 

@@ -1,5 +1,7 @@
 export const END_POINTS = {
   GET_ALL: {
+    GAME_SYSTEMS: '/dict/gameSystems',
+    DICTS_BY_GAME_SYSTEM: '/dict/gameSystem/',
     FORMATS: '/formats/getAll',
     COUNTRIES: '/countries/getAll',
     CITIES: '/cities/getAll',
