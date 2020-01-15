@@ -34,7 +34,7 @@
         </v-card-title>
         <!-- Body -->
         <v-card-text>
-          <v-hover v-slot:default="{ hover }" v-for="(player, index) in players" :key="index">
+          <v-hover v-slot:default="{ hover }" v-for="(player, index) in selectedTournament.players" :key="index">
             <v-row class="selected-row" dense :class="{ 'on-hover': hover }" justify="center">
               <v-col cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{index + 1}}
@@ -43,7 +43,7 @@
                 {{player.name}}
               </v-col>
               <v-col cols="2" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.faction}}
+                {{player.faction.systemName}}
               </v-col>
               <v-col cols="1" class="text-center" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.tp}}
@@ -84,7 +84,7 @@
       </v-card>
     </v-tab-item>
     <!-- Вкладки раундов -->
-    <template v-for="(round, index) in rounds">
+    <template v-for="(round, index) in selectedTournament.rounds">
       <v-tab :key="index"
              ripple
              @change="selectedRoundNumber = index">
@@ -147,7 +147,7 @@
         </v-card>
         <v-row>
           <!-- Left column with tables -->
-          <v-col cols="4" v-for="(table, index) in rounds[selectedRoundNumber].tables" :key="index">
+          <v-col cols="4" v-for="(table, index) in selectedTournament.rounds[selectedRoundNumber].tables" :key="index">
             <TablesInfoComponent :table="table"/>
           </v-col>
           <!-- Right column with tables -->
@@ -176,10 +176,7 @@ export default {
   name: 'TournamentInfoBodyComponent',
   components: {RoundSettingsComponent, TablesInfoComponent},
   props: {
-    rounds: {
-      type: Array,
-      required: true
-    }
+    selectedTournament: {}
   },
   data () {
     return {
@@ -187,65 +184,7 @@ export default {
       hideTournamentInfo: false,
       roundSettingDialog: false,
       selectedRoundNumber: 0,
-      playersDataSaving: false,
-      players: [
-        {
-          name: 'Тихомиров \'Витязь\' Борислав',
-          faction: 'Arcanists',
-          tp: 11,
-          vp: 14,
-          diff: 28,
-          isCanceled: false
-        },
-        {
-          name: 'Кузнецова \'Коралл\' Клара',
-          faction: 'Bayou',
-          tp: 1,
-          vp: 18,
-          diff: 18,
-          isCanceled: false
-        },
-        {
-          name: 'Трофимова \'Принцесса\' Диана',
-          faction: 'Neverborn',
-          tp: 20,
-          vp: 15,
-          diff: 46,
-          isCanceled: false
-        },
-        {
-          name: 'Шмидт \'Штирлиц\' Савва',
-          faction: 'Outcasts',
-          tp: 9,
-          vp: 18,
-          diff: 39,
-          isCanceled: false
-        },
-        {
-          name: 'Троицкий \'Космический\' Галактион',
-          faction: 'Resurrectionists',
-          tp: 14,
-          vp: 14,
-          diff: 45,
-          isCanceled: false
-        },
-        {
-          name: 'Романова \'Зелёная\' Лиана',
-          faction: 'Ten thunders',
-          tp: 2,
-          vp: 8,
-          diff: 34,
-          isCanceled: false
-        },
-        {
-          name: 'Тайский \'Острый\' Каллистрат',
-          faction: 'The Guild',
-          tp: 10,
-          vp: 8,
-          diff: 43,
-          isCanceled: false
-        }
-      ]
+      playersDataSaving: false
     }
   },
   methods: {
@@ -263,11 +202,11 @@ export default {
   },
   computed: {
     evenTables () {
-      let currentRound = this.rounds[this.selectedRoundNumber]
+      let currentRound = this.selectedTournament.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 === 0)
     },
     oddTables () {
-      let currentRound = this.rounds[this.selectedRoundNumber]
+      let currentRound = this.selectedTournament.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 !== 0)
     },
     hideInfoComponents: {

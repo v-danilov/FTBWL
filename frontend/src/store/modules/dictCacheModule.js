@@ -14,7 +14,7 @@ const state = {
 }
 const getters = {
   cachedGameSystems: state => state.gameSystems,
-  cachedFractions: state => state.fractions,
+  cachedFactions: state => state.factions,
   cachedFormats: state => state.formats,
   cachedCountries: state => state.countries,
   cachedCities: state => state.cities,
@@ -28,7 +28,7 @@ const mutations = {
     state.gameSystems = payload
   },
   SET_FACTIONS: (state, payload) => {
-    state.fractions = payload
+    state.factions = payload
   },
   SET_FORMATS: (state, payload) => {
     state.formats = payload
@@ -58,6 +58,7 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_FORMATS', response.data.eventFormats)
           context.commit('SET_STATUSES', response.data.eventStatuses)
+          console.log(response.data.factions)
           context.commit('SET_FACTIONS', response.data.factions)
           context.commit('SET_PLACES', response.data.places)
         }

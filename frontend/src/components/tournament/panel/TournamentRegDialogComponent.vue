@@ -73,7 +73,7 @@ export default {
       }
     },
     storedElements () {
-      let elements = this.$store.getters.cachedFractions
+      let elements = this.$store.getters.cachedFactions
       let fractionsData = []
       elements.forEach(el => fractionsData.push({id: el.id, name: el.name, imgPath: this.generateIconLink(el.name)}))
       return fractionsData

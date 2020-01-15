@@ -79,7 +79,7 @@
         "code": "MAL_3ED_CORE"
       }
     ],
-    "factionEntities": [
+    "factions": [
       {
         "systemName": "Arcanists",
         "name": "Arcanists"
@@ -156,7 +156,7 @@
   },
   "tournaments": [
     {
-      "id": 1,
+      "id": "5f86dd05-146f-478c-8764-c0c064259b9e",
       "status": {
         "name": "Открыта регистрация",
         "systemName": "REGISTRATION_OPEN"
@@ -201,125 +201,229 @@
       "name": "Турик намбер сри"
     }
   ],
-  "tournament": [
-    {
-      "id": 1,
-      "name": "Турик намбер ван",
-      "place": "Geek Wars СПб, Санкт-Петербург, Лиговский пр. 111-113-115",
-      "date": "18.07.2018, 11.00 - 18.07.2018, 18.00",
-      "format": "50 SS",
-      "roundsNumber": 3,
-      "schemePool": "GG2018",
-      "colorRequirements": "Лидер и хенчманы",
-      "status": "Проводится",
-      "participantsNumber": 16,
-      "price": 500,
-      "organizer": "Эдуар 'Панда' Валентукович",
-      "rounds": [
-        {
-          "id": 1,
-          "roundNum": 1,
-          "startDate": "08.07.2018 11:15",
-          "endDate": "08.07.2018 13:15",
-          "status": "Завершен",
-          "arrangement": "Standard",
-          "strategy": "Ply for information",
-          "schemes": "Схема 1, Схема 2, Схема 3, Схема 4, Схема 5",
-          "tables": [
-            {
-              "tableNumber": 1,
-              "firstPlayer": {
-                "name": "Ярослав 'Солнышко' Скоробогатько",
-                "fraction": "Arcanists",
-                "tp": 3,
-                "vp": 10
-              },
-              "secondPlayer": {
-                "name": "Владислав 'Любовничек' Суглобов",
-                "fraction": "Gremlins",
-                "tp": 0,
-                "vp": 9
-              },
-              "winner": "left"
-            },
-            {
-              "tableNumber": 2,
-              "firstPlayer": {
-                "name": "Ярослав 'Солнышко' Скоробогатько",
-                "fraction": "Arcanists",
-                "tp": 5,
-                "vp": 5
-              },
-              "secondPlayer": {
-                "name": "Владислав 'Любовничек' Суглобов",
-                "fraction": "Gremlins",
-                "tp": 3,
-                "vp": 10
-              },
-              "winner": "right"
-            },
-            {
-              "tableNumber": 3,
-              "firstPlayer": {
-                "name": "Троицкий 'Космический' Галактион",
-                "fraction": "Resurrectionists",
-                "tp": 5,
-                "vp": 5
-              },
-              "secondPlayer": {
-                "name": "Тайский 'Острый' Каллистрат",
-                "fraction": "The Guild",
-                "tp": 3,
-                "vp": 10
-              },
-              "winner": "right"
-            },
-            {
-              "tableNumber": 4,
-              "firstPlayer": {
-                "name": "Кузнецова 'Коралл' Клара",
-                "fraction": "Bayou",
-                "tp": 5,
-                "vp": 5
-              },
-              "secondPlayer": {
-                "name": "Романова 'Зелёная' Лиана",
-                "fraction": "Ten thunders",
-                "tp": 3,
-                "vp": 10
-              },
-              "winner": "right"
-            },
-            {
-              "tableNumber": 5,
-              "firstPlayer": {
-                "name": "Троицкий 'Космический' Галактион",
-                "fraction": "Resurrectionists",
-                "tp": 5,
-                "vp": 5
-              },
-              "secondPlayer": {
-                "name": "Тайский 'Острый' Каллистрат",
-                "fraction": "The Guild",
-                "tp": 3,
-                "vp": 10
-              },
-              "winner": "right"
-            }
-          ]
+  "tournament": {
+    "id": "5f86dd05-146f-478c-8764-c0c064259b9e",
+    "name": "Турик намбер ту",
+    "status": {
+      "value": "Will be available soon",
+      "code": "REG_WAIT"
+    },
+    "organizer": {
+      "id": "e6a48c82-2009-44d2-9f62-caa782168aac",
+      "username": "admin",
+      "password": "21232F297A57A5A743894A0E4A801FC3",
+      "firstName": "Admin",
+      "nickname": "admin",
+      "lastName": "Admin",
+      "fullName": null,
+      "code": "test",
+      "email": "admin@admin.admin",
+      "service": false,
+      "city": null,
+      "roles": []
+    },
+    "place": {
+      "city": {
+        "id": "4",
+        "name": "Санкт-Петербург"
+      },
+      "name": "Хобби центр Geek Wars",
+      "street": "Лиговский просп.",
+      "building": "111-113-115И",
+      "coordinates": "59.919202, 30.352780"
+    },
+    "gameType": null,
+    "rulepack": {
+      "value": "Malifaux 3rd Rulebook",
+      "code": "MAL_3ED_CORE"
+    },
+    "format": {
+      "value": "35 scrips",
+      "code": "T35SS"
+    },
+    "rounds": [
+      {
+        "timeStart": "2019-04-07T00:34:51",
+        "timeEnd": "2019-01-01T23:20:59",
+        "status": {
+          "value": "Started",
+          "code": "START"
         },
-        {
-          "id": 2,
-          "roundNum": 2,
-          "startDate": "08.07.2018 14:00",
-          "endDate": "08.07.2018",
-          "status": "Открыт",
-          "arrangement": "Standard",
-          "strategy": "Ply for information",
-          "schemes": "Схема 1, Схема 2, Схема 3, Схема 4, Схема 5",
-          "tables": []
+        "schemePool": {
+          "gameDeploy": {
+            "name": null,
+            "systemName": "Flank Deployment",
+            "description": "The table is divided into four Quarters. A player will deploy within 9” of the table edges within one Quarter, with the opponent deploying in the opposite Quarter.",
+            "suit": {
+              "name": null,
+              "systemName": "Masks"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          },
+          "gameStrategy": {
+            "name": null,
+            "systemName": "Corrupted Idols",
+            "description": null,
+            "suit": {
+              "name": null,
+              "systemName": "Masks"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          }
+        },
+        "roundNum": 3
+      },
+      {
+        "timeStart": "2019-02-17T22:53:43",
+        "timeEnd": "2019-02-07T10:41:24",
+        "status": {
+          "value": "Finished",
+          "code": "END"
+        },
+        "schemePool": {
+          "gameDeploy": {
+            "name": null,
+            "systemName": "Standard Deployment",
+            "description": "A player will deploy within 8” of a chosen Table Edge, with the opponent deploying within 8” of the opposite Table Edge",
+            "suit": {
+              "name": null,
+              "systemName": "Toms"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          },
+          "gameStrategy": {
+            "name": null,
+            "systemName": "Plant explosives",
+            "description": null,
+            "suit": {
+              "name": null,
+              "systemName": "Toms"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          }
+        },
+        "roundNum": 1
+      },
+      {
+        "timeStart": "2019-07-02T05:36:02",
+        "timeEnd": "2019-06-02T01:31:18",
+        "status": {
+          "value": "Finished",
+          "code": "END"
+        },
+        "schemePool": {
+          "gameDeploy": {
+            "name": null,
+            "systemName": "Standard Deployment",
+            "description": "A player will deploy within 8” of a chosen Table Edge, with the opponent deploying within 8” of the opposite Table Edge",
+            "suit": {
+              "name": null,
+              "systemName": "Toms"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          },
+          "gameStrategy": {
+            "name": null,
+            "systemName": "Plant explosives",
+            "description": null,
+            "suit": {
+              "name": null,
+              "systemName": "Toms"
+            },
+            "rulepack": {
+              "value": "Malifaux 3rd Rulebook",
+              "code": "MAL_3ED_CORE"
+            }
+          }
+        },
+        "roundNum": 2
+      }
+    ],
+    "timeStart": "2020-03-12T02:02:08",
+    "timeEnd": "2020-03-12T10:02:08",
+    "price": 500,
+    "schemePool": null,
+    "totalTours": null,
+    "players": [
+      {
+        "id": "4f7446fa-f6ea-4b1e-88bc-c6d7e201d68e",
+        "fullName": null,
+        "eventId": null,
+        "tp": 7,
+        "diff": 3,
+        "vp": 4,
+        "games": 0,
+        "pos": 0,
+        "ringer": false,
+        "leaved": false,
+        "faction": {
+          "systemName": "Neverborn",
+          "name": "Neverborn"
         }
-      ]
-    }
-  ]
+      },
+      {
+        "id": "c636e298-9170-4040-a06a-fa940e789a43",
+        "fullName": null,
+        "eventId": null,
+        "tp": 8,
+        "diff": 1,
+        "vp": 7,
+        "games": 0,
+        "pos": 0,
+        "ringer": false,
+        "leaved": false,
+        "faction": {
+          "systemName": "Court Of Two",
+          "name": "Court Of Two"
+        }
+      },
+      {
+        "id": "8b9ca1d3-3f05-458e-adf6-977e57438123",
+        "fullName": null,
+        "eventId": null,
+        "tp": 88,
+        "diff": 1,
+        "vp": 3,
+        "games": 0,
+        "pos": 0,
+        "ringer": false,
+        "leaved": false,
+        "faction": {
+          "systemName": "Cult Of The Burning Man",
+          "name": "Cult Of The Burning Man"
+        }
+      },
+      {
+        "id": "c144a914-db26-4f66-a309-f5c70ea6d9ff",
+        "fullName": null,
+        "eventId": null,
+        "tp": 8,
+        "diff": 2,
+        "vp": 9,
+        "games": 0,
+        "pos": 0,
+        "ringer": false,
+        "leaved": false,
+        "faction": {
+          "systemName": "The Guild",
+          "name": "The Guild"
+        }
+      }
+    ]
+  }
 }

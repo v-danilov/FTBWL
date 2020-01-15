@@ -2,12 +2,5 @@
   "/api/*": "/$1",
   "/dict/gameSystems": "/gameSystems",
   "/dict/gameSystem/*": "/dicts",
-  "/formats/getAll":"/formats",
-  "/countries/getAll":"/countries",
-  "/cities/getAll":"/cities",
-  "/places/getAll":"/places",
-  "/organizers/getAll":"/organizers",
-  "/statuses/getAll":"/statuses",
-  "/tournaments/getAll": "/tournaments",
-  "/fractions/getAll": "/fractions"
+  "/tournament/:id": "/tournament?id=:id"
 }

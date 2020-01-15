@@ -40,7 +40,7 @@ const router = new Router({
       component: TournamentPanelComponent
     },
     {
-      path: '/tournamentInfo/:tournamentId',
+      path: '/tournament/:tournamentId',
       name: 'TournamentInfoMainComponent',
       component: TournamentInfoMainComponent,
       props: true

@@ -8,7 +8,7 @@ export const END_POINTS = {
     PLACES: '/places/getAll',
     ORGANIZERS: '/organizers/getAll',
     STATUSES: '/statuses/getAll',
-    TOURNAMENTS: '/tournaments/getAll',
+    TOURNAMENTS: '/tournaments',
     FRACTIONS: '/fractions/getAll'
   },
   TOURNAMENT: {

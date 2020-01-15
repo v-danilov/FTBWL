@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     openTournament (tournamentId) {
-      this.$router.push(`/tournamentInfo/${tournamentId}`)
+      this.$router.push(`/tournament/${tournamentId}`)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {

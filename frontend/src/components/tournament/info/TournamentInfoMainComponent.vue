@@ -3,10 +3,8 @@
     <template v-if="!loadingError">
     <TournamentInfoHeaderComponent v-if="!componentsHidden"
                                    :selected-tournament="selectedTournament"/>
-    <!--<TournamentInfoParametersComponent v-if="componentsHidden"
-                                       :selected-tournament="selectedTournament"/>-->
     <TournamentInfoBodyComponent @hide-info-components="changeVisibility"
-                                 :rounds="selectedTournament.rounds || []"/>
+                                 :selected-tournament="selectedTournament || []"/>
     </template>
     <template v-else>
       <v-row>
