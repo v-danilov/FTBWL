@@ -22,9 +22,9 @@
         <v-stepper-content step="1">
           <v-row class="fill-height" align="center" justify="center">
             <v-col cols="6">
-              <v-combobox v-model="systemsCombobox.selected"
-                          :items="systemsCombobox.items"
-                          item-text="name"
+              <v-combobox :items="this.$store.getters.cachedGameSystems.items"
+                          item-text="value"
+                          v-model="selectedSystem"
                           :return-object="true"
                           required
                           label="Выберите систему для проведения турнира">
@@ -32,7 +32,7 @@
             </v-col>
           </v-row>
           <v-btn
-            :disabled="systemsCombobox.selected === null"
+            :disabled="selectedSystem === null"
             color="primary"
             @click="e1 = 2"
           >
@@ -52,9 +52,9 @@
           <v-row justify="center">
             <!-- Формат проведения -->
             <v-col cols="4">
-              <v-combobox v-model="formatsCombobox.selected"
-                          :items="formatsCombobox.items"
-                          item-text="name"
+              <v-combobox :items="this.$store.getters.cachedFormats"
+                          item-text="value"
+                          v-model="selectedFormat"
                           :return-object="true"
                           label="Формат"
                           required>
@@ -62,8 +62,8 @@
             </v-col>
             <!-- Схемпул (рулпак) -->
             <v-col cols="4">
-              <v-combobox v-model="rulesPacksCombobox.selected"
-                          :items="rulesPacksCombobox.items"
+              <v-combobox :items="this.$store.getters.cachedRulePacks"
+                          v-model="selectedRulePack"
                           item-text="name"
                           :return-object="true"
                           label="Rulepack"
@@ -74,8 +74,8 @@
           <v-row justify="center">
             <!-- Место проведения -->
             <v-col cols="4">
-              <v-combobox v-model="placesCombobox.selected"
-                          :items="placesCombobox.items"
+              <v-combobox :items="this.$store.getters.cachedPlaces"
+                          v-model="selectedPlace"
                           item-text="name"
                           :return-object="true"
                           append-icon="location_on"
@@ -202,24 +202,24 @@
   </v-dialog>
 </template>
 <script>
-import TournamentInfoBodyComponent from '../info/side/TournamentInfoBodyComponent'
-import TournamentInfoParametersComponent from '../info/side/TournamentInfoParametersComponent'
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import UserSession from '../../../store/cookie/userSessionClass'
-import {mask, tokens} from 'vue-the-mask'
+  import TournamentInfoBodyComponent from '../info/side/TournamentInfoBodyComponent'
+  import TournamentInfoParametersComponent from '../info/side/TournamentInfoParametersComponent'
+  import {END_POINTS} from '../../util/constants/EndPointsConstants'
+  import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+  import UserSession from '../../../store/cookie/userSessionClass'
+  import {mask, tokens} from 'vue-the-mask'
 
-export default {
-  directives: {
-    mask, tokens
-  },
-  name: 'TournamentCreateComponent',
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
+  export default {
+    directives: {
+      mask, tokens
+    },
+    name: 'TournamentCreateComponent',
+    props: {
+      visible: {
+        type: Boolean,
+        required: true
+      }
+    },
   components: {TournamentInfoParametersComponent, TournamentInfoBodyComponent},
   created () {
     tokens.H = {pattern: /[0-2]/}
@@ -232,41 +232,10 @@ export default {
       e1: 0,
       menu: false,
       tournamentName: '',
-      systemsCombobox: {
-        items: [
-          {id: 1, name: 'Система 1'},
-          {id: 2, name: 'Система 2'},
-          {id: 3, name: 'Система 3'},
-          {id: 4, name: 'Система 4'}
-        ],
-        selected: null
-      },
-      formatsCombobox: {
-        items: [
-          {id: 1, name: '50 SS'},
-          {id: 2, name: '30 SS'},
-          {id: 3, name: '9000 SS'}
-        ],
-        selected: null
-      },
-      placesCombobox: {
-        items: [
-          {id: 1, name: 'GeekWars'},
-          {id: 2, name: 'WarsGeek'},
-          {id: 3, name: 'WarsWars'},
-          {id: 4, name: 'GeekGeek'}
-        ],
-        selected: null
-      },
-      rulesPacksCombobox: {
-        items: [
-          {id: 1, name: 'GG2018'},
-          {id: 2, name: 'GG2019'},
-          {id: 3, name: 'WP2020'},
-          {id: 4, name: 'GLHF2k50'}
-        ],
-        selected: null
-      },
+      selectedSystem: null,
+      selectedFormat: null,
+      selectedPlace: null,
+      selectedRulePack: null,
       price: 0,
       date: new Date().toISOString().substr(0, 10),
       timeMask: 'Hh:Mm', // ^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$

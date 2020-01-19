@@ -46,31 +46,31 @@
 </template>
 
 <script>
-import TournamentFilterComponent from './filter/TournamentFilterComponent'
-import TournamentCardComponent from './TournamentCardComponent'
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import TournamentRegDialogComponent from './TournamentRegDialogComponent'
-import TournamentCreateComponent from './TournamentCreateComponent'
+  import TournamentFilterComponent from './filter/TournamentFilterComponent'
+  import TournamentCardComponent from './TournamentCardComponent'
+  import {END_POINTS} from '../../util/constants/EndPointsConstants'
+  import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+  import TournamentRegDialogComponent from './TournamentRegDialogComponent'
+  import TournamentCreateComponent from './TournamentCreateComponent'
 
-export default {
-  name: 'TournamentPanelComponent',
-  components: {
-    TournamentCreateComponent,
-    TournamentRegDialogComponent,
-    TournamentCardComponent,
-    TournamentFilterComponent
-  },
-  data () {
-    return {
-      cardWidth: 3,
+  export default {
+    name: 'TournamentPanelComponent',
+    components: {
+      TournamentCreateComponent,
+      TournamentRegDialogComponent,
+      TournamentCardComponent,
+      TournamentFilterComponent
+    },
+    data() {
+      return {
+        cardWidth: 3,
       filter: {
         isHidden: true
       },
       tournaments: [],
       showRegForm: false,
       showCreateTournamentDialog: false,
-      focusedTournamentId: 0
+        focusedTournamentId: ''
     }
   },
   methods: {

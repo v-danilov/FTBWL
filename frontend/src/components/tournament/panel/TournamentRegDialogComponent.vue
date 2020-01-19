@@ -43,19 +43,19 @@
 
 <script>
 
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
+  import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
-export default {
-  name: 'TournamentRegDialogComponent',
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
+  export default {
+    name: 'TournamentRegDialogComponent',
+    props: {
+      visible: {
+        type: Boolean,
+        required: true
+      },
+      tournamentId: {
+        type: String // TODO full object or DTO with name, date and time
+      }
     },
-    tournamentId: {
-      type: Number // TODO full object or DTO with name, date and time
-    }
-  },
   data () {
     return {
       selectedFraction: {}

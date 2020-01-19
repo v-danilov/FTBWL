@@ -22,7 +22,7 @@
           <a>{{this.selectedTournament.place.name}}</a>
         </v-col>
         <v-col cols="3">
-          <div class="">{{this.selectedTournament.date}}</div>
+          <div class="">{{this.selectedTournament.timeStart}} - {{this.selectedTournament.timeEnd}}</div>
         </v-col>
         <v-col cols="3">
           <div class="">{{this.selectedTournament.status.value}}</div>

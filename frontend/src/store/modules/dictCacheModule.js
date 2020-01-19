@@ -10,7 +10,8 @@ const state = {
   cities: localStorage.getItem('cities') || [],
   places: localStorage.getItem('places') || [],
   organizers: localStorage.getItem('organizers') || [],
-  statuses: localStorage.getItem('statuses') || []
+  statuses: localStorage.getItem('statuses') || [],
+  dictsLoaded: localStorage.getItem('dictsLoaded') || false
 }
 const getters = {
   cachedGameSystems: state => state.gameSystems,
@@ -20,7 +21,8 @@ const getters = {
   cachedCities: state => state.cities,
   cachedPlaces: state => state.places,
   cachedOrganizers: state => state.organizers,
-  cachedStatuses: state => state.statuses
+  cachedStatuses: state => state.statuses,
+  dictsLoadedFlag: state => state.dictsLoaded
 }
 // this.$store.commit(“SET_USER”, user) synchronous
 const mutations = {
@@ -47,6 +49,9 @@ const mutations = {
   },
   SET_STATUSES: (state, payload) => {
     state.statuses = payload
+  },
+  SET_DISCTS_LOADED_FLAG: (state, payload) => {
+    state.dictsLoaded = payload
   }
 }
 // this.$store.dispatch("SET_USER",user) asynchronous
@@ -58,9 +63,9 @@ const actions = {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_FORMATS', response.data.eventFormats)
           context.commit('SET_STATUSES', response.data.eventStatuses)
-          console.log(response.data.factions)
           context.commit('SET_FACTIONS', response.data.factions)
           context.commit('SET_PLACES', response.data.places)
+          context.commit('SET_DISCTS_LOADED_FLAG', true)
         }
       }).catch(reason => {
         console.log('Failed to cache dictionatries 🤷‍♂️' + reason)
