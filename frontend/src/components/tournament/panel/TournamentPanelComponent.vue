@@ -46,31 +46,31 @@
 </template>
 
 <script>
-  import TournamentFilterComponent from './filter/TournamentFilterComponent'
-  import TournamentCardComponent from './TournamentCardComponent'
-  import {END_POINTS} from '../../util/constants/EndPointsConstants'
-  import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-  import TournamentRegDialogComponent from './TournamentRegDialogComponent'
-  import TournamentCreateComponent from './TournamentCreateComponent'
+import TournamentFilterComponent from './filter/TournamentFilterComponent'
+import TournamentCardComponent from './TournamentCardComponent'
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import TournamentRegDialogComponent from './TournamentRegDialogComponent'
+import TournamentCreateComponent from './TournamentCreateComponent'
 
-  export default {
-    name: 'TournamentPanelComponent',
-    components: {
-      TournamentCreateComponent,
-      TournamentRegDialogComponent,
-      TournamentCardComponent,
-      TournamentFilterComponent
-    },
-    data() {
-      return {
-        cardWidth: 3,
+export default {
+  name: 'TournamentPanelComponent',
+  components: {
+    TournamentCreateComponent,
+    TournamentRegDialogComponent,
+    TournamentCardComponent,
+    TournamentFilterComponent
+  },
+  data () {
+    return {
+      cardWidth: 3,
       filter: {
         isHidden: true
       },
       tournaments: [],
       showRegForm: false,
       showCreateTournamentDialog: false,
-        focusedTournamentId: ''
+      focusedTournamentId: ''
     }
   },
   methods: {
@@ -85,7 +85,7 @@
     }
   },
   created () {
-    this.$http.get(END_POINTS.GET_ALL.TOURNAMENTS)
+    this.$http.get(END_POINTS.GET_ALL.EVENTS)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           this.tournaments = response.data

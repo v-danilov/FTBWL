@@ -190,7 +190,7 @@ export default {
   methods: {
     savePlayers () {
       this.playersDataSaving = true
-      this.$http.post(END_POINTS.TOURNAMENT.SAVE_PLAYERS, this.players)
+      this.$http.post(END_POINTS.EVENT.SAVE_PLAYERS, this.players)
     },
     cancelReg (index) {
       this.players[index].isCanceled = true

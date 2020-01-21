@@ -202,24 +202,24 @@
   </v-dialog>
 </template>
 <script>
-  import TournamentInfoBodyComponent from '../info/side/TournamentInfoBodyComponent'
-  import TournamentInfoParametersComponent from '../info/side/TournamentInfoParametersComponent'
-  import {END_POINTS} from '../../util/constants/EndPointsConstants'
-  import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-  import UserSession from '../../../store/cookie/userSessionClass'
-  import {mask, tokens} from 'vue-the-mask'
+import TournamentInfoBodyComponent from '../info/side/TournamentInfoBodyComponent'
+import TournamentInfoParametersComponent from '../info/side/TournamentInfoParametersComponent'
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import UserSession from '../../../store/cookie/userSessionClass'
+import {mask, tokens} from 'vue-the-mask'
 
-  export default {
-    directives: {
-      mask, tokens
-    },
-    name: 'TournamentCreateComponent',
-    props: {
-      visible: {
-        type: Boolean,
-        required: true
-      }
-    },
+export default {
+  directives: {
+    mask, tokens
+  },
+  name: 'TournamentCreateComponent',
+  props: {
+    visible: {
+      type: Boolean,
+      required: true
+    }
+  },
   components: {TournamentInfoParametersComponent, TournamentInfoBodyComponent},
   created () {
     tokens.H = {pattern: /[0-2]/}
@@ -306,7 +306,7 @@
         organizerId: UserSession.getUser()
       }
       // todo check response
-      this.$http.post(END_POINTS.TOURNAMENT.CREATE, tournament).then(response => {
+      this.$http.post(END_POINTS.EVENT.CREATE, tournament).then(response => {
         if (response.status !== HTTPResponseStatusConstants.OK) {
           console.log('NotOK')
         }

@@ -19,26 +19,26 @@
 </template>
 
 <script>
-  import NavigatorComponent from './components/NavigatorComponent'
-  import {END_POINTS} from './components/util/constants/EndPointsConstants'
-  import {ACTIONS} from './components/util/constants/ActionConstants'
+import NavigatorComponent from './components/NavigatorComponent'
+import {END_POINTS} from './components/util/constants/EndPointsConstants'
+import {ACTIONS} from './components/util/constants/ActionConstants'
 
-  export default {
-    name: 'App',
-    components: {NavigatorComponent},
-    computed: {
-      cssTheme() {
-        const currentVTheme = this.$vuetify.theme.currentTheme
-        const out = {}
-        for (const name of Object.keys(currentVTheme)) {
-          out[`--v-color-${name}`] = currentVTheme[name]
-        }
-        return out
-      },
-      storeIsReady() {
-        return this.$store.getters.dictsLoadedFlag
+export default {
+  name: 'App',
+  components: {NavigatorComponent},
+  computed: {
+    cssTheme () {
+      const currentVTheme = this.$vuetify.theme.currentTheme
+      const out = {}
+      for (const name of Object.keys(currentVTheme)) {
+        out[`--v-color-${name}`] = currentVTheme[name]
       }
+      return out
     },
+    storeIsReady () {
+      return this.$store.getters.dictsLoadedFlag
+    }
+  },
   methods: {
     initStoreValues () {
       // Initialize game system cache first

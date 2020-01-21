@@ -47,7 +47,7 @@ export default {
     }
   },
   beforeMount () {
-    this.$http.get(`/tournament/${this.tournamentId}`)
+    this.$http.get(`/event/${this.tournamentId}`)
       .then(response => {
         this.selectedTournament = response.data
       })

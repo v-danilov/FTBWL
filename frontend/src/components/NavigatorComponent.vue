@@ -21,7 +21,7 @@ export default {
   data () {
     return {
       navigationElements: [
-        {path: '/tournaments', name: 'Турниры', icon: 'event_note'},
+        {path: '/events', name: 'Турниры', icon: 'event_note'},
         {path: '/places', name: 'Площадки', icon: 'place'},
         {path: '/players', name: 'Игроки', icon: 'people'},
         {path: '/ratings', name: 'Рейтинги', icon: 'star'},

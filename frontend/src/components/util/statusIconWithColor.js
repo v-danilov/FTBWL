@@ -1,15 +1,16 @@
 import { COLORS } from './constants/ColorsConstants'
-import {TOURNAMENT_SYSTEM_NAMES} from './constants/TournamentStatusNames'
+import {EVENT_STATUS_CODE} from './constants/TournamentStatusNames'
 /* exported statusColorize */
 export default function statusColorize (status) {
   switch (status) {
-    case TOURNAMENT_SYSTEM_NAMES.SCHEDULED:
+    case EVENT_STATUS_CODE.SCHEDULED:
       return {icon: 'query_builder', color: COLORS.ADDITIONAL}
-    case TOURNAMENT_SYSTEM_NAMES.REGISTRATION_OPEN:
+    case EVENT_STATUS_CODE.REGISTRATION_OPEN:
       return {icon: 'done', color: COLORS.SECONDARY}
-    case TOURNAMENT_SYSTEM_NAMES.CLOSED:
+    case EVENT_STATUS_CODE.CLOSED:
       return {icon: 'done_all', color: COLORS.ACCENT}
     default:
       console.log('WARNING: не опознан цвет для статуса ' + status)
+      return {icon: 'help', color: COLORS.PRIMARY}
   }
 }

@@ -1,4 +1,4 @@
-export const TOURNAMENT_SYSTEM_NAMES = {
+export const EVENT_STATUS_CODE = {
   OPEN: 'OPEN',
   CLOSED: 'CLOSED',
   SCHEDULED: 'SCHEDULED',
@@ -6,10 +6,10 @@ export const TOURNAMENT_SYSTEM_NAMES = {
   REGISTRATION_CLOSED: 'REGISTRATION_CLOSED'
 }
 
-export const TOURNAMENT_STATUS_NAMES = new Map(
-  [['OPEN', 'Открыт'],
-    [TOURNAMENT_SYSTEM_NAMES.CLOSED, 'Завершён'],
-    [TOURNAMENT_SYSTEM_NAMES.SCHEDULED, 'Запланирован'],
-    [TOURNAMENT_SYSTEM_NAMES.REGISTRATION_OPEN, 'Открыта регистрация'],
-    [TOURNAMENT_SYSTEM_NAMES.REGISTRATION_CLOSED, 'Регистрация закрыта']]
+export const EVENT_STATUS_MAP = new Map(
+  [[EVENT_STATUS_CODE.OPEN, 'Открыт'],
+    [EVENT_STATUS_CODE.CLOSED, 'Завершён'],
+    [EVENT_STATUS_CODE.SCHEDULED, 'Запланирован'],
+    [EVENT_STATUS_CODE.REGISTRATION_OPEN, 'Открыта регистрация'],
+    [EVENT_STATUS_CODE.REGISTRATION_CLOSED, 'Регистрация закрыта']]
 )

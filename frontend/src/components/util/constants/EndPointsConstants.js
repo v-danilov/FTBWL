@@ -8,16 +8,16 @@ export const END_POINTS = {
     PLACES: '/places/getAll',
     ORGANIZERS: '/organizers/getAll',
     STATUSES: '/statuses/getAll',
-    TOURNAMENTS: '/tournaments',
+    EVENTS: '/events',
     FRACTIONS: '/fractions/getAll'
   },
-  TOURNAMENT: {
+  EVENT: {
     REG_USER: '/registrationRequest',
-    START: '/tournament/start/',
-    UPDATE_STATUS: '/tournament/statusUpdate',
-    CREATE: '/tournament/create',
+    START: '/event/start/',
+    UPDATE_STATUS: '/event/statusUpdate',
+    CREATE: '/event/create',
     // TODO replace parameters
-    SAVE_PLAYERS: '/tournament/{id}/savePlayers'
+    SAVE_PLAYERS: '/event/{id}/savePlayers'
   },
   AUTHORIZATION: {
     SIGN_UP: '/api/signUp',

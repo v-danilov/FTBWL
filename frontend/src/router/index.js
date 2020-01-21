@@ -14,7 +14,7 @@ const router = new Router({
     // Main redirect to start
     {
       path: '/',
-      redirect: '/tournaments'
+      redirect: '/events'
       // meta: { requiresAuth: true }
     },
     // Redirect for 404
@@ -35,12 +35,12 @@ const router = new Router({
       component: SignInComponent
     },
     {
-      path: '/tournaments',
+      path: '/events',
       name: 'TournamentPanelComponent',
       component: TournamentPanelComponent
     },
     {
-      path: '/tournament/:tournamentId',
+      path: '/event/:tournamentId',
       name: 'TournamentInfoMainComponent',
       component: TournamentInfoMainComponent,
       props: true

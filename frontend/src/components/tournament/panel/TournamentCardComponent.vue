@@ -20,15 +20,16 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
+            {{tournament.place.city.name}}, {{tournament.place.street}} {{tournament.place.building}}
             <a href="#" :style="{color: themeColors.secondary}">
-              {{tournament.place}}
+              {{tournament.place.name}}
             </a>
           </v-col>
           <v-col>
             <template v-if="!! tournament.startDate">
-              {{tournament.startDate}} -
+              {{tournament.timeStart}} -
             </template>
-            {{tournament.endDate}}
+            {{tournament.timeEnd}}
           </v-col>
         </v-row>
         <v-row class="ma-2">
@@ -43,8 +44,8 @@
           </v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col>{{tournament.format}}</v-col>
-          <v-col>{{tournament.organizer}}</v-col>
+          <v-col>{{tournament.format.value}}</v-col>
+          <v-col>{{tournament.organizer.lastName}} {{tournament.organizer.nickName}} {{tournament.organizer.firstName}}</v-col>
         </v-row>
       </v-card-text>
       <v-card-actions class="pt-0">
@@ -67,7 +68,7 @@ import statusColorize from '../../util/statusIconWithColor'
 import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import {TOURNAMENT_STATUS_NAMES, TOURNAMENT_SYSTEM_NAMES} from '../../util/constants/TournamentStatusNames'
+import {EVENT_STATUS_MAP, EVENT_STATUS_CODE} from '../../util/constants/TournamentStatusNames'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 
 export default {
@@ -80,20 +81,20 @@ export default {
   data () {
     return {
       themeColors: this.$vuetify.theme.currentTheme,
-      statusMap: TOURNAMENT_SYSTEM_NAMES
+      statusMap: EVENT_STATUS_CODE
     }
   },
   computed: {
     tournamentStatusText () {
-      return TOURNAMENT_STATUS_NAMES.get(this.tournament.status.systemName)
+      return EVENT_STATUS_MAP.get(this.tournament.status.code)
     },
     statusInfo () {
-      return statusColorize(this.tournament.status.systemName)
+      return statusColorize(this.tournament.status.code)
     }
   },
   methods: {
     openTournament (tournamentId) {
-      this.$router.push(`/tournament/${tournamentId}`)
+      this.$router.push(`/event/${tournamentId}`)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {
@@ -105,7 +106,7 @@ export default {
     startTournament () {
       this.$refs.confirmationDialogComponent.pop().then(result => {
         if (result === true) {
-          this.$http.get(END_POINTS.TOURNAMENT.START + this.tournament.id).then(response => {
+          this.$http.get(END_POINTS.EVENT.START + this.tournament.id).then(response => {
             if (response.status === HTTPResponseStatusConstants.OK) {
               // TODO create endpoint
               this.$router.push('')
@@ -115,7 +116,7 @@ export default {
       })
     },
     updateTournamentStatus (newStatus) {
-      this.$http.post(END_POINTS.TOURNAMENT.UPDATE_STATUS, {tournamentId: this.tournament.id, status: newStatus})
+      this.$http.post(END_POINTS.EVENT.UPDATE_STATUS, {tournamentId: this.tournament.id, status: newStatus})
         .then(response => {
           if (response.status !== HTTPResponseStatusConstants.OK) {
             console.log('Произошла ошибка обновления статуса турнира.')

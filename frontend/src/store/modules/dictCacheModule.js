@@ -1,5 +1,5 @@
 import {HTTPResponseStatusConstants} from '../../components/util/constants/CommonConstants'
-import Axios from 'axios'
+import axios from 'axios'
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
 const state = {
@@ -58,7 +58,7 @@ const mutations = {
 
 const actions = {
   INIT_DICTS: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_FORMATS', response.data.eventFormats)
@@ -72,28 +72,27 @@ const actions = {
       })
   },
   INIT_GAME_SYSTEMS: (context, url) => {
-    return Axios.get(url).then(response => {
+    return axios.get(url).then(response => {
       if (response.status === HTTPResponseStatusConstants.OK) {
         context.commit('SET_GAME_SYSTEMS', response.data)
         return response.data
       }
     }).catch(reason => {
-      console.log('URL is ' + url)
+      console.log(reason)
       console.log('Failed to cache game systems 🤷‍♂️')
     })
   },
   INIT_FACTIONS: (context, url) => {
-    Axios.get(url).then(response => {
+    axios.get(url).then(response => {
       if (response.status === HTTPResponseStatusConstants.OK) {
         context.commit('SET_FACTIONS', response.data)
       }
     }).catch(reason => {
-      console.log('URL is ' + url)
       console.log('Failed to cache fractions 🤷‍♂️')
     })
   },
   INIT_FORMATS: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_FORMATS', response.data.payload)
@@ -103,7 +102,7 @@ const actions = {
       })
   },
   INIT_COUNTRIES: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_COUNTRIES', response.data.payload)
@@ -114,7 +113,7 @@ const actions = {
   },
 
   INIT_CITIES: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_CITIES', response.data.payload)
@@ -124,7 +123,7 @@ const actions = {
       })
   },
   INIT_PLACES: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_PLACES', response.data.payload)
@@ -134,7 +133,7 @@ const actions = {
       })
   },
   INIT_ORGANIZERS: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_ORGANIZERS', response.data.payload)
@@ -144,7 +143,7 @@ const actions = {
       })
   },
   INIT_STATUSES: async (context, url) => {
-    await Axios.get(url)
+    await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           context.commit('SET_STATUSES', response.data.payload)

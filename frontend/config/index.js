@@ -13,7 +13,8 @@ module.exports = {
     proxyTable: {
       // proxy all webpack dev-server requests starting with /api to our Spring Boot backend (localhost:8088)
       '/api': {
-        target: 'http://localhost:3004',
+        //target: 'http://localhost:3004',
+        target: 'http://localhost:8080/',
         changeOrigin: true,
         // secure: false
       }

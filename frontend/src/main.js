@@ -11,7 +11,7 @@ import { store } from './store/store'
 import axios from 'axios'
 import { COLORS } from './components/util/constants/ColorsConstants'
 
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
 Vue.prototype.$http = axios
 
 const vuetifyOpts = {

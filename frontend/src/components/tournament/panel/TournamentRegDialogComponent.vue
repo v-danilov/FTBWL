@@ -43,19 +43,19 @@
 
 <script>
 
-  import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
-  export default {
-    name: 'TournamentRegDialogComponent',
-    props: {
-      visible: {
-        type: Boolean,
-        required: true
-      },
-      tournamentId: {
-        type: String // TODO full object or DTO with name, date and time
-      }
+export default {
+  name: 'TournamentRegDialogComponent',
+  props: {
+    visible: {
+      type: Boolean,
+      required: true
     },
+    tournamentId: {
+      type: String // TODO full object or DTO with name, date and time
+    }
+  },
   data () {
     return {
       selectedFraction: {}
@@ -92,7 +92,7 @@
         // TODO complete user id to backend request
         userId: 0}
 
-      this.$http.post(END_POINTS.TOURNAMENT.REG_USER, userRegData)
+      this.$http.post(END_POINTS.EVENT.REG_USER, userRegData)
         .then(response => {
           console.log(response)
         })
