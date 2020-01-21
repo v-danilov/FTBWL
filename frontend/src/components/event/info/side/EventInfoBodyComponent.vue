@@ -34,7 +34,7 @@
         </v-card-title>
         <!-- Body -->
         <v-card-text>
-          <v-hover v-slot:default="{ hover }" v-for="(player, index) in selectedTournament.players" :key="index">
+          <v-hover v-slot:default="{ hover }" v-for="(player, index) in selectedEvent.players" :key="index">
             <v-row class="selected-row" dense :class="{ 'on-hover': hover }" justify="center">
               <v-col cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{index + 1}}
@@ -84,7 +84,7 @@
       </v-card>
     </v-tab-item>
     <!-- Вкладки раундов -->
-    <template v-for="(round, index) in selectedTournament.rounds">
+    <template v-for="(round, index) in selectedEvent.rounds">
       <v-tab :key="index"
              ripple
              @change="selectedRoundNumber = index">
@@ -147,7 +147,7 @@
         </v-card>
         <v-row>
           <!-- Left column with tables -->
-          <v-col cols="4" v-for="(table, index) in selectedTournament.rounds[selectedRoundNumber].tables" :key="index">
+          <v-col cols="4" v-for="(table, index) in selectedEvent.rounds[selectedRoundNumber].tables" :key="index">
             <TablesInfoComponent :table="table"/>
           </v-col>
           <!-- Right column with tables -->
@@ -156,7 +156,7 @@
       </v-tab-item>
     </template>
     <v-spacer></v-spacer>
-    <v-btn icon @click="hideTournamentInfo = !hideTournamentInfo">
+    <v-btn icon @click="hideEventInfo = !hideEventInfo">
         <v-icon v-if="!hideInfoComponents">
           keyboard_arrow_down
         </v-icon>
@@ -173,15 +173,15 @@ import {END_POINTS} from '../../../util/constants/EndPointsConstants'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 
 export default {
-  name: 'TournamentInfoBodyComponent',
+  name: 'EventInfoBodyComponent',
   components: {RoundSettingsComponent, TablesInfoComponent},
   props: {
-    selectedTournament: {}
+    selectedEvent: {}
   },
   data () {
     return {
       vuetifyTheme: this.$vuetify.theme,
-      hideTournamentInfo: false,
+      hideEventInfo: false,
       roundSettingDialog: false,
       selectedRoundNumber: 0,
       playersDataSaving: false
@@ -202,18 +202,18 @@ export default {
   },
   computed: {
     evenTables () {
-      let currentRound = this.selectedTournament.rounds[this.selectedRoundNumber]
+      let currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 === 0)
     },
     oddTables () {
-      let currentRound = this.selectedTournament.rounds[this.selectedRoundNumber]
+      let currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 !== 0)
     },
     hideInfoComponents: {
       get () {
         console.log('emmiting')
-        this.$emit('hide-info-components', this.hideTournamentInfo)
-        return this.hideTournamentInfo
+        this.$emit('hide-info-components', this.hideEventInfo)
+        return this.hideEventInfo
       }
     }
   }

@@ -158,7 +158,7 @@
         <v-btn rounded color="primary">Применить</v-btn>
         <v-spacer></v-spacer>
         <v-btn text icon color="accent"
-               @click="$emit('close-tournament-filter')">
+               @click="$emit('close-event-filter')">
           <v-icon>close</v-icon>
         </v-btn>
       </v-card-actions>
@@ -169,7 +169,7 @@
 import FilterSelectorComponent from './FilterSelectorComponent'
 
 export default {
-  name: 'TournamentFilterComponent',
+  name: 'EventFilterComponent',
   components: {FilterSelectorComponent},
   data () {
     return {

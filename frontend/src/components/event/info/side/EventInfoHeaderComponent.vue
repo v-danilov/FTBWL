@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="label-highlighter">{{selectedTournament.name}} ({{selectedTournament.format.value}})</span>
+      <span class="label-highlighter">{{selectedEvent.name}} ({{selectedEvent.format.value}})</span>
     </v-card-title>
     <v-card-text>
       <!-- Место, дата, статус -->
@@ -18,14 +18,15 @@
       </v-row>
       <v-row no-gutters>
         <v-col cols="3">
-          <div>{{this.selectedTournament.place.city.name}}, {{this.selectedTournament.place.street}} {{this.selectedTournament.place.building}}</div>
-          <a>{{this.selectedTournament.place.name}}</a>
+          <div>{{this.selectedEvent.place.city.name}}, {{this.selectedEvent.place.street}}
+            {{this.selectedEvent.place.building}}</div>
+          <a>{{this.selectedEvent.place.name}}</a>
         </v-col>
         <v-col cols="3">
-          <div class="">{{this.selectedTournament.timeStart}} - {{this.selectedTournament.timeEnd}}</div>
+          <div class="">{{this.selectedEvent.timeStart}} - {{this.selectedEvent.timeEnd}}</div>
         </v-col>
         <v-col cols="3">
-          <div class="">{{this.selectedTournament.status.value}}</div>
+          <div class="">{{this.selectedEvent.status.value}}</div>
         </v-col>
       </v-row>
       <v-row align="center" justify="center">
@@ -39,21 +40,21 @@
           <span>Формат</span>
         </v-col>
         <v-col cols="3">
-          {{ this.selectedTournament.format.value }}
+          {{ this.selectedEvent.format.value }}
         </v-col>
 
         <v-col cols="1">
           <span>Схемпул</span>
         </v-col>
         <v-col cols="2">
-          {{this.selectedTournament.schemePool || 'Не указан'}}
+          {{this.selectedEvent.schemePool || 'Не указан'}}
         </v-col>
 
         <v-col cols="1">
           <span>Туров</span>
         </v-col>
         <v-col cols="1">
-          {{this.selectedTournament.totalTours || 'Не указано' }}
+          {{this.selectedEvent.totalTours || 'Не указано' }}
         </v-col>
       </v-row>
       <!-- Участников, стоимость, организатор -->
@@ -62,21 +63,21 @@
           <span>Участников</span>
         </v-col>
         <v-col cols="3">
-          {{this.selectedTournament.players.length || 'Не известно'}}
+          {{this.selectedEvent.players.length || 'Не известно'}}
         </v-col>
 
         <v-col cols="1">
           <span>Стоимость</span>
         </v-col>
         <v-col cols="2">
-          {{this.selectedTournament.price + '₽' || 'Не указано'}}
+          {{this.selectedEvent.price + '₽' || 'Не указано'}}
         </v-col>
 
         <v-col cols="1">
           <span>Организатор</span>
         </v-col>
         <v-col>
-          {{this.selectedTournament.organizer.nickname}}
+          {{this.selectedEvent.organizer.nickname}}
         </v-col>
       </v-row>
     </v-card-text>
@@ -84,9 +85,9 @@
 </template>
 <script>
 export default {
-  name: 'TournamentInfoHeaderComponent',
+  name: 'EventInfoHeaderComponent',
   props: {
-    selectedTournament: {}
+    selectedEvent: {}
   }
 }
 </script>

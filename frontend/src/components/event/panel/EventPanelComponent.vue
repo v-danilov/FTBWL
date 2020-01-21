@@ -11,55 +11,55 @@
               <v-icon large>search</v-icon>
               Открыть фильтр
             </v-btn>
-            <TournamentFilterComponent v-else @close-tournament-filter="filter.isHidden = true"/>
+            <EventFilter v-else @close-event-filter="filter.isHidden = true"/>
           </div>
         </v-col>
         <v-col cols="3">
           <v-btn color="primary"
                  rounded
-                 @click="showCreateTournamentDialog = !showCreateTournamentDialog">
+                 @click="showEventCreationDialog = !showEventCreationDialog">
             <v-icon large>add_circle_outline</v-icon>
             Создать турнир
           </v-btn>
-          <TournamentCreateComponent v-if="showCreateTournamentDialog"
-                                     :visible="showCreateTournamentDialog"
-                                     @close-tournament-create-dialog="showCreateTournamentDialog = false">
-          </TournamentCreateComponent>
+          <CreateDialog v-if="showEventCreationDialog"
+                                     :visible="showEventCreationDialog"
+                                     @close-event-create-dialog="showEventCreationDialog = false">
+          </CreateDialog>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="4" v-for="(tournamentElement, index) in tournaments" :key=index>
-          <TournamentCardComponent
-            :tournament=tournamentElement
-            @click="openTournament(tournament.id)"
+        <v-col cols="4" v-for="(eventElement, index) in events" :key=index>
+          <EventCard
+            :event=eventElement
+            @click="openEvent(eventElement.id)"
             v-on:open-dialog="openDialog">
-          </TournamentCardComponent>
+          </EventCard>
         </v-col>
-        <TournamentRegDialogComponent
+        <RegDialog
           :visible="showRegForm"
-          :tournamentId="focusedTournamentId"
+          :event-id="focusedEventId"
           @close-reg-dialog="showRegForm = false">
-        </TournamentRegDialogComponent>
+        </RegDialog>
       </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import TournamentFilterComponent from './filter/TournamentFilterComponent'
-import TournamentCardComponent from './TournamentCardComponent'
+import EventFilterComponent from './filter/EventFilterComponent'
+import EventCardComponent from './EventCardComponent'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import TournamentRegDialogComponent from './TournamentRegDialogComponent'
-import TournamentCreateComponent from './TournamentCreateComponent'
+import EventRegDialogComponent from './EventRegDialogComponent'
+import EventCreateComponent from './EventCreateComponent'
 
 export default {
-  name: 'TournamentPanelComponent',
+  name: 'EventPanelComponent',
   components: {
-    TournamentCreateComponent,
-    TournamentRegDialogComponent,
-    TournamentCardComponent,
-    TournamentFilterComponent
+    EventFilter: EventFilterComponent,
+    EventCard: EventCardComponent,
+    RegDialog: EventRegDialogComponent,
+    CreateDialog: EventCreateComponent
   },
   data () {
     return {
@@ -67,15 +67,15 @@ export default {
       filter: {
         isHidden: true
       },
-      tournaments: [],
+      events: [],
       showRegForm: false,
-      showCreateTournamentDialog: false,
-      focusedTournamentId: ''
+      showEventCreationDialog: false,
+      focusedEventId: ''
     }
   },
   methods: {
     openDialog (event) {
-      this.focusedTournamentId = event.id
+      this.focusedEventId = event.id
       this.showRegForm = true
     }
   },
@@ -88,7 +88,7 @@ export default {
     this.$http.get(END_POINTS.GET_ALL.EVENTS)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
-          this.tournaments = response.data
+          this.events = response.data
         }
       })
       .catch(reason => {

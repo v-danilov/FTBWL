@@ -1,10 +1,10 @@
 <template>
   <div>
     <template v-if="!loadingError">
-    <TournamentInfoHeaderComponent v-if="!componentsHidden"
-                                   :selected-tournament="selectedTournament"/>
-    <TournamentInfoBodyComponent @hide-info-components="changeVisibility"
-                                 :selected-tournament="selectedTournament || []"/>
+    <EIHeader v-if="!componentsHidden"
+                                   :selected-event="selectedEvent"/>
+    <EIBody @hide-info-components="changeVisibility"
+                                 :selected-event="selectedEvent || []"/>
     </template>
     <template v-else>
       <v-row>
@@ -24,19 +24,18 @@
 </template>
 
 <script>
-import TournamentInfoBodyComponent from './side/TournamentInfoBodyComponent'
-import TournamentInfoHeaderComponent from './side/TournamentInfoHeaderComponent'
-import TournamentInfoParametersComponent from './side/TournamentInfoParametersComponent'
+import EventInfoBodyComponent from './side/EventInfoBodyComponent'
+import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 
 export default {
-  props: ['tournamentId'],
-  name: 'TournamentInfoComponent',
-  components: {TournamentInfoParametersComponent, TournamentInfoHeaderComponent, TournamentInfoBodyComponent},
+  name: 'EventInfoComponent',
+  props: ['eventId'],
+  components: {EIHeader: EventInfoHeaderComponent, EIBody: EventInfoBodyComponent},
   data () {
     return {
       loadingError: false,
-      selectedTournament: Object,
+      selectedEvent: Object,
       componentsHidden: true
     }
   },
@@ -47,9 +46,9 @@ export default {
     }
   },
   beforeMount () {
-    this.$http.get(`/event/${this.tournamentId}`)
+    this.$http.get(`/event/${this.eventId}`)
       .then(response => {
-        this.selectedTournament = response.data
+        this.selectedEvent = response.data
       })
       .catch(error => {
         if (error.response.status === HTTPResponseStatusConstants.NOT_FOUND) {

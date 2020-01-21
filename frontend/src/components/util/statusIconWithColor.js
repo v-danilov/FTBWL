@@ -1,5 +1,5 @@
 import { COLORS } from './constants/ColorsConstants'
-import {EVENT_STATUS_CODE} from './constants/TournamentStatusNames'
+import {EVENT_STATUS_CODE} from './constants/EventStatusNames'
 /* exported statusColorize */
 export default function statusColorize (status) {
   switch (status) {

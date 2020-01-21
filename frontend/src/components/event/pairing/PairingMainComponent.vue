@@ -84,7 +84,7 @@ export default {
     }
   },
   created () {
-    // TODO get tournament data for pairing creation
+    // TODO get event data for pairing creation
     this.$http.get('https://randomuser.me/api/?results=40').then(response => {
       // response.data.results.forEach(splitToLeftAndRight)
       response.data.results.forEach(e => this.playersForPairing.push({

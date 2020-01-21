@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SignUpComponent from '../components/authorization/SignUpComponent'
 import SignInComponent from '../components/authorization/SignInComponent'
-import TournamentPanelComponent from '../components/tournament/panel/TournamentPanelComponent'
-import TournamentInfoMainComponent from '../components/tournament/info/TournamentInfoMainComponent'
-import PairingMainComponent from '../components/tournament/pairing/PairingMainComponent'
+import EventPanelComponent from '../components/event/panel/EventPanelComponent'
+import EventInfoMainComponent from '../components/event/info/EventInfoMainComponent'
+import PairingMainComponent from '../components/event/pairing/PairingMainComponent'
 
 Vue.use(Router)
 
@@ -36,13 +36,13 @@ const router = new Router({
     },
     {
       path: '/events',
-      name: 'TournamentPanelComponent',
-      component: TournamentPanelComponent
+      name: 'EventPanelComponent',
+      component: EventPanelComponent
     },
     {
-      path: '/event/:tournamentId',
-      name: 'TournamentInfoMainComponent',
-      component: TournamentInfoMainComponent,
+      path: '/event/:eventId',
+      name: 'EventInfoMainComponent',
+      component: EventInfoMainComponent,
       props: true
     },
     {

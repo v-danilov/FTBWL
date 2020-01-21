@@ -46,7 +46,7 @@
           <v-row justify="center">
             <!-- Название -->
             <v-col cols="8">
-              <v-text-field v-model="tournamentName" label="Название"></v-text-field>
+              <v-text-field v-model="eventName" label="Название"></v-text-field>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -190,7 +190,7 @@
 
           <v-btn
             color="primary"
-            @click="createTournament"
+            @click="createEvent"
             :disabled="roundsDates.length === 0"
           >
             Создать турнир
@@ -202,8 +202,6 @@
   </v-dialog>
 </template>
 <script>
-import TournamentInfoBodyComponent from '../info/side/TournamentInfoBodyComponent'
-import TournamentInfoParametersComponent from '../info/side/TournamentInfoParametersComponent'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import UserSession from '../../../store/cookie/userSessionClass'
@@ -213,14 +211,13 @@ export default {
   directives: {
     mask, tokens
   },
-  name: 'TournamentCreateComponent',
+  name: 'EventCreateComponent',
   props: {
     visible: {
       type: Boolean,
       required: true
     }
   },
-  components: {TournamentInfoParametersComponent, TournamentInfoBodyComponent},
   created () {
     tokens.H = {pattern: /[0-2]/}
     tokens.h = {pattern: /[0-9]/}
@@ -231,7 +228,7 @@ export default {
     return {
       e1: 0,
       menu: false,
-      tournamentName: '',
+      eventName: '',
       selectedSystem: null,
       selectedFormat: null,
       selectedPlace: null,
@@ -251,7 +248,7 @@ export default {
       },
       set (value) {
         if (!value) {
-          this.$emit('close-tournament-create-dialog')
+          this.$emit('close-event-create-dialog')
         }
       }
     },
@@ -291,22 +288,22 @@ export default {
       }
       return true
     },
-    createTournament () {
-      let tournamentDates = this.calculateTournamentDaysByRounds()
-      let tournament = {
+    createEvent () {
+      let eventDates = this.calculateEventDaysByRounds()
+      let event = {
         system: this.systemsCombobox.selected, // todo or system name
-        name: this.tournamentName,
+        name: this.eventName,
         format: this.formatsCombobox.selected, // todo or system name
         place: this.placesCombobox.selected,
         rulesPack: this.rulesPacksCombobox.selected, // todo or system name
         price: this.price,
         rounds: this.roundsDates,
-        dateStart: tournamentDates.firstDate,
-        dateEnd: tournamentDates.lastDate,
+        dateStart: eventDates.firstDate,
+        dateEnd: eventDates.lastDate,
         organizerId: UserSession.getUser()
       }
       // todo check response
-      this.$http.post(END_POINTS.EVENT.CREATE, tournament).then(response => {
+      this.$http.post(END_POINTS.EVENT.CREATE, event).then(response => {
         if (response.status !== HTTPResponseStatusConstants.OK) {
           console.log('NotOK')
         }
@@ -314,7 +311,7 @@ export default {
         console.log(err)
       })
     },
-    calculateTournamentDaysByRounds () {
+    calculateEventDaysByRounds () {
       let firstDate, lastDate
       firstDate = this.roundsDates[0].startDate
       lastDate = this.roundsDates[0].endDate

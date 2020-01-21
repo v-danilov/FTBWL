@@ -4,12 +4,12 @@
             :class="`elevation-${hover ? 12 : 2}`">
       <v-card-title primary-title>
         <span class="mr-2">
-          {{tournament.name}}
+          {{event.name}}
         </span>
         <v-spacer></v-spacer>
-        <span :style="{color : themeColors.secondary}">{{tournament.price}} ₽</span>
+        <span :style="{color : themeColors.secondary}">{{event.price}} ₽</span>
       </v-card-title>
-      <v-card-text @click.stop="openTournament(tournament.id)">
+      <v-card-text @click.stop="openEvent(event.id)">
         <v-row no-gutters>
           <v-col>
             <span>Где</span>
@@ -20,16 +20,16 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            {{tournament.place.city.name}}, {{tournament.place.street}} {{tournament.place.building}}
+            {{event.place.city.name}}, {{event.place.street}} {{event.place.building}}
             <a href="#" :style="{color: themeColors.secondary}">
-              {{tournament.place.name}}
+              {{event.place.name}}
             </a>
           </v-col>
           <v-col>
-            <template v-if="!! tournament.startDate">
-              {{tournament.timeStart}} -
+            <template v-if="!! event.startDate">
+              {{event.timeStart}} -
             </template>
-            {{tournament.timeEnd}}
+            {{event.timeEnd}}
           </v-col>
         </v-row>
         <v-row class="ma-2">
@@ -44,8 +44,8 @@
           </v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col>{{tournament.format.value}}</v-col>
-          <v-col>{{tournament.organizer.lastName}} {{tournament.organizer.nickName}} {{tournament.organizer.firstName}}</v-col>
+          <v-col>{{event.format.value}}</v-col>
+          <v-col>{{event.organizer.lastName}} {{event.organizer.nickName}} {{event.organizer.firstName}}</v-col>
         </v-row>
       </v-card-text>
       <v-card-actions class="pt-0">
@@ -53,7 +53,7 @@
           {{statusInfo.icon}}
         </v-icon>
         <span :style="{color : statusInfo.color}">
-          {{tournamentStatusText}}
+          {{eventStatusText}}
         </span>
          <v-spacer></v-spacer>
         <v-btn icon @click="emitOpenDialogEvent" class="pb-7">
@@ -68,14 +68,14 @@ import statusColorize from '../../util/statusIconWithColor'
 import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import {EVENT_STATUS_MAP, EVENT_STATUS_CODE} from '../../util/constants/TournamentStatusNames'
+import {EVENT_STATUS_MAP, EVENT_STATUS_CODE} from '../../util/constants/EventStatusNames'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 
 export default {
-  name: 'TournamentCardComponent',
+  name: 'EventCardComponent',
   components: {ConfirmationDialogComponent},
   props: {
-    tournament: Object,
+    event: Object,
     required: true
   },
   data () {
@@ -85,28 +85,28 @@ export default {
     }
   },
   computed: {
-    tournamentStatusText () {
-      return EVENT_STATUS_MAP.get(this.tournament.status.code)
+    eventStatusText () {
+      return EVENT_STATUS_MAP.get(this.event.status.code)
     },
     statusInfo () {
-      return statusColorize(this.tournament.status.code)
+      return statusColorize(this.event.status.code)
     }
   },
   methods: {
-    openTournament (tournamentId) {
-      this.$router.push(`/event/${tournamentId}`)
+    openEvent (event) {
+      this.$router.push(`/event/${event}`)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {
-        this.$emit('open-dialog', {id: this.tournament.id})
+        this.$emit('open-dialog', {id: this.event.id})
       } else {
         this.$router.push('SignIn')
       }
     },
-    startTournament () {
+    startEvent () {
       this.$refs.confirmationDialogComponent.pop().then(result => {
         if (result === true) {
-          this.$http.get(END_POINTS.EVENT.START + this.tournament.id).then(response => {
+          this.$http.get(END_POINTS.EVENT.START + this.event.id).then(response => {
             if (response.status === HTTPResponseStatusConstants.OK) {
               // TODO create endpoint
               this.$router.push('')
@@ -115,15 +115,15 @@ export default {
         }
       })
     },
-    updateTournamentStatus (newStatus) {
-      this.$http.post(END_POINTS.EVENT.UPDATE_STATUS, {tournamentId: this.tournament.id, status: newStatus})
+    updateEventStatus (newStatus) {
+      this.$http.post(END_POINTS.EVENT.UPDATE_STATUS, {eventId: this.event.id, status: newStatus})
         .then(response => {
           if (response.status !== HTTPResponseStatusConstants.OK) {
             console.log('Произошла ошибка обновления статуса турнира.')
           }
         })
     },
-    closeTournament () {
+    closeEvent () {
       console.log('Турнир закрыт. Пакеда.')
     }
   }

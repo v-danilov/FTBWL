@@ -46,13 +46,13 @@
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
 export default {
-  name: 'TournamentRegDialogComponent',
+  name: 'EventRegDialogComponent',
   props: {
     visible: {
       type: Boolean,
       required: true
     },
-    tournamentId: {
+    eventId: {
       type: String // TODO full object or DTO with name, date and time
     }
   },
@@ -87,7 +87,7 @@ export default {
     },
     registerUser () {
       const userRegData = {
-        tournamentId: this.tournamentId,
+        eventId: this.eventId,
         fractionId: this.fractionId,
         // TODO complete user id to backend request
         userId: 0}

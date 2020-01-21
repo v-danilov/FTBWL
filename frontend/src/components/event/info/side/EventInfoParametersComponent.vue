@@ -6,21 +6,21 @@
           <span>Формат </span>
         </v-col>
         <v-col cols="1">
-          {{ this.selectedTournament.format }}
+          {{ this.selectedEvent.format }}
         </v-col>
 
         <v-col cols="1">
           <span>Схемпул</span>
         </v-col>
         <v-col cols="1">
-          {{this.selectedTournament.schemePool}}
+          {{this.selectedEvent.schemePool}}
         </v-col>
 
         <v-col cols="1">
           <span>Количество туров</span>
         </v-col>
         <v-col cols="1">
-          {{this.selectedTournament.roundsNumber || 'Не указано' }}
+          {{this.selectedEvent.roundsNumber || 'Не указано' }}
         </v-col>
       </v-row>
       <v-row dense no-gutters>
@@ -28,21 +28,21 @@
           <span>Участников</span>
         </v-col>
         <v-col cols="1">
-          {{this.selectedTournament.participantsNumber || 'Не известно'}}
+          {{this.selectedEvent.participantsNumber || 'Не известно'}}
         </v-col>
 
         <v-col cols="1">
           <span>Статус турнира</span>
         </v-col>
         <v-col cols="1">
-          {{this.selectedTournament.status}}
+          {{this.selectedEvent.status}}
         </v-col>
 
         <v-col cols="1">
           <span>Организатор</span>
         </v-col>
         <v-col>
-          {{this.selectedTournament.organizer}}
+          {{this.selectedEvent.organizer}}
         </v-col>
       </v-row>
     </v-card-text>
@@ -50,9 +50,9 @@
 </template>
 <script>
 export default {
-  name: 'TournamentInfoParametersComponent',
+  name: 'EventInfoParametersComponent',
   props: {
-    selectedTournament: {}
+    selectedEvent: {}
   }
 }
 </script>
