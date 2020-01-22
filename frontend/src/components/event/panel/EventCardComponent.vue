@@ -26,7 +26,7 @@
             </a>
           </v-col>
           <v-col>
-            <template v-if="!! event.startDate">
+            <template v-if="!! event.timeStart">
               {{event.timeStart}} -
             </template>
             {{event.timeEnd}}

@@ -44,7 +44,8 @@ export default {
       // Initialize game system cache first
       this.$store.dispatch(ACTIONS.CACHE_INIT.GAME_SYSTEMS, END_POINTS.GET_ALL.GAME_SYSTEMS).then(gameSystems => {
         // Initialize dictionary cache after that
-        let malifauxID = this.$store.getters.cachedGameSystems[0].id // todo cache by selected game system
+        let malifauxID = this.$store.getters.cachedGameSystems.get('MAL').id // todo cache by selected game system
+        console.log('id: ' + malifauxID)
         this.$store.dispatch(ACTIONS.CACHE_INIT.ALL_DICTS, END_POINTS.GET_ALL.DICTS_BY_GAME_SYSTEM + malifauxID)
       })
     }

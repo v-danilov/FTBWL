@@ -22,6 +22,7 @@ const getters = {
   cachedPlaces: state => state.places,
   cachedOrganizers: state => state.organizers,
   cachedStatuses: state => state.statuses,
+  cachedRulePacks: state => state.rulePacks,
   dictsLoadedFlag: state => state.dictsLoaded
 }
 // this.$store.commit(“SET_USER”, user) synchronous
@@ -50,6 +51,9 @@ const mutations = {
   SET_STATUSES: (state, payload) => {
     state.statuses = payload
   },
+  SET_RULEPACKS: (state, payload) => {
+    state.rulePacks = payload
+  },
   SET_DISCTS_LOADED_FLAG: (state, payload) => {
     state.dictsLoaded = payload
   }
@@ -61,10 +65,11 @@ const actions = {
     await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_FORMATS', response.data.eventFormats)
-          context.commit('SET_STATUSES', response.data.eventStatuses)
-          context.commit('SET_FACTIONS', response.data.factions)
           context.commit('SET_PLACES', response.data.places)
+          commitAsMap('SET_FACTIONS', 'systemName', context, response.data.factions)
+          commitAsMap('SET_FORMATS', 'code', context, response.data.eventFormats)
+          commitAsMap('SET_STATUSES', 'code', context, response.data.eventStatuses)
+          commitAsMap('SET_RULEPACKS', 'code', context, response.data.rulePacks)
           context.commit('SET_DISCTS_LOADED_FLAG', true)
         }
       }).catch(reason => {
@@ -74,7 +79,7 @@ const actions = {
   INIT_GAME_SYSTEMS: (context, url) => {
     return axios.get(url).then(response => {
       if (response.status === HTTPResponseStatusConstants.OK) {
-        context.commit('SET_GAME_SYSTEMS', response.data)
+        commitAsMap('SET_GAME_SYSTEMS', 'code', context, response.data)
         return response.data
       }
     }).catch(reason => {
@@ -85,7 +90,7 @@ const actions = {
   INIT_FACTIONS: (context, url) => {
     axios.get(url).then(response => {
       if (response.status === HTTPResponseStatusConstants.OK) {
-        context.commit('SET_FACTIONS', response.data)
+        commitAsMap('SET_FACTIONS', 'systemName', context, response.data)
       }
     }).catch(reason => {
       console.log('Failed to cache fractions 🤷‍♂️')
@@ -95,7 +100,7 @@ const actions = {
     await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_FORMATS', response.data.payload)
+          commitAsMap('SET_FORMATS', 'code', context, response.data)
         }
       }).catch(reason => {
         console.log('Failed to cache formats 🤷‍♂️')
@@ -146,12 +151,17 @@ const actions = {
     await axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_STATUSES', response.data.payload)
+          commitAsMap('SET_STATUSES', 'code', context, response.data)
         }
       }).catch(reason => {
         console.log('Failed to cache statuses 🤷‍♂️')
       })
   }
+}
+function commitAsMap (setter, keyField, context, payload) {
+  const payloadAsMap = new Map()
+  payload.forEach(e => payloadAsMap.set(e[keyField], e))
+  context.commit(setter, payloadAsMap)
 }
 
 export default {

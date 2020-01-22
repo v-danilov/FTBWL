@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 export default class UserSession {
   static isAuthenticated () {
-    return Vue.cookie.get('user') !== null
+    // return Vue.cookie.get('user') !== null
+    return true
   }
 
   static setUser (userData) {

@@ -22,7 +22,7 @@
         <v-stepper-content step="1">
           <v-row class="fill-height" align="center" justify="center">
             <v-col cols="6">
-              <v-combobox :items="this.$store.getters.cachedGameSystems.items"
+              <v-combobox :items="gamesSystemsFromCache"
                           item-text="value"
                           v-model="selectedSystem"
                           :return-object="true"
@@ -52,7 +52,7 @@
           <v-row justify="center">
             <!-- Формат проведения -->
             <v-col cols="4">
-              <v-combobox :items="this.$store.getters.cachedFormats"
+              <v-combobox :items="formatsFromCache"
                           item-text="value"
                           v-model="selectedFormat"
                           :return-object="true"
@@ -62,9 +62,9 @@
             </v-col>
             <!-- Схемпул (рулпак) -->
             <v-col cols="4">
-              <v-combobox :items="this.$store.getters.cachedRulePacks"
+              <v-combobox :items="rulePacksFromCache"
                           v-model="selectedRulePack"
-                          item-text="name"
+                          item-text="value"
                           :return-object="true"
                           label="Rulepack"
                           required>
@@ -251,6 +251,15 @@ export default {
           this.$emit('close-event-create-dialog')
         }
       }
+    },
+    gamesSystemsFromCache () {
+      return Array.from(this.$store.getters.cachedGameSystems.values())
+    },
+    formatsFromCache () {
+      return Array.from(this.$store.getters.cachedFormats.values())
+    },
+    rulePacksFromCache () {
+      return Array.from(this.$store.getters.cachedRulePacks.values())
     },
     saveIsActive () {
       let startSplitted = this.parseTime(this.timeStart)
