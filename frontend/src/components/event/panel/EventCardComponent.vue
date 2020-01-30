@@ -56,7 +56,7 @@
           {{eventStatusText}}
         </span>
          <v-spacer></v-spacer>
-        <v-btn icon @click="emitOpenDialogEvent" class="pb-7">
+        <v-btn icon @click="emitOpenDialogEvent">
           <v-icon color="primary" large>assignment_turned_in</v-icon>
         </v-btn>
        </v-card-actions>
@@ -68,7 +68,6 @@ import statusColorize from '../../util/statusIconWithColor'
 import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import {EVENT_STATUS_MAP, EVENT_STATUS_CODE} from '../../util/constants/EventStatusNames'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 
 export default {
@@ -80,13 +79,12 @@ export default {
   },
   data () {
     return {
-      themeColors: this.$vuetify.theme.currentTheme,
-      statusMap: EVENT_STATUS_CODE
+      themeColors: this.$vuetify.theme.currentTheme
     }
   },
   computed: {
     eventStatusText () {
-      return EVENT_STATUS_MAP.get(this.event.status.code)
+      return this.event.status.value
     },
     statusInfo () {
       return statusColorize(this.event.status.code)

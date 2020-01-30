@@ -12,9 +12,7 @@
         </v-container>
       </v-content>
     </div>
-    <div v-else>
-      Loading...
-    </div>
+    <LoadingStub v-else></LoadingStub>
   </v-app>
 </template>
 
@@ -22,10 +20,11 @@
 import NavigatorComponent from './components/NavigatorComponent'
 import {END_POINTS} from './components/util/constants/EndPointsConstants'
 import {ACTIONS} from './components/util/constants/ActionConstants'
+import LoadingStub from './components/util/LoadingStub'
 
 export default {
   name: 'App',
-  components: {NavigatorComponent},
+  components: {LoadingStub, NavigatorComponent},
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme

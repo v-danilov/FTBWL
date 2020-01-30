@@ -27,7 +27,7 @@
 import EventInfoBodyComponent from './side/EventInfoBodyComponent'
 import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import {END_POINTS} from '../../util/constants/EndPointsConstants';
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
 export default {
   name: 'EventInfoComponent',

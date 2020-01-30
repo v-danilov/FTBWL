@@ -27,7 +27,7 @@
           </CreateDialog>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="events.length !== 0">
         <v-col cols="4" v-for="(eventElement, index) in events" :key=index>
           <EventCard
             :event=eventElement
@@ -41,6 +41,7 @@
           @close-reg-dialog="showRegForm = false">
         </RegDialog>
       </v-row>
+      <LoadingStub v-else></LoadingStub>
     </v-col>
   </v-row>
 </template>
@@ -52,10 +53,12 @@ import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
+import LoadingStub from '../../util/LoadingStub'
 
 export default {
   name: 'EventPanelComponent',
   components: {
+    LoadingStub,
     EventFilter: EventFilterComponent,
     EventCard: EventCardComponent,
     RegDialog: EventRegDialogComponent,

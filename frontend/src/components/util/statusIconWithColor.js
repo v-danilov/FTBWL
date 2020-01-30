@@ -1,14 +1,28 @@
 import { COLORS } from './constants/ColorsConstants'
 import {EVENT_STATUS_CODE} from './constants/EventStatusNames'
+import { mdiPlayCircle, mdiPauseCircle, mdiCloseCircle,
+  mdiAccountClock, mdiAccountPlus, mdiAccountLock,
+  mdiCards, mdiArchive} from '@mdi/js'
+
 /* exported statusColorize */
 export default function statusColorize (status) {
   switch (status) {
-    case EVENT_STATUS_CODE.SCHEDULED:
-      return {icon: 'query_builder', color: COLORS.ADDITIONAL}
-    case EVENT_STATUS_CODE.REGISTRATION_OPEN:
-      return {icon: 'done', color: COLORS.SECONDARY}
-    case EVENT_STATUS_CODE.CLOSED:
-      return {icon: 'done_all', color: COLORS.ACCENT}
+    case EVENT_STATUS_CODE.REG_WAIT:
+      return {icon: mdiAccountClock, color: COLORS.ACCENT}
+    case EVENT_STATUS_CODE.REG_ON:
+      return {icon: mdiAccountPlus, color: COLORS.SECONDARY}
+    case EVENT_STATUS_CODE.REG_OFF:
+      return {icon: mdiAccountLock, color: COLORS.ACCENT}
+    case EVENT_STATUS_CODE.START:
+      return {icon: mdiPlayCircle, color: COLORS.SECONDARY}
+    case EVENT_STATUS_CODE.CANCEL:
+      return {icon: mdiCloseCircle, color: COLORS.ADDITIONAL}
+    case EVENT_STATUS_CODE.PLAY:
+      return {icon: mdiCards, color: COLORS.SECONDARY}
+    case EVENT_STATUS_CODE.END:
+      return {icon: mdiArchive, color: COLORS.PRIMARY}
+    case EVENT_STATUS_CODE.PAUSE:
+      return {icon: mdiPauseCircle, color: COLORS.ADDITIONAL}
     default:
       console.log('WARNING: не опознан цвет для статуса ' + status)
       return {icon: 'help', color: COLORS.PRIMARY}
