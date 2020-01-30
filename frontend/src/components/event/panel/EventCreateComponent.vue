@@ -312,7 +312,7 @@ export default {
         organizerId: UserSession.getUser()
       }
       // todo check response
-      this.$http.post(END_POINTS.EVENT.CREATE, event).then(response => {
+      this.$http.post(END_POINTS.EVENTS.CREATE, event).then(response => {
         if (response.status !== HTTPResponseStatusConstants.OK) {
           console.log('NotOK')
         }

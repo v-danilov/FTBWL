@@ -40,7 +40,7 @@ const router = new Router({
       component: EventPanelComponent
     },
     {
-      path: '/event/:eventId',
+      path: '/events/:eventId',
       name: 'EventInfoMainComponent',
       component: EventInfoMainComponent,
       props: true

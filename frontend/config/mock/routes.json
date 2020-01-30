@@ -2,5 +2,5 @@
   "/api/*": "/$1",
   "/dict/gameSystems": "/gameSystems",
   "/dict/gameSystem/*": "/dicts",
-  "/event/:id": "/event?id=:id"
+  "/events/:id": "/events?id=:id"
 }

@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     openEvent (event) {
-      this.$router.push(`/event/${event}`)
+      this.$router.push(END_POINTS.EVENTS.BY_ID + event)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {
@@ -106,7 +106,7 @@ export default {
     startEvent () {
       this.$refs.confirmationDialogComponent.pop().then(result => {
         if (result === true) {
-          this.$http.get(END_POINTS.EVENT.START + this.event.id).then(response => {
+          this.$http.get(END_POINTS.EVENTS.START + this.event.id).then(response => {
             if (response.status === HTTPResponseStatusConstants.OK) {
               // TODO create endpoint
               this.$router.push('')
@@ -116,7 +116,7 @@ export default {
       })
     },
     updateEventStatus (newStatus) {
-      this.$http.post(END_POINTS.EVENT.UPDATE_STATUS, {eventId: this.event.id, status: newStatus})
+      this.$http.post(END_POINTS.EVENTS.UPDATE_STATUS, {eventId: this.event.id, status: newStatus})
         .then(response => {
           if (response.status !== HTTPResponseStatusConstants.OK) {
             console.log('Произошла ошибка обновления статуса турнира.')

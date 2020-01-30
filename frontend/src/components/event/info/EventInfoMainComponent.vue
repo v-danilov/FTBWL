@@ -27,6 +27,7 @@
 import EventInfoBodyComponent from './side/EventInfoBodyComponent'
 import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import {END_POINTS} from '../../util/constants/EndPointsConstants';
 
 export default {
   name: 'EventInfoComponent',
@@ -41,19 +42,17 @@ export default {
   },
   methods: {
     changeVisibility (value) {
-      console.log(value)
       this.componentsHidden = value
     }
   },
   beforeMount () {
-    this.$http.get(`/event/${this.eventId}`)
+    this.$http.get(END_POINTS.EVENTS.BY_ID + this.eventId)
       .then(response => {
         this.selectedEvent = response.data
       })
       .catch(error => {
         if (error.response.status === HTTPResponseStatusConstants.NOT_FOUND) {
           this.loadingError = true
-          console.log(error)
         }
       })
   }

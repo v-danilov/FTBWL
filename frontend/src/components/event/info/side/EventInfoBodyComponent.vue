@@ -34,7 +34,7 @@
         </v-card-title>
         <!-- Body -->
         <v-card-text>
-          <v-hover v-slot:default="{ hover }" v-for="(player, index) in selectedEvent.players" :key="index">
+          <v-hover v-slot:default="{ hover }" v-for="(player, index) in players" :key="index">
             <v-row class="selected-row" dense :class="{ 'on-hover': hover }" justify="center">
               <v-col cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{index + 1}}
@@ -185,12 +185,13 @@ export default {
       roundSettingDialog: false,
       selectedRoundNumber: 0,
       playersDataSaving: false
+      // players: this.selectedEvent.players
     }
   },
   methods: {
     savePlayers () {
       this.playersDataSaving = true
-      this.$http.post(END_POINTS.EVENT.SAVE_PLAYERS, this.players)
+      this.$http.post(END_POINTS.EVENTS.SAVE_PLAYERS, this.players)
     },
     cancelReg (index) {
       this.players[index].isCanceled = true
@@ -201,6 +202,9 @@ export default {
     }
   },
   computed: {
+    players () {
+      return this.selectedEvent.players
+    },
     evenTables () {
       let currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 === 0)
@@ -211,7 +215,6 @@ export default {
     },
     hideInfoComponents: {
       get () {
-        console.log('emmiting')
         this.$emit('hide-info-components', this.hideEventInfo)
         return this.hideEventInfo
       }

@@ -92,7 +92,7 @@ export default {
         // TODO complete user id to backend request
         userId: 0}
 
-      this.$http.post(END_POINTS.EVENT.REG_USER, userRegData)
+      this.$http.post(END_POINTS.EVENTS.REG_USER, userRegData)
         .then(response => {
           console.log(response)
         })
