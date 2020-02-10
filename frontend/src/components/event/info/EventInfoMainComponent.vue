@@ -3,6 +3,7 @@
     <template v-if="!loadingError">
     <EIHeader v-if="!componentsHidden"
                                    :selected-event="selectedEvent"/>
+      <StatusManageButton :event-status="selectedEvent.status.code"></StatusManageButton>
     <EIBody @hide-info-components="changeVisibility"
                                  :selected-event="selectedEvent || []"/>
     </template>
@@ -28,11 +29,12 @@ import EventInfoBodyComponent from './side/EventInfoBodyComponent'
 import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import StatusManageButtonComponent from '../StatusManageButtonComponent'
 
 export default {
   name: 'EventInfoComponent',
   props: ['eventId'],
-  components: {EIHeader: EventInfoHeaderComponent, EIBody: EventInfoBodyComponent},
+  components: {StatusManageButton: StatusManageButtonComponent, EIHeader: EventInfoHeaderComponent, EIBody: EventInfoBodyComponent},
   data () {
     return {
       loadingError: false,
