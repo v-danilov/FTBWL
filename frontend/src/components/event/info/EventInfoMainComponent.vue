@@ -3,7 +3,8 @@
     <template v-if="!loadingError">
     <EIHeader v-if="!componentsHidden"
                                    :selected-event="selectedEvent"/>
-      <StatusManageButton :event-status="selectedEvent.status.code"></StatusManageButton>
+      <StatusManageButton :event-status="selectedEvent.status.code"
+                          @event-status-changed="refreshEventOnStatusChanged"></StatusManageButton>
     <EIBody @hide-info-components="changeVisibility"
                                  :selected-event="selectedEvent || []"/>
     </template>
@@ -45,6 +46,15 @@ export default {
   methods: {
     changeVisibility (value) {
       this.componentsHidden = value
+    },
+    refreshEventOnStatusChanged (value) {
+      this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), {'code': value})
+        .then(response => {
+          this.selectedEvent = response.data
+        })
+        .catch(error => {
+          console.log('Failed to refresh event. ' + error.message)
+        })
     }
   },
   beforeMount () {

@@ -6,8 +6,7 @@ export const END_POINTS = {
   EVENTS: {
     BY_ID: '/events/',
     REG_USER: '/registrationRequest',
-    START: '/event/start/',
-    UPDATE_STATUS: '/event/statusUpdate',
+    UPDATE_STATUS: '/events/{id}/status',
     CREATE: '/event/create',
     // TODO replace parameters
     SAVE_PLAYERS: '/event/{id}/savePlayers'
