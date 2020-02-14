@@ -13,6 +13,7 @@
       </v-content>
     </div>
     <LoadingStub v-else></LoadingStub>
+    <ConfirmationDialogComponent ref="confirmationDialog"></ConfirmationDialogComponent>
   </v-app>
 </template>
 
@@ -21,10 +22,11 @@ import NavigatorComponent from './components/NavigatorComponent'
 import {END_POINTS} from './components/util/constants/EndPointsConstants'
 import {ACTIONS} from './components/util/constants/ActionConstants'
 import LoadingStub from './components/util/LoadingStub'
+import ConfirmationDialogComponent from './components/dialogs/ConfirmationDialogComponent'
 
 export default {
   name: 'App',
-  components: {LoadingStub, NavigatorComponent},
+  components: {ConfirmationDialogComponent, LoadingStub, NavigatorComponent},
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme
@@ -37,6 +39,9 @@ export default {
     storeIsReady () {
       return this.$store.getters.dictsLoadedFlag
     }
+  },
+  mounted () {
+    this.$root.$confirmationDialog = this.$refs.confirmationDialog.open
   },
   methods: {
     initStoreValues () {

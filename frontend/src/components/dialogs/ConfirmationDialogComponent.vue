@@ -42,27 +42,19 @@
 <script>
 export default {
   name: 'ConfirmationDialogComponent',
-  props: {
-    headerText: {
-      type: String,
-      required: true
-    },
-    bodyText: {
-      type: String,
-      required: true
-    },
-    isMultiAction: {
-      type: Boolean,
-      required: false
-    }
-  },
   data () {
     return {
-      active: false
+      active: false,
+      headerText: '',
+      bodyText: '',
+      isMultiAction: true
     }
   },
   methods: {
-    pop () {
+    open (headerText, bodyText, canBeAccepted = true) {
+      this.headerText = headerText
+      this.bodyText = bodyText
+      this.isMultiAction = canBeAccepted
       this.active = true
       return new Promise((resolve, reject) => {
         this.result = resolve

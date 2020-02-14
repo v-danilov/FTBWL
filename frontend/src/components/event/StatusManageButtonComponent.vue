@@ -12,9 +12,11 @@
 <script>
 import {EVENT_STATUS_CODE} from '../util/constants/EventStatusNames'
 import statusColorize from '../util/statusIconWithColor'
+import ConfirmationDialogComponent from '../dialogs/ConfirmationDialogComponent'
 
 export default {
   name: 'StatusManageButtonComponent',
+  components: {ConfirmationDialogComponent},
   props: {
     eventStatus: String
   },
@@ -65,7 +67,13 @@ export default {
     }
   },
   methods: {
-    updateStatus (newStatusCode) {
+    async updateStatus (newStatusCode) {
+      if (newStatusCode === EVENT_STATUS_CODE.CANCEL) {
+        // Do not emit refresh event if user declined cancellation
+        if (!await this.$root.$confirmationDialog.call(this, 'Подтвердите отмену турнира', 'Вы действительно хотите отменить данный турнир?')) {
+          return
+        }
+      }
       this.$emit('event-status-changed', newStatusCode)
     }
   }
