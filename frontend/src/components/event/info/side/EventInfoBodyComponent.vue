@@ -40,7 +40,8 @@
                 {{index + 1}}
               </v-col>
               <v-col cols="3" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.name}}
+                {{player.user.fullName}}
+                <em>aka <span>{{player.user.nickname}}</span></em>
               </v-col>
               <v-col cols="2" v-bind:class="{ 'disabled-player': player.isCanceled }">
                 {{player.faction.systemName}}
@@ -100,19 +101,21 @@
                 <span>Дата начала:</span>
               </v-col>
               <v-col>
-                {{round.startDate}}
+                {{round.timeStart}}
               </v-col>
               <v-col>
                 <span>Дата окончания:</span>
               </v-col>
               <v-col>
-                {{round.endDate}}
+                {{round.timeEnd}}
               </v-col>
               <v-col>
                 <span>Статус: </span>
               </v-col>
               <v-col>
-                {{round.status}}
+                 <span :style="{color : statusStyleByCode(round.status).color}">
+                   {{round.status.value}}
+                 </span>
               </v-col>
             </v-row>
             <!--Round parameters -->
@@ -120,17 +123,17 @@
               <v-col>
                 <span>Расстановка:</span>
               </v-col>
-              <v-col>{{round.arrangement}}</v-col>
+              <v-col>{{round.schemePool.gameDeploy.systemName}}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
               </v-col>
-              <v-col>{{round.strategy}}</v-col>
+              <v-col>{{round.schemePool.gameStrategy.systemName}}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
               </v-col>
-              <v-col>{{round.schemes}}</v-col>
+              <v-col>Вы её не видите, а её и нет</v-col>
             </v-row>
             <v-row no-gutters>
               <v-col>
@@ -171,6 +174,7 @@
 import TablesInfoComponent from './TablesInfoComponent'
 import {END_POINTS} from '../../../util/constants/EndPointsConstants'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
+import statusStyleByCode from '../../../util/statusStyleByCode'
 
 export default {
   name: 'EventInfoBodyComponent',
@@ -199,6 +203,9 @@ export default {
     rageQuit (index) {
       // TODO endponit call
       // if success - delete from UI
+    },
+    statusStyleByCode (status) {
+      return statusStyleByCode(status)
     }
   },
   computed: {

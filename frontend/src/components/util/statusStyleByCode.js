@@ -5,8 +5,8 @@ import { mdiPlayCircle, mdiPauseCircle, mdiCloseCircle,
   mdiCards, mdiArchive} from '@mdi/js'
 
 /* exported statusColorize */
-export default function statusColorize (status) {
-  switch (status) {
+export default function statusStyleByCode (statusCode) {
+  switch (statusCode) {
     case EVENT_STATUS_CODE.REG_WAIT:
       return {icon: mdiAccountClock, color: COLORS.ACCENT}
     case EVENT_STATUS_CODE.REG_ON:
@@ -24,7 +24,7 @@ export default function statusColorize (status) {
     case EVENT_STATUS_CODE.PAUSE:
       return {icon: mdiPauseCircle, color: COLORS.ADDITIONAL}
     default:
-      console.log('WARNING: не опознан цвет для статуса ' + status)
+      console.log('WARNING: не опознан цвет для статуса ' + statusCode)
       return {icon: 'help', color: COLORS.PRIMARY}
   }
 }

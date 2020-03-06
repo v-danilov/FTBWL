@@ -49,10 +49,10 @@
         </v-row>
       </v-card-text>
       <v-card-actions class="pt-0">
-        <v-icon  :style="{color : statusInfo.color}" class="mr-1">
-          {{statusInfo.icon}}
+        <v-icon :style="{color : statusStyle.color}" class="mr-1">
+          {{statusStyle.icon}}
         </v-icon>
-        <span :style="{color : statusInfo.color}">
+        <span :style="{color : statusStyle.color}">
           {{eventStatusText}}
         </span>
          <v-spacer></v-spacer>
@@ -64,7 +64,7 @@
   </v-hover>
 </template>
 <script>
-import statusColorize from '../../util/statusIconWithColor'
+import statusStyleByCode from '../../util/statusStyleByCode'
 import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
@@ -86,8 +86,8 @@ export default {
     eventStatusText () {
       return this.event.status.value
     },
-    statusInfo () {
-      return statusColorize(this.event.status.code)
+    statusStyle () {
+      return statusStyleByCode(this.event.status.code)
     }
   },
   methods: {

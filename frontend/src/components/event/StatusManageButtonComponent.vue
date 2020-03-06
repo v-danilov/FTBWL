@@ -11,7 +11,7 @@
 
 <script>
 import {EVENT_STATUS_CODE} from '../util/constants/EventStatusNames'
-import statusColorize from '../util/statusIconWithColor'
+import statusStyleByCode from '../util/statusStyleByCode'
 import ConfirmationDialogComponent from '../dialogs/ConfirmationDialogComponent'
 
 export default {
@@ -28,39 +28,39 @@ export default {
         case EVENT_STATUS_CODE.REG_WAIT:
           return [{nextStateText: 'Открыть регистрацию',
             nextStateCode: EVENT_STATUS_CODE.REG_ON,
-            color: statusColorize(EVENT_STATUS_CODE.REG_ON).color},
+            color: statusStyleByCode(EVENT_STATUS_CODE.REG_ON).color},
           {nextStateText: 'Отменить турнир',
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
-            color: statusColorize(EVENT_STATUS_CODE.CANCEL).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color}]
         case EVENT_STATUS_CODE.REG_ON:
           return [{nextStateText: 'Закрыть регистрацию',
             nextStateCode: EVENT_STATUS_CODE.REG_OFF,
-            color: statusColorize(EVENT_STATUS_CODE.REG_OFF).color},
+            color: statusStyleByCode(EVENT_STATUS_CODE.REG_OFF).color},
           {nextStateText: 'Отменить турнир',
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
-            color: statusColorize(EVENT_STATUS_CODE.CANCEL).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color}]
         case EVENT_STATUS_CODE.REG_OFF:
           return [{nextStateText: 'Начать турнир',
             nextStateCode: EVENT_STATUS_CODE.START,
-            color: statusColorize(EVENT_STATUS_CODE.START).color},
+            color: statusStyleByCode(EVENT_STATUS_CODE.START).color},
           {nextStateText: 'Отменить турнир',
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
-            color: statusColorize(EVENT_STATUS_CODE.CANCEL).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color}]
         case EVENT_STATUS_CODE.START:
           return [{nextStateText: 'Начать игру',
             nextStateCode: EVENT_STATUS_CODE.PLAY,
-            color: statusColorize(EVENT_STATUS_CODE.PLAY).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.PLAY).color}]
         case EVENT_STATUS_CODE.PLAY:
           return [{nextStateText: 'Приостановить турнир',
             nextStateCode: EVENT_STATUS_CODE.PAUSE,
-            color: statusColorize(EVENT_STATUS_CODE.PAUSE).color},
+            color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color},
           {nextStateText: 'Закончить трунир',
             nextStateCode: EVENT_STATUS_CODE.END,
-            color: statusColorize(EVENT_STATUS_CODE.END).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.END).color}]
         case EVENT_STATUS_CODE.PAUSE:
           return [{nextStateText: 'Продолжить турнир',
             nextStateCode: EVENT_STATUS_CODE.PAUSE,
-            color: statusColorize(EVENT_STATUS_CODE.PAUSE).color}]
+            color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color}]
         default:
           return null
       }
