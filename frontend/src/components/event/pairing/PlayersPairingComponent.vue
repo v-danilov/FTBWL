@@ -9,12 +9,12 @@
             :key="element.id"
             @click="selectPlayerForSwap(element, index)"
           >
-            <v-list-item-avatar>
+            <v-list-item-avatar v-if="element.avatar !== null">
               <v-img :src="element.avatar"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-card>
-                <v-card-text>
+                <v-card-text class="text-center">
                   {{element.name}}
                 </v-card-text>
               </v-card>
@@ -25,12 +25,12 @@
       <v-col cols="2">
         <v-list disabled>
           <v-list-item
-            v-for="i in dataFromServer.tablesNumber"
+            v-for="i in playersForPairing.length / 2"
             :key="i"
           >
             <v-list-item-content>
               <v-card>
-                <v-card-text>
+                <v-card-text class="text-center">
                   <span>Стол №{{i}}</span>
                 </v-card-text>
               </v-card>
@@ -46,13 +46,13 @@
                        :key="element.id"
                        @click="selectPlayerForSwap(element, index)"
           >
-            <v-list-item-avatar>
+            <v-list-item-avatar v-if="element.avatar !== null">
               <v-img :src="element.avatar"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
               <v-card>
-                <v-card-text>
+                <v-card-text class="text-center">
                   {{element.name}}
                 </v-card-text>
               </v-card>
@@ -65,13 +65,11 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+
+import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
 export default {
   name: 'PairingMainComponent',
-  components: {
-    draggable
-  },
   data () {
     return {
       drag: false,
@@ -84,21 +82,25 @@ export default {
     }
   },
   created () {
-    // TODO get event data for pairing creation
-    this.$http.get('https://randomuser.me/api/?results=40').then(response => {
-      // response.data.results.forEach(splitToLeftAndRight)
-      response.data.results.forEach(e => this.playersForPairing.push({
-        name: e.name.first.replace(/^\w/, c => c.toUpperCase()) + ' ' + e.name.last.replace(/^\w/, c => c.toUpperCase()),
-        avatar: e.picture.medium
-      }))
-      this.dataFromServer.tablesNumber = 20
+    this.$http.get(END_POINTS.EVENTS.BY_ID + this.$store.getters.currentActiveEventID).then(response => {
+      response.data.players.forEach(e => {
+        // console.log(e)
+        const playerData = {
+          name: e.user.fullName,
+          nickname: e.user.nickname,
+          avatar: null // TODO implement user avatar?
+        }
+        this.playersForPairing.push(playerData)
+      })
     })
   },
   methods: {
     swapPlayers (fIndex, sIndex) {
-      const playerForSwap = this.playersForPairing[fIndex]
-      this.playersForPairing[fIndex] = this.playersForPairing[sIndex]
-      this.playersForPairing[sIndex] = playerForSwap
+      const firstPlayer = this.playersForPairing[fIndex]
+      const secondPlayer = this.playersForPairing[sIndex]
+      // Using splice to swap array values for Vue automatic reactivity
+      this.playersForPairing.splice(fIndex, 1, secondPlayer)
+      this.playersForPairing.splice(sIndex, 1, firstPlayer)
       this.$emit('swap-players')
     },
     selectPlayerForSwap (player, playerIndex) {

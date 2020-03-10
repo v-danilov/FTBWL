@@ -69,6 +69,7 @@ import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
+import {ACTIONS} from '../../util/constants/ActionConstants'
 
 export default {
   name: 'EventCardComponent',
@@ -91,8 +92,9 @@ export default {
     }
   },
   methods: {
-    openEvent (event) {
-      this.$router.push(END_POINTS.EVENTS.BY_ID + event)
+    openEvent (eventID) {
+      this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, eventID)
+      this.$router.push(END_POINTS.EVENTS.BY_ID + eventID)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {

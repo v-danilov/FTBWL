@@ -4,7 +4,7 @@ import SignUpComponent from '../components/authorization/SignUpComponent'
 import SignInComponent from '../components/authorization/SignInComponent'
 import EventPanelComponent from '../components/event/panel/EventPanelComponent'
 import EventInfoMainComponent from '../components/event/info/EventInfoMainComponent'
-import PairingMainComponent from '../components/event/pairing/PairingMainComponent'
+import PlayersPairingComponent from '../components/event/pairing/PlayersPairingComponent'
 
 Vue.use(Router)
 
@@ -48,7 +48,7 @@ const router = new Router({
     {
       path: '/statistic',
       name: 'Name',
-      component: PairingMainComponent
+      component: PlayersPairingComponent
     }
   ]
 })

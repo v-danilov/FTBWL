@@ -27,7 +27,7 @@
             <v-toolbar-items>
               <!-- Left player chip -->
               <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(firstPlayerFowSwap)">
-                <v-avatar left>
+                <v-avatar v-if="firstPlayerFowSwap.player.avatar !== null" left>
                   <v-img :src="firstPlayerFowSwap.player.avatar"></v-img>
                 </v-avatar>
                 {{firstPlayerFowSwap.player.name}} (Стол {{defineTableNumber(firstPlayerFowSwap.playerIndex)}})
@@ -42,7 +42,7 @@
               </v-btn>
               <!-- Right player chip -->
               <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(secondPlayerForSwap)">
-                <v-avatar left>
+                <v-avatar v-if="secondPlayerForSwap.player.avatar !== null" left>
                   <v-img :src="secondPlayerForSwap.player.avatar"></v-img>
                 </v-avatar>
                 {{secondPlayerForSwap.player.name}} (Стол
@@ -144,10 +144,10 @@
       <v-content id="body-container"
                  class="pl-200 overflow-y-hidden">
         <v-container fluid >
-          <PairingMainComponent
-            ref="pairingMainComponent"
+          <PlayersPairingComponent
+            ref="playersPairingComponent"
             @swap-players="clearSwapData"
-          ></PairingMainComponent>
+          ></PlayersPairingComponent>
         </v-container>
       </v-content>
     </v-card>
@@ -155,11 +155,11 @@
 </template>
 
 <script>
-import PairingMainComponent from '../pairing/PairingMainComponent'
+import PlayersPairingComponent from '../pairing/PlayersPairingComponent'
 import _ from 'lodash'
 export default {
   name: 'RoundSettingsComponent',
-  components: {PairingMainComponent},
+  components: {PlayersPairingComponent},
   props: {
     roundNumber: {
       required: true,
@@ -170,13 +170,6 @@ export default {
   data () {
     return {
       dialog: true,
-      selectorData: [
-        {id: 0, name: 'Element 1'},
-        {id: 1, name: 'Element 2'},
-        {id: 2, name: 'Element 3'},
-        {id: 3, name: 'Element 4'},
-        {id: 4, name: 'Element 5'}
-      ],
       clearButtonHovered: false
     }
   },
@@ -205,11 +198,11 @@ export default {
       this.firstPlayerFowSwap = {}
       this.secondPlayerForSwap = {}
       // Сбрасываем индекс расстановки для верного заполнения игроков при следующем выборе
-      this.$refs.pairingMainComponent.nextPlayerIndex = 0
+      this.$refs.playersPairingComponent.nextPlayerIndex = 0
       this.clearButtonHovered = false
     },
     swapPlayers () {
-      this.$refs.pairingMainComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
+      this.$refs.playersPairingComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
     },
     defineTableNumber (playerIndex) {
       return playerIndex % 2 === 0 ? (playerIndex / 2 + 1) : Math.round(playerIndex / 2)

@@ -31,6 +31,7 @@ import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import StatusManageButtonComponent from '../StatusManageButtonComponent'
+import {ACTIONS} from '../../util/constants/ActionConstants'
 
 export default {
   name: 'EventInfoComponent',
@@ -55,6 +56,11 @@ export default {
         .catch(error => {
           console.log('Failed to refresh event. ' + error.message)
         })
+    }
+  },
+  created () {
+    if (this.$store.getters.currentActiveEventID === null) {
+      this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, this.eventId)
     }
   },
   beforeMount () {
