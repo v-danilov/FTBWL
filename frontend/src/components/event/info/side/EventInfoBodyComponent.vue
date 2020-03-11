@@ -137,9 +137,13 @@
             </v-row>
             <v-row no-gutters>
               <v-col>
-                <v-btn rounded color="additional" class="white--text"
-                       @click="roundSettingDialog = !roundSettingDialog">
+                <v-btn v-if="round.status.code === eventStatusCodes.SCHEDULED"
+                        rounded color="additional" class="white--text"
+                        @click="roundSettingDialog = !roundSettingDialog">
                   Начать раунд
+                </v-btn>
+                <v-btn v-else rounded color="accent" class="white--text">
+                  Закончить раунд
                 </v-btn>
                 <RoundSettingsComponent v-if="roundSettingDialog"
                                         :round-number="index"
@@ -175,6 +179,7 @@ import TablesInfoComponent from './TablesInfoComponent'
 import {END_POINTS} from '../../../util/constants/EndPointsConstants'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 import statusStyleByCode from '../../../util/statusStyleByCode'
+import {EVENT_STATUS_CODE} from '../../../util/constants/EventStatusNames'
 
 export default {
   name: 'EventInfoBodyComponent',
@@ -209,6 +214,9 @@ export default {
     }
   },
   computed: {
+    eventStatusCodes () {
+      return EVENT_STATUS_CODE
+    },
     players () {
       return this.selectedEvent.players
     },

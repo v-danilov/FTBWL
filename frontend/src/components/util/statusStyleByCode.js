@@ -2,7 +2,7 @@ import { COLORS } from './constants/ColorsConstants'
 import {EVENT_STATUS_CODE} from './constants/EventStatusNames'
 import { mdiPlayCircle, mdiPauseCircle, mdiCloseCircle,
   mdiAccountClock, mdiAccountPlus, mdiAccountLock,
-  mdiCards, mdiArchive} from '@mdi/js'
+  mdiCards, mdiArchive, mdiClockFast} from '@mdi/js'
 
 /* exported statusColorize */
 export default function statusStyleByCode (statusCode) {
@@ -23,6 +23,8 @@ export default function statusStyleByCode (statusCode) {
       return {icon: mdiArchive, color: COLORS.PRIMARY}
     case EVENT_STATUS_CODE.PAUSE:
       return {icon: mdiPauseCircle, color: COLORS.ADDITIONAL}
+    case EVENT_STATUS_CODE.SCHEDULED:
+      return {icon: mdiClockFast, color: COLORS.ACCENT}
     default:
       console.log('WARNING: не опознан цвет для статуса ' + statusCode)
       return {icon: 'help', color: COLORS.PRIMARY}

@@ -6,5 +6,6 @@ export const EVENT_STATUS_CODE = {
   CANCEL: 'CANCEL',
   PLAY: 'PLAY',
   END: 'END',
-  PAUSE: 'PAUSE'
+  PAUSE: 'PAUSE',
+  SCHEDULED: 'SCHEDULED'
 }
