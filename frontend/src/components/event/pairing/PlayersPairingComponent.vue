@@ -69,7 +69,7 @@
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 
 export default {
-  name: 'PairingMainComponent',
+  name: 'PlayersPairingComponent.vue',
   data () {
     return {
       drag: false,
@@ -86,6 +86,7 @@ export default {
       response.data.players.forEach(e => {
         // console.log(e)
         const playerData = {
+          id: e.id,
           name: e.user.fullName,
           nickname: e.user.nickname,
           avatar: null // TODO implement user avatar?
@@ -115,6 +116,18 @@ export default {
       }
       const vm = this
       this.$store.dispatch(choseDispatchActionBasedOnOrder(vm), {player: player, playerIndex: playerIndex})
+    },
+    savePairingGrid () {
+      let dataRequest = []
+      for (let i = 0; i < this.playersForPairing; i = i + 2) {
+        dataRequest.push({
+          tableNum: i + 1,
+          firstPlayerID: this.playersForPairing[i].id,
+          secondPlayerID: this.playersForPairing[i + 1].id
+        })
+      }
+      // TODO complete pairing post request with URL
+      return this.$http.post('/rounds?eventID=' + this.$store.getters.currentActiveEventID, dataRequest)
     }
   }
 }

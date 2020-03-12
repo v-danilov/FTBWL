@@ -16,7 +16,7 @@
             close
           </v-icon>
         </v-btn>
-        <v-btn icon fab>
+        <v-btn icon fab @click="savePairingGrid">
           <v-icon color="white">
             save
           </v-icon>
@@ -157,6 +157,7 @@
 <script>
 import PlayersPairingComponent from '../pairing/PlayersPairingComponent'
 import _ from 'lodash'
+import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 export default {
   name: 'RoundSettingsComponent',
   components: {PlayersPairingComponent},
@@ -201,8 +202,18 @@ export default {
       this.$refs.playersPairingComponent.nextPlayerIndex = 0
       this.clearButtonHovered = false
     },
+    // Вот это мне как-то не очень нравится. Делегирование всех бизнес функций в другой компонент?
     swapPlayers () {
       this.$refs.playersPairingComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
+    },
+    savePairingGrid () {
+      this.$refs.playersPairingComponent.savePairingGrid()
+        .then(response => {
+          if (response.status === HTTPResponseStatusConstants.OK) {
+            this.dialog = false
+          }
+        })
+        .catch(error => console.log(error))
     },
     defineTableNumber (playerIndex) {
       return playerIndex % 2 === 0 ? (playerIndex / 2 + 1) : Math.round(playerIndex / 2)

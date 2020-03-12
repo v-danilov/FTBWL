@@ -145,6 +145,7 @@
                 <v-btn v-else rounded color="accent" class="white--text">
                   Закончить раунд
                 </v-btn>
+                <!-- TODO bug with form closing need to manage this if -->
                 <RoundSettingsComponent v-if="roundSettingDialog"
                                         :round-number="index"
                                         :round-data="round"></RoundSettingsComponent>
@@ -201,12 +202,14 @@ export default {
     savePlayers () {
       this.playersDataSaving = true
       this.$http.post(END_POINTS.EVENTS.SAVE_PLAYERS, this.players)
+        .catch(error => console.log(error))
+        .finally(() => { this.playersDataSaving = false })
     },
     cancelReg (index) {
       this.players[index].isCanceled = true
     },
     rageQuit (index) {
-      // TODO endponit call
+      // TODO endpoint call
       // if success - delete from UI
     },
     statusStyleByCode (status) {
