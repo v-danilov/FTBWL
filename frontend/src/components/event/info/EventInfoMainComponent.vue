@@ -64,7 +64,7 @@ export default {
     }
   },
   beforeMount () {
-    this.$http.get(END_POINTS.EVENTS.BY_ID + this.eventId)
+    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.eventId)
       .then(response => {
         this.selectedEvent = response.data
       })

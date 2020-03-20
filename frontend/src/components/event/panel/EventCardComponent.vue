@@ -94,7 +94,7 @@ export default {
   methods: {
     openEvent (eventID) {
       this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, eventID)
-      this.$router.push(END_POINTS.EVENTS.BY_ID + eventID)
+      this.$router.push(END_POINTS.EVENTS.DEFAULT + eventID)
     },
     emitOpenDialogEvent () {
       if (UserSession.isAuthenticated()) {

@@ -74,7 +74,7 @@
           <v-row justify="center">
             <!-- Место проведения -->
             <v-col cols="4">
-              <v-combobox :items="this.$store.getters.cachedPlaces"
+              <v-combobox :items="placesFromCache"
                           v-model="selectedPlace"
                           item-text="name"
                           :return-object="true"
@@ -204,7 +204,6 @@
 <script>
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import UserSession from '../../../store/cookie/userSessionClass'
 import {mask, tokens} from 'vue-the-mask'
 
 export default {
@@ -259,12 +258,16 @@ export default {
       return Array.from(this.$store.getters.cachedFormats.values())
     },
     rulePacksFromCache () {
+      console.log(this.$store.getters.cachedRulePacks)
       return Array.from(this.$store.getters.cachedRulePacks.values())
+    },
+    placesFromCache () {
+      return this.$store.getters.cachedPlaces
     },
     saveIsActive () {
       let startSplitted = this.parseTime(this.timeStart)
       let endSplitted = this.parseTime(this.timeEnd)
-      return !(Number(startSplitted.hours + startSplitted.minutes) < Number(endSplitted.hours + endSplitted.minutes)) // revert because of 'disabled' property
+      return (Number(startSplitted.hours + startSplitted.minutes) >= Number(endSplitted.hours + endSplitted.minutes)) // revert because of 'disabled' property
     }
   },
   methods: {
@@ -276,8 +279,10 @@ export default {
       let parts = this.date.split('-')
       let startDate = new Date(parts[0], parts[1] - 1, parts[2]).setHours(startSplitted.hours, startSplitted.minutes, 0)
       let endDate = new Date(parts[0], parts[1] - 1, parts[2]).setHours(endSplitted.hours, endSplitted.minutes, 0)
-      let roundDate = {startDate: startDate, endDate: endDate}
+      let roundDate = {timeStart: startDate, timeEnd: endDate}
       if (this.thereIsNoCrossDates(roundDate)) {
+        roundDate.timeStart = new Date(roundDate.timeStart).toISOString()
+        roundDate.timeEnd = new Date(roundDate.timeEnd).toISOString()
         this.roundsDates.push(roundDate)
         this.timeStart = ''
         this.timeEnd = ''
@@ -287,32 +292,27 @@ export default {
       this.roundsDates.splice(index, 1)
     },
     thereIsNoCrossDates (dateToCheck) {
-      console.log(this.roundsDates.length)
       for (const val of this.roundsDates) {
-        if (!((dateToCheck.startDate < val.startDate &&
-            dateToCheck.endDate < val.startDate) ||
-            dateToCheck.startDate > val.endDate)) {
+        if (!((dateToCheck.timeStart < val.timeStart &&
+            dateToCheck.timeEnd < val.timeStart) ||
+            dateToCheck.timeStart > val.timeEnd)) {
           return false
         }
       }
       return true
     },
     createEvent () {
-      let eventDates = this.calculateEventDaysByRounds()
-      let event = {
-        system: this.systemsCombobox.selected, // todo or system name
+      let event = [{
         name: this.eventName,
-        format: this.formatsCombobox.selected, // todo or system name
-        place: this.placesCombobox.selected,
-        rulesPack: this.rulesPacksCombobox.selected, // todo or system name
+        place: {id: this.selectedPlace.id},
+        gameSystem: {code: this.selectedSystem.code},
+        format: {code: this.selectedFormat.code},
+        rulepack: {code: this.selectedRulePack.code},
         price: this.price,
-        rounds: this.roundsDates,
-        dateStart: eventDates.firstDate,
-        dateEnd: eventDates.lastDate,
-        organizerId: UserSession.getUser()
-      }
-      // todo check response
-      this.$http.post(END_POINTS.EVENTS.CREATE, event).then(response => {
+        rounds: this.roundsDates
+      }]
+      console.log(event)
+      this.$http.post(END_POINTS.EVENTS.DEFAULT, event).then(response => {
         if (response.status !== HTTPResponseStatusConstants.OK) {
           console.log('NotOK')
         }
@@ -322,8 +322,8 @@ export default {
     },
     calculateEventDaysByRounds () {
       let firstDate, lastDate
-      firstDate = this.roundsDates[0].startDate
-      lastDate = this.roundsDates[0].endDate
+      firstDate = this.roundsDates[0].timeStart
+      lastDate = this.roundsDates[0].timeEnd
       for (const date of this.roundsDates) {
         if (firstDate > date) {
           firstDate = date
@@ -339,8 +339,8 @@ export default {
       return {hours: splitted[0], minutes: splitted[1]}
     },
     formatDate (date) {
-      let sDate = new Date(date.startDate)
-      let eDate = new Date(date.endDate)
+      let sDate = new Date(date.timeStart)
+      let eDate = new Date(date.timeEnd)
       return sDate.getDate() + '' + '.' + (sDate.getMonth() + 1) + '.' + sDate.getFullYear() +
         ' (' + sDate.getHours() + ':' + sDate.getMinutes() + ' - ' + eDate.getHours() + ':' + eDate.getMinutes() + ')'
     }

@@ -82,7 +82,7 @@ export default {
     }
   },
   created () {
-    this.$http.get(END_POINTS.EVENTS.BY_ID + this.$store.getters.currentActiveEventID).then(response => {
+    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.$store.getters.currentActiveEventID).then(response => {
       response.data.players.forEach(e => {
         // console.log(e)
         const playerData = {
