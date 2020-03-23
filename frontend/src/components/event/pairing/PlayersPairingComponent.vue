@@ -117,17 +117,18 @@ export default {
       const vm = this
       this.$store.dispatch(choseDispatchActionBasedOnOrder(vm), {player: player, playerIndex: playerIndex})
     },
-    savePairingGrid () {
-      let dataRequest = []
-      for (let i = 0; i < this.playersForPairing; i = i + 2) {
-        dataRequest.push({
-          tableNum: i + 1,
-          firstPlayerID: this.playersForPairing[i].id,
-          secondPlayerID: this.playersForPairing[i + 1].id
+    savePairingGrid (roundID) {
+      let pairingDTO = []
+      let tableCounter = 1
+      for (let i = 0; i < this.playersForPairing.length; i = i + 2) {
+        pairingDTO.push({
+          firstPlayer: {id: this.playersForPairing[i].id},
+          secondPlayer: {id: this.playersForPairing[i + 1].id},
+          tableNumber: tableCounter++
         })
       }
-      // TODO complete pairing post request with URL
-      return this.$http.post('/rounds?eventID=' + this.$store.getters.currentActiveEventID, dataRequest)
+      console.log(pairingDTO)
+      return this.$http.post(END_POINTS.PAIRINGS_BY_ROUND.DEFAULT + roundID, pairingDTO)
     }
   }
 }

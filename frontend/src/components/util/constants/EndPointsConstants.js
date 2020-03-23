@@ -13,5 +13,8 @@ export const END_POINTS = {
     SIGN_UP: '/api/signUp',
     SIGN_IN: '/signIn',
     GET_CITIES_BY_PREFIX: '/api/getCitiesByPrefix'
+  },
+  PAIRINGS_BY_ROUND: {
+    DEFAULT: '/pairings?roundID='
   }
 }

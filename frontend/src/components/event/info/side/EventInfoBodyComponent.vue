@@ -146,9 +146,7 @@
                   Закончить раунд
                 </v-btn>
                 <!-- TODO bug with form closing need to manage this if -->
-                <RoundSettingsComponent v-if="roundSettingDialog"
-                                        :round-number="index"
-                                        :round-data="round"></RoundSettingsComponent>
+                <RoundSettingsComponent v-if="roundSettingDialog" :round="round"></RoundSettingsComponent>
               </v-col>
             </v-row>
           </v-card-text>

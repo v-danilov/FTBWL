@@ -3,7 +3,7 @@
     <v-card>
       <!-- Header (toolbar) -->
       <v-app-bar app dark clipped-left color="primary">
-        <v-toolbar-title>Раунд {{roundNumber + 1}}</v-toolbar-title>
+        <v-toolbar-title>Раунд {{round.roundNum}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon fab>
           <v-icon color="white">
@@ -162,11 +162,10 @@ export default {
   name: 'RoundSettingsComponent',
   components: {PlayersPairingComponent},
   props: {
-    roundNumber: {
+    round: {
       required: true,
-      type: Number
-    },
-    roundData: {}
+      type: Object
+    }
   },
   data () {
     return {
@@ -207,7 +206,7 @@ export default {
       this.$refs.playersPairingComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
     },
     savePairingGrid () {
-      this.$refs.playersPairingComponent.savePairingGrid()
+      this.$refs.playersPairingComponent.savePairingGrid(this.round.id)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
             this.dialog = false
