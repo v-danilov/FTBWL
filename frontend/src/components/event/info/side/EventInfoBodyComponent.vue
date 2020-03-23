@@ -123,12 +123,12 @@
               <v-col>
                 <span>Расстановка:</span>
               </v-col>
-              <v-col>{{round.schemePool.gameDeploy.systemName}}</v-col>
+              <v-col>{{round.schemePool ? round.schemePool.gameDeploy.systemName : 'Не указано'}}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
               </v-col>
-              <v-col>{{round.schemePool.gameStrategy.systemName}}</v-col>
+              <v-col>{{round.schemePool ? round.schemePool.gameStrategy.systemName : 'Не указано'}}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
