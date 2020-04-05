@@ -9,10 +9,9 @@ export const END_POINTS = {
     UPDATE_STATUS: '/events/{id}/status',
     SAVE_PLAYERS: '/event/{id}/savePlayers'
   },
-  AUTHORIZATION: {
+  AUTHENTICATION: {
     SIGN_UP: '/api/signUp',
-    SIGN_IN: '/signIn',
-    GET_CITIES_BY_PREFIX: '/api/getCitiesByPrefix'
+    AUTHENTICATE: '/authenticate'
   },
   PAIRINGS_BY_ROUND: {
     DEFAULT: '/pairings?roundID='

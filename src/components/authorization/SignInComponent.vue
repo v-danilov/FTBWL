@@ -91,7 +91,7 @@
 import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
 import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
 import {END_POINTS} from '../util/constants/EndPointsConstants'
-import UserSession from '../../store/cookie/userSessionClass'
+import UserCookiesClass from '../../store/cookie/UserCookiesClass'
 
 export default {
   name: 'SignInComponent',
@@ -119,11 +119,11 @@ export default {
     },
     onSubmit () {
       const {username, password} = this.userData
-      if (!UserSession.isAuthenticated()) {
-        this.$http.post(END_POINTS.AUTHORIZATION.SIGN_IN, {username, password})
+      if (!UserCookiesClass.isAuthenticated()) {
+        this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, {username, password})
           .then(response => {
             if (response.status === HTTPResponseStatusConstants.OK) {
-              UserSession.setUser(response.data)
+              UserCookiesClass.setToken(response.token)
               this.$router.push('/')
             } else {
               this.displayToastWithMessage('Wrong credentials')

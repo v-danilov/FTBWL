@@ -65,7 +65,6 @@
 </template>
 <script>
 import statusStyleByCode from '../../util/statusStyleByCode'
-import UserSession from '../../../store/cookie/userSessionClass'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
@@ -97,11 +96,7 @@ export default {
       this.$router.push(END_POINTS.EVENTS.DEFAULT + eventID)
     },
     emitOpenDialogEvent () {
-      if (UserSession.isAuthenticated()) {
-        this.$emit('open-dialog', {id: this.event.id})
-      } else {
-        this.$router.push('SignIn')
-      }
+      this.$emit('open-dialog', {id: this.event.id})
     },
     startEvent () {
       this.$refs.confirmationDialogComponent.pop().then(result => {

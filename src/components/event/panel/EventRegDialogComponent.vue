@@ -88,9 +88,8 @@ export default {
     registerUser () {
       const userRegData = {
         eventId: this.eventId,
-        fractionId: this.fractionId,
-        // TODO complete user id to backend request
-        userId: 0}
+        fractionId: this.fractionId
+      }
 
       this.$http.post(END_POINTS.EVENTS.REG_USER, userRegData)
         .then(response => {

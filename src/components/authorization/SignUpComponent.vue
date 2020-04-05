@@ -214,7 +214,7 @@ export default {
     searchCityByPrefix (prefix) {
       // TODO делать search() только если комбобокс не имеет вариантов по предложенному префиксу
       this.cities = []
-      this.$http.get(END_POINTS.AUTHORIZATION.GET_CITIES_BY_PREFIX)
+      this.$http.get(END_POINTS.AUTHENTICATION.GET_CITIES_BY_PREFIX)
         .then(response => {
           console.log(response.data)
           let data = response.data.payload
@@ -234,7 +234,7 @@ export default {
       this.toastBox.isActive = true
     },
     onSubmit () {
-      this.$http.post(END_POINTS.AUTHORIZATION.SIGN_UP, this.userData)
+      this.$http.post(END_POINTS.AUTHENTICATION.SIGN_UP, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
             this.displayToastWithMessage('Successful sign up')
