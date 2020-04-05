@@ -6,7 +6,7 @@ export default class UserCookiesClass {
   }
 
   static getToken () {
-    return this.iterationCopy(Vue.cookie.get('token'))
+    return Vue.cookie.get('token')
   }
 
   static iterationCopy (obj) {

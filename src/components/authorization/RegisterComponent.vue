@@ -124,7 +124,7 @@
                   :text="true"
                   rounded
                   color="primary"
-                  to="signIn"
+                  to="login"
                   :replace="true">
                   Sign in
                 </v-btn>
@@ -161,7 +161,6 @@ import _ from 'lodash'
 import {END_POINTS} from '../util/constants/EndPointsConstants'
 
 export default {
-  name: 'SignUpComponent',
   data: () => ({
     formIsValid: false,
     cityPrefix: null,

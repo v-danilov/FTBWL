@@ -40,18 +40,20 @@ Vue.use(VueCookie)
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(function (request) {
-  request.headers['Authorization'] = UserCookiesClass.getToken()
+  const tokenFromCookies = UserCookiesClass.getToken()
+  const tokenForHeader = tokenFromCookies == null ? '' : tokenFromCookies
+  request.headers['Authorization'] = 'Bearer ' + tokenForHeader
   return request
 }, function (error) {
   return Promise.reject(error)
 })
 
 axios.interceptors.response.use(function (response) {
-  if (response.status === HTTPResponseStatusConstants.FORBIDDEN) {
-    router.push('SignIn')
-  }
   return response
 }, function (error) {
+  if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN) {
+    router.push('/login')
+  }
   return Promise.reject(error)
 })
 

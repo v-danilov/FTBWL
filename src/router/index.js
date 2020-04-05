@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import SignUpComponent from '../components/authorization/SignUpComponent'
-import SignInComponent from '../components/authorization/SignInComponent'
+import RegisterComponent from '../components/authorization/RegisterComponent'
+import LoginComponent from '../components/authorization/LoginComponent'
 import EventPanelComponent from '../components/event/panel/EventPanelComponent'
 import EventInfoMainComponent from '../components/event/info/EventInfoMainComponent'
 import PlayersPairingComponent from '../components/event/pairing/PlayersPairingComponent'
@@ -25,14 +25,14 @@ const router = new Router({
       }
     },
     {
-      path: '/signUp',
-      name: 'SignUp',
-      component: SignUpComponent
+      path: '/register',
+      name: 'Register',
+      component: RegisterComponent
     },
     {
-      path: '/signIn',
-      name: 'SignInComponent',
-      component: SignInComponent
+      path: '/login',
+      name: 'LoginComponent',
+      component: LoginComponent
     },
     {
       path: '/events',

@@ -56,7 +56,7 @@
                   :text="true"
                   rounded
                   color="primary"
-                  to="SignUp"
+                  to="Register"
                   :replace="true">
                   Sign up
                 </v-btn>
@@ -91,10 +91,9 @@
 import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
 import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
 import {END_POINTS} from '../util/constants/EndPointsConstants'
-import UserCookiesClass from '../../store/cookie/UserCookiesClass'
+import UserCookies from '../../store/cookie/UserCookiesClass'
 
 export default {
-  name: 'SignInComponent',
   data () {
     return {
       formIsValid: false,
@@ -119,17 +118,15 @@ export default {
     },
     onSubmit () {
       const {username, password} = this.userData
-      if (!UserCookiesClass.isAuthenticated()) {
-        this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, {username, password})
-          .then(response => {
-            if (response.status === HTTPResponseStatusConstants.OK) {
-              UserCookiesClass.setToken(response.token)
-              this.$router.push('/')
-            } else {
-              this.displayToastWithMessage('Wrong credentials')
-            }
-          })
-      }
+      this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, {username, password})
+        .then(response => {
+          if (response.status === HTTPResponseStatusConstants.OK) {
+            UserCookies.setToken(response.data.token)
+            this.$router.push('/')
+          } else {
+            this.displayToastWithMessage('Wrong credentials')
+          }
+        })
     }
   }
 }

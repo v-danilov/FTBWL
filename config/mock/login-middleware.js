@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  if (req.method == 'POST' && req.path == '/signIn') {
+  if (req.method == 'POST' && req.path == '/login') {
     if (req.body.username === 'test' && req.body.password === 'test') {
       res.status(200).json({})
     } else {
