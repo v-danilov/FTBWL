@@ -202,8 +202,8 @@
   </v-dialog>
 </template>
 <script>
+
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import {mask, tokens} from 'vue-the-mask'
 
 export default {
@@ -313,9 +313,7 @@ export default {
       }]
       console.log(event)
       this.$http.post(END_POINTS.EVENTS.DEFAULT, event).then(response => {
-        if (response.status !== HTTPResponseStatusConstants.OK) {
-          console.log('NotOK')
-        }
+        console.log('Event created')
       }).catch((err) => {
         console.log(err)
       })

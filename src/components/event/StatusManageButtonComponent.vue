@@ -59,7 +59,7 @@ export default {
             color: statusStyleByCode(EVENT_STATUS_CODE.END).color}]
         case EVENT_STATUS_CODE.PAUSE:
           return [{nextStateText: 'Продолжить турнир',
-            nextStateCode: EVENT_STATUS_CODE.PAUSE,
+            nextStateCode: EVENT_STATUS_CODE.PLAY,
             color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color}]
         default:
           return null

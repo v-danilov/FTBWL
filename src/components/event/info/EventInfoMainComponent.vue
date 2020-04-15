@@ -1,26 +1,18 @@
 <template>
   <div>
-    <template v-if="!loadingError">
-    <EIHeader v-if="!componentsHidden"
-                                   :selected-event="selectedEvent"/>
-      <StatusManageButton :event-status="selectedEvent.status.code"
-                          @event-status-changed="refreshEventOnStatusChanged"></StatusManageButton>
-    <EIBody @hide-info-components="changeVisibility"
-                                 :selected-event="selectedEvent || []"/>
+    <template v-if="loading">
+      <loading-stub></loading-stub>
     </template>
-    <template v-else>
-      <v-row>
-        <v-col cols="12">
-          <v-card text>
-            <v-card-text>
-              <v-avatar size="60%">
-                <img src="https://i.pinimg.com/originals/0a/ec/eb/0aecebf4c937d4e947e96c1c5f6d63c7.jpg">
-              </v-avatar>
-              <h3>ТУРИК 404. ОТПРАВЛЯЮСЬ НА ПОИСКИ!</h3>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+    <template v-if="selectedEvent">
+      <EIHeader v-if="!componentsHidden" :selected-event="selectedEvent"/>
+      <StatusManageButton :event-status="selectedEvent.status.code"
+                          @event-status-changed="refreshEventOnStatusChanged">
+      </StatusManageButton>
+      <EIBody @hide-info-components="changeVisibility"
+              :selected-event="selectedEvent || []"/>
+    </template>
+    <template  v-if="loadingError">
+      <error-component></error-component>
     </template>
   </div>
 </template>
@@ -32,15 +24,24 @@ import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import StatusManageButtonComponent from '../StatusManageButtonComponent'
 import {ACTIONS} from '../../util/constants/ActionConstants'
+import ErrorComponent from '../../util/components/ErrorComponent'
+import LoadingStub from '../../util/components/LoadingStub'
 
 export default {
   name: 'EventInfoComponent',
   props: ['eventId'],
-  components: {StatusManageButton: StatusManageButtonComponent, EIHeader: EventInfoHeaderComponent, EIBody: EventInfoBodyComponent},
+  components: {
+    LoadingStub,
+    ErrorComponent,
+    StatusManageButton: StatusManageButtonComponent,
+    EIHeader: EventInfoHeaderComponent,
+    EIBody: EventInfoBodyComponent
+  },
   data () {
     return {
+      loading: true,
       loadingError: false,
-      selectedEvent: Object,
+      selectedEvent: null,
       componentsHidden: true
     }
   },
@@ -56,23 +57,27 @@ export default {
         .catch(error => {
           console.log('Failed to refresh event. ' + error.message)
         })
+    },
+    checkCurrentEventId () {
+      if (this.$store.getters.currentActiveEventID === null) {
+        this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, this.eventId)
+      }
+    },
+    async loadEvent () {
+      await this.$http.get(END_POINTS.EVENTS.DEFAULT + this.eventId)
+        .then(response => {
+          this.selectedEvent = response.data
+        })
+        .catch(error => {
+          if (error.response.status === HTTPResponseStatusConstants.NOT_FOUND) {
+            this.loadingError = true
+          }
+        }).finally(() => { this.loading = false })
     }
   },
   created () {
-    if (this.$store.getters.currentActiveEventID === null) {
-      this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, this.eventId)
-    }
-  },
-  beforeMount () {
-    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.eventId)
-      .then(response => {
-        this.selectedEvent = response.data
-      })
-      .catch(error => {
-        if (error.response.status === HTTPResponseStatusConstants.NOT_FOUND) {
-          this.loadingError = true
-        }
-      })
+    this.checkCurrentEventId()
+    this.loadEvent()
   }
 }
 </script>

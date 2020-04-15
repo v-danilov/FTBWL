@@ -21,7 +21,7 @@
 import NavigatorComponent from './components/NavigatorComponent'
 import {END_POINTS} from './components/util/constants/EndPointsConstants'
 import {ACTIONS} from './components/util/constants/ActionConstants'
-import LoadingStub from './components/util/LoadingStub'
+import LoadingStub from './components/util/components/LoadingStub'
 import ConfirmationDialogComponent from './components/dialogs/ConfirmationDialogComponent'
 
 export default {

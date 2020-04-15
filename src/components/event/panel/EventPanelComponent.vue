@@ -29,11 +29,7 @@
       </v-row>
       <v-row v-if="events.length !== 0">
         <v-col cols="4" v-for="(eventElement, index) in events" :key=index>
-          <EventCard
-            :event=eventElement
-            @click="openEvent(eventElement.id)"
-            v-on:open-dialog="openDialog">
-          </EventCard>
+          <EventCard :event=eventElement v-on:open-dialog="openDialog"></EventCard>
         </v-col>
         <RegDialog
           :visible="showRegForm"
@@ -53,7 +49,7 @@ import {END_POINTS} from '../../util/constants/EndPointsConstants'
 import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
 import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
-import LoadingStub from '../../util/LoadingStub'
+import LoadingStub from '../../util/components/LoadingStub'
 
 export default {
   name: 'EventPanelComponent',
