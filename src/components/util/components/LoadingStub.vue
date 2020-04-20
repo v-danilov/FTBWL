@@ -4,8 +4,8 @@
       :size="50"
       color="primary"
       indeterminate
-    ></v-progress-circular>
-    </div>
+    />
+  </div>
 </template>
 
 <script>

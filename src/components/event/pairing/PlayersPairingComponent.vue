@@ -10,12 +10,12 @@
             @click="selectPlayerForSwap(element, index)"
           >
             <v-list-item-avatar v-if="element.avatar !== null">
-              <v-img :src="element.avatar"></v-img>
+              <v-img :src="element.avatar" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-card>
                 <v-card-text class="text-center">
-                  {{element.name}}
+                  {{ element.name }}
                 </v-card-text>
               </v-card>
             </v-list-item-content>
@@ -31,7 +31,7 @@
             <v-list-item-content>
               <v-card>
                 <v-card-text class="text-center">
-                  <span>Стол №{{i}}</span>
+                  <span>Стол №{{ i }}</span>
                 </v-card-text>
               </v-card>
             </v-list-item-content>
@@ -40,20 +40,21 @@
       </v-col>
       <v-col cols="4">
         <v-list>
-          <v-list-item color="primary"
-                       v-for="(element, index) in playersForPairing"
-                       v-if="index %2 !== 0"
-                       :key="element.id"
-                       @click="selectPlayerForSwap(element, index)"
+          <v-list-item
+            v-for="(element, index) in playersForPairing"
+            v-if="index %2 !== 0"
+            :key="element.id"
+            @click="selectPlayerForSwap(element, index)"
+            color="primary"
           >
             <v-list-item-avatar v-if="element.avatar !== null">
-              <v-img :src="element.avatar"></v-img>
+              <v-img :src="element.avatar" />
             </v-list-item-avatar>
 
             <v-list-item-content>
               <v-card>
                 <v-card-text class="text-center">
-                  {{element.name}}
+                  {{ element.name }}
                 </v-card-text>
               </v-card>
             </v-list-item-content>
@@ -66,10 +67,10 @@
 
 <script>
 
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import { END_POINTS } from '../../util/constants/EndPointsConstants'
 
 export default {
-  name: 'PlayersPairingComponent.vue',
+  name: 'PlayersPairingComponentVue',
   data () {
     return {
       drag: false,
@@ -105,7 +106,7 @@ export default {
       this.$emit('swap-players')
     },
     selectPlayerForSwap (player, playerIndex) {
-      let choseDispatchActionBasedOnOrder = function (vm) {
+      const choseDispatchActionBasedOnOrder = function (vm) {
         if (vm.nextPlayerIndex === 0) {
           vm.nextPlayerIndex = -1
           return 'INIT_FIRST_PAIRING_PLAYER'
@@ -115,15 +116,15 @@ export default {
         }
       }
       const vm = this
-      this.$store.dispatch(choseDispatchActionBasedOnOrder(vm), {player: player, playerIndex: playerIndex})
+      this.$store.dispatch(choseDispatchActionBasedOnOrder(vm), { player: player, playerIndex: playerIndex })
     },
     savePairingGrid (roundID) {
-      let pairingDTO = []
+      const pairingDTO = []
       let tableCounter = 1
       for (let i = 0; i < this.playersForPairing.length; i = i + 2) {
         pairingDTO.push({
-          firstPlayer: {id: this.playersForPairing[i].id},
-          secondPlayer: {id: this.playersForPairing[i + 1].id},
+          firstPlayer: { id: this.playersForPairing[i].id },
+          secondPlayer: { id: this.playersForPairing[i + 1].id },
           tableNumber: tableCounter++
         })
       }

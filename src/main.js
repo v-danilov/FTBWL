@@ -10,7 +10,7 @@ import 'vuetify/dist/vuetify.min.css'
 import { store } from './store/store'
 import axios from 'axios'
 import { COLORS } from './components/util/constants/ColorsConstants'
-import {HTTPResponseStatusConstants} from './components/util/constants/CommonConstants'
+import { HTTPResponseStatusConstants } from './components/util/constants/CommonConstants'
 import UserCookiesClass from './store/cookie/UserCookiesClass'
 
 axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
@@ -35,14 +35,14 @@ const vuetifyOpts = {
   }
 }
 Vue.use(Vuetify)
-let VueCookie = require('vue-cookie')
+const VueCookie = require('vue-cookie')
 Vue.use(VueCookie)
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(function (request) {
   const tokenFromCookies = UserCookiesClass.getToken()
   const tokenForHeader = tokenFromCookies == null ? '' : tokenFromCookies
-  request.headers['Authorization'] = 'Bearer ' + tokenForHeader
+  request.headers.Authorization = 'Bearer ' + tokenForHeader
   return request
 }, function (error) {
   return Promise.reject(error)

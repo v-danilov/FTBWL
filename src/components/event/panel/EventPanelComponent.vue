@@ -5,39 +5,55 @@
         <!--Filter -->
         <v-col :cols="filterWidth">
           <div transition="scroll-y-transition">
-            <v-btn v-if="filter.isHidden"
-                   rounded color="primary"
-                   @click="filter.isHidden = !filter.isHidden">
+            <v-btn
+              v-if="filter.isHidden"
+              @click="filter.isHidden = !filter.isHidden"
+              rounded
+              color="primary"
+            >
               <v-icon large>search</v-icon>
               Открыть фильтр
             </v-btn>
-            <EventFilter v-else @close-event-filter="filter.isHidden = true"/>
+            <EventFilter
+              v-else
+              @close-event-filter="filter.isHidden = true"
+            />
           </div>
         </v-col>
         <v-col cols="3">
-          <v-btn color="primary"
-                 rounded
-                 @click="showEventCreationDialog = !showEventCreationDialog">
+          <v-btn
+            @click="showEventCreationDialog = !showEventCreationDialog"
+            color="primary"
+            rounded
+          >
             <v-icon large>add_circle_outline</v-icon>
             Создать турнир
           </v-btn>
-          <CreateDialog v-if="showEventCreationDialog"
-                                     :visible="showEventCreationDialog"
-                                     @close-event-create-dialog="showEventCreationDialog = false">
-          </CreateDialog>
+          <CreateDialog
+            v-if="showEventCreationDialog"
+            :visible="showEventCreationDialog"
+            @close-event-create-dialog="showEventCreationDialog = false"
+          />
         </v-col>
       </v-row>
       <v-row v-if="events.length !== 0">
-        <v-col cols="4" v-for="(eventElement, index) in events" :key=index>
-          <EventCard :event=eventElement v-on:open-dialog="openDialog"></EventCard>
+        <v-col
+          v-for="(eventElement, index) in events"
+          :key="index"
+          cols="4"
+        >
+          <EventCard
+            :event="eventElement"
+            v-on:open-dialog="openDialog"
+          />
         </v-col>
         <RegDialog
           :visible="showRegForm"
           :event-id="focusedEventId"
-          @close-reg-dialog="showRegForm = false">
-        </RegDialog>
+          @close-reg-dialog="showRegForm = false"
+        />
       </v-row>
-      <LoadingStub v-else></LoadingStub>
+      <LoadingStub v-else />
     </v-col>
   </v-row>
 </template>
@@ -45,8 +61,8 @@
 <script>
 import EventFilterComponent from './filter/EventFilterComponent'
 import EventCardComponent from './EventCardComponent'
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import { END_POINTS } from '../../util/constants/EndPointsConstants'
+import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
 import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
 import LoadingStub from '../../util/components/LoadingStub'
@@ -72,12 +88,6 @@ export default {
       focusedEventId: ''
     }
   },
-  methods: {
-    openDialog (event) {
-      this.focusedEventId = event.id
-      this.showRegForm = true
-    }
-  },
   computed: {
     filterWidth () {
       return this.filter.isHidden ? 3 : 12
@@ -93,6 +103,12 @@ export default {
       .catch(reason => {
         console.log(reason)
       })
+  },
+  methods: {
+    openDialog (event) {
+      this.focusedEventId = event.id
+      this.showRegForm = true
+    }
   }
 }
 </script>

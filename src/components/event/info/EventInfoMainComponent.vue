@@ -1,18 +1,24 @@
 <template>
   <div>
     <template v-if="loading">
-      <loading-stub></loading-stub>
+      <loading-stub />
     </template>
     <template v-if="selectedEvent">
-      <EIHeader v-if="!componentsHidden" :selected-event="selectedEvent"/>
-      <StatusManageButton :event-status="selectedEvent.status.code"
-                          @event-status-changed="refreshEventOnStatusChanged">
-      </StatusManageButton>
-      <EIBody @hide-info-components="changeVisibility"
-              :selected-event="selectedEvent || []"/>
+      <EIHeader
+        v-if="!componentsHidden"
+        :selected-event="selectedEvent"
+      />
+      <StatusManageButton
+        :event-status="selectedEvent.status.code"
+        @event-status-changed="refreshEventOnStatusChanged"
+      />
+      <EIBody
+        @hide-info-components="changeVisibility"
+        :selected-event="selectedEvent || []"
+      />
     </template>
-    <template  v-if="loadingError">
-      <error-component></error-component>
+    <template v-if="loadingError">
+      <error-component />
     </template>
   </div>
 </template>
@@ -20,16 +26,15 @@
 <script>
 import EventInfoBodyComponent from './side/EventInfoBodyComponent'
 import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
+import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import StatusManageButtonComponent from '../StatusManageButtonComponent'
-import {ACTIONS} from '../../util/constants/ActionConstants'
+import { ACTIONS } from '../../util/constants/ActionConstants'
 import ErrorComponent from '../../util/components/ErrorComponent'
 import LoadingStub from '../../util/components/LoadingStub'
 
 export default {
   name: 'EventInfoComponent',
-  props: ['eventId'],
   components: {
     LoadingStub,
     ErrorComponent,
@@ -37,6 +42,7 @@ export default {
     EIHeader: EventInfoHeaderComponent,
     EIBody: EventInfoBodyComponent
   },
+  props: ['eventId'],
   data () {
     return {
       loading: true,
@@ -45,12 +51,16 @@ export default {
       componentsHidden: true
     }
   },
+  created () {
+    this.checkCurrentEventId()
+    this.loadEvent()
+  },
   methods: {
     changeVisibility (value) {
       this.componentsHidden = value
     },
     refreshEventOnStatusChanged (value) {
-      this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), {'code': value})
+      this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), { code: value })
         .then(response => {
           this.selectedEvent = response.data
         })
@@ -74,10 +84,6 @@ export default {
           }
         }).finally(() => { this.loading = false })
     }
-  },
-  created () {
-    this.checkCurrentEventId()
-    this.loadEvent()
   }
 }
 </script>

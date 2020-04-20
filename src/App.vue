@@ -1,32 +1,35 @@
 <template>
   <v-app :style="cssTheme">
     <div v-if="storeIsReady">
-      <NavigatorComponent/>
+      <NavigatorComponent />
       <v-content>
-        <v-container class="fill-height grid-list-{0}" fluid>
+        <v-container
+          class="fill-height grid-list-{0}"
+          fluid
+        >
           <v-row class="fill-height">
             <v-col>
-              <router-view/>
+              <router-view />
             </v-col>
           </v-row>
         </v-container>
       </v-content>
     </div>
-    <LoadingStub v-else></LoadingStub>
-    <ConfirmationDialogComponent ref="confirmationDialog"></ConfirmationDialogComponent>
+    <LoadingStub v-else />
+    <ConfirmationDialogComponent ref="confirmationDialog" />
   </v-app>
 </template>
 
 <script>
 import NavigatorComponent from './components/NavigatorComponent'
-import {END_POINTS} from './components/util/constants/EndPointsConstants'
-import {ACTIONS} from './components/util/constants/ActionConstants'
+import { END_POINTS } from './components/util/constants/EndPointsConstants'
+import { ACTIONS } from './components/util/constants/ActionConstants'
 import LoadingStub from './components/util/components/LoadingStub'
 import ConfirmationDialogComponent from './components/dialogs/ConfirmationDialogComponent'
 
 export default {
   name: 'App',
-  components: {ConfirmationDialogComponent, LoadingStub, NavigatorComponent},
+  components: { ConfirmationDialogComponent, LoadingStub, NavigatorComponent },
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme
@@ -43,16 +46,6 @@ export default {
   mounted () {
     this.$root.$confirmationDialog = this.$refs.confirmationDialog.open
   },
-  methods: {
-    initStoreValues () {
-      // Initialize game system cache first
-      this.$store.dispatch(ACTIONS.CACHE_INIT.GAME_SYSTEMS, END_POINTS.GET_ALL.GAME_SYSTEMS).then(gameSystems => {
-        // Initialize dictionary cache after that
-        let malifauxID = this.$store.getters.cachedGameSystems.get('MAL').id // todo cache by selected game system
-        this.$store.dispatch(ACTIONS.CACHE_INIT.ALL_DICTS, END_POINTS.GET_ALL.GAME_SYSTEMS + '/' + malifauxID)
-      })
-    }
-  },
 
   created () {
     this.initStoreValues()
@@ -62,6 +55,16 @@ export default {
       window.popStateDetected = true
       console.log('browser-back-button')
     })
+  },
+  methods: {
+    initStoreValues () {
+      // Initialize game system cache first
+      this.$store.dispatch(ACTIONS.CACHE_INIT.GAME_SYSTEMS, END_POINTS.GET_ALL.GAME_SYSTEMS).then(gameSystems => {
+        // Initialize dictionary cache after that
+        const malifauxID = this.$store.getters.cachedGameSystems.get('MAL').id // todo cache by selected game system
+        this.$store.dispatch(ACTIONS.CACHE_INIT.ALL_DICTS, END_POINTS.GET_ALL.GAME_SYSTEMS + '/' + malifauxID)
+      })
+    }
   }
 }
 </script>

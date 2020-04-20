@@ -1,5 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-dialog v-model="dialog" persistent max-width="500px">
+  <v-dialog
+    v-model="dialog"
+    persistent
+    max-width="500px"
+  >
     <v-card>
       <v-card-title>
         <span class="headline">Регистрация на турнир</span>
@@ -8,23 +12,31 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-select label="Выберите фракцию"
-                        v-model="selectedFraction"
-                        :items="storedElements"
-                        return-object
-                        item-text="name">
+              <v-select
+                v-model="selectedFraction"
+                :items="storedElements"
+                label="Выберите фракцию"
+                return-object
+                item-text="name"
+              >
                 <template v-slot:item = "{ item, index }">
                   <v-avatar>
-                    <img :src="item.imgPath" alt="">
+                    <img
+                      :src="item.imgPath"
+                      alt=""
+                    >
                   </v-avatar>
-                  {{item.name}}
+                  {{ item.name }}
                 </template>
                 <template v-slot:selection = "{ item, index }">
                   <div>
-                  <v-avatar>
-                    <img :src="item.imgPath" alt="">
-                  </v-avatar>
-                  {{item.name}}
+                    <v-avatar>
+                      <img
+                        :src="item.imgPath"
+                        alt=""
+                      >
+                    </v-avatar>
+                    {{ item.name }}
                   </div>
                 </template>
               </v-select>
@@ -33,9 +45,17 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="accent" text @click="dialog = false">Отмена</v-btn>
-        <v-btn color="primary" rounded @click="registerUser">Зарегистрироваться</v-btn>
+        <v-spacer />
+        <v-btn
+          @click="dialog = false"
+          color="accent"
+          text
+        >Отмена</v-btn>
+        <v-btn
+          @click="registerUser"
+          color="primary"
+          rounded
+        >Зарегистрироваться</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -43,7 +63,7 @@
 
 <script>
 
-import {END_POINTS} from '../../util/constants/EndPointsConstants'
+import { END_POINTS } from '../../util/constants/EndPointsConstants'
 
 export default {
   name: 'EventRegDialogComponent',
@@ -73,9 +93,9 @@ export default {
       }
     },
     storedElements () {
-      let elements = this.$store.getters.cachedFactions
-      let fractionsData = []
-      elements.forEach(el => fractionsData.push({id: el.id, name: el.name, imgPath: this.generateIconLink(el.name)}))
+      const elements = this.$store.getters.cachedFactions
+      const fractionsData = []
+      elements.forEach(el => fractionsData.push({ id: el.id, name: el.name, imgPath: this.generateIconLink(el.name) }))
       return fractionsData
     }
   },

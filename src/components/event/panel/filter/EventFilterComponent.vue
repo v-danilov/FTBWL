@@ -1,176 +1,260 @@
 <template>
-    <v-card>
-      <v-card-text>
-        <v-row dense justify="space-around">
-          <!-- Формат -->
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="formatSelector"
-              label="Формат"
-              main-property="value"
-              :data-array=this.$store.getters.cachedFormats
-              :selected-elements="filterFormParams.formats"/>
-          </v-col>
-          <!-- Страна -->
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="countrySelector"
-              label="Страна"
-              main-property="name"
-              :data-array=this.$store.getters.cachedCountries
-              :selected-elements="filterFormParams.countries"/>
-          </v-col>
-          <!-- Город -->
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="citySelector"
-              v-model="filterFormParams.cities"
-              label="Город"
-              main-property="name"
-              :data-array=this.$store.getters.cachedCities
-              :selected-elements="filterFormParams.cities"/>
-          </v-col>
-          <!-- Площадка -->
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="placeSelector"
-              label="Площадка"
-              short-lable="Площ."
-              main-property="name"
-              :data-array=this.$store.getters.cachedPlaces
-              :selected-elements="filterFormParams.places"/>
-          </v-col>
-          <!-- Организатор -->
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="organizerSelector"
-              label="Организатор"
-              short-lable="Орг."
-              main-property="alias"
-              :data-array=this.$store.getters.cachedOrganizers
-              v-model="filterFormParams.organizers"
+  <v-card>
+    <v-card-text>
+      <v-row
+        dense
+        justify="space-around"
+      >
+        <!-- Формат -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            :data-array="this.$store.getters.cachedFormats"
+            :selected-elements="filterFormParams.formats"
+            ref="formatSelector"
+            label="Формат"
+            main-property="value"
+          />
+        </v-col>
+        <!-- Страна -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            :data-array="this.$store.getters.cachedCountries"
+            :selected-elements="filterFormParams.countries"
+            ref="countrySelector"
+            label="Страна"
+            main-property="name"
+          />
+        </v-col>
+        <!-- Город -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            v-model="filterFormParams.cities"
+            :data-array="this.$store.getters.cachedCities"
+            :selected-elements="filterFormParams.cities"
+            ref="citySelector"
+            label="Город"
+            main-property="name"
+          />
+        </v-col>
+        <!-- Площадка -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            :data-array="this.$store.getters.cachedPlaces"
+            :selected-elements="filterFormParams.places"
+            ref="placeSelector"
+            label="Площадка"
+            short-lable="Площ."
+            main-property="name"
+          />
+        </v-col>
+        <!-- Организатор -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            :data-array="this.$store.getters.cachedOrganizers"
+            v-model="filterFormParams.organizers"
+            ref="organizerSelector"
+            label="Организатор"
+            short-lable="Орг."
+            main-property="alias"
+          />
+        </v-col>
+      </v-row>
+      <v-row
+        dense
+        justify="space-around"
+      >
+        <!-- Название -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <v-text-field
+            v-model="filterFormParams.name"
+            label="Название"
+            placeholder=""
+          />
+        </v-col>
+        <!-- Количество дней -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <v-select
+            v-model="filterFormParams.daysNumber"
+            :items="['1 день', '2 дня']"
+            label="Кол-во дней"
+            clearable
+          />
+        </v-col>
+        <!-- Дата начала -->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <v-menu
+            v-model="menuStartDate"
+            :close-on-content-click="false"
+            ref="menuStartDate"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="formattedDateStart"
+                v-on="on"
+                label="Дата начала"
+                readonly
               />
-          </v-col>
-        </v-row>
-        <v-row dense justify="space-around">
-          <!-- Название -->
-          <v-col cols="6" sm="4" md="2">
-            <v-text-field
-              label="Название"
-              placeholder=""
-              v-model="filterFormParams.name"
+            </template>
+            <v-date-picker
+              v-model="filterFormParams.startDate"
+              @input="menuEndDate = false"
+              no-title
+              scrollable
+              color="secondary"
             >
-            </v-text-field>
-          </v-col>
-          <!-- Количество дней -->
-          <v-col cols="6" sm="4" md="2">
-            <v-select label="Кол-во дней"
-                      v-model="filterFormParams.daysNumber"
-                      clearable
-                      :items="['1 день', '2 дня']">
-            </v-select>
-          </v-col>
-          <!-- Дата начала -->
-          <v-col cols="6" sm="4" md="2">
-            <v-menu
-              ref="menuStartDate"
-              v-model="menuStartDate"
-              :close-on-content-click="false"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              min-width="290px"
+              <v-spacer />
+              <v-btn
+                @click="menuStartDate = false"
+                rounded
+                text
+                color="accent"
+              >
+                Отмена
+              </v-btn>
+              <v-btn
+                @click="$refs.menuStartDate.save(filterFormParams.startDate)"
+                rounded
+                text
+                color="secondary"
+              >
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+        <!-- Дата окончания-->
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <v-menu
+            v-model="menuEndDate"
+            :close-on-content-click="false"
+            ref="menuEndDate"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="formattedDateEnd"
+                v-on="on"
+                label="Дата окончания"
+                readonly
+              />
+            </template>
+            <v-date-picker
+              v-model="filterFormParams.endDate"
+              @input="menuEndDate = false"
+              no-title
+              scrollable
+              color="secondary"
             >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="formattedDateStart"
-                  label="Дата начала"
-                  readonly
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="filterFormParams.startDate"
-                             no-title
-                             scrollable
-                             color="secondary"
-                             @input="menuEndDate = false">
-                <v-spacer></v-spacer>
-                <v-btn rounded text color="accent" @click="menuStartDate = false">
-                  Отмена
-                </v-btn>
-                <v-btn rounded text color="secondary"
-                       @click="$refs.menuStartDate.save(filterFormParams.startDate)">
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-          <!-- Дата окончания-->
-          <v-col cols="6" sm="4" md="2">
-            <v-menu
-              ref="menuEndDate"
-              v-model="menuEndDate"
-              :close-on-content-click="false"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="formattedDateEnd"
-                  label="Дата окончания"
-                  readonly
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="filterFormParams.endDate"
-                             no-title
-                             scrollable
-                             color="secondary"
-                             @input="menuEndDate = false">
-                <v-spacer></v-spacer>
-                <v-btn rounded text color="accent"
-                       @click="menuEndDate = false">
-                  Отмена
-                </v-btn>
-                <v-btn rounded text color="secondary"
-                       @click="$refs.menuEndDate.save(filterFormParams.endDate)">
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-          <v-col cols="6" sm="4" md="2">
-            <FilterSelectorComponent
-              ref="statusSelector"
-              label="Статус"
-              main-property="value"
-              :data-array=this.$store.getters.cachedStatuses
-              :selected-elements="filterFormParams.statuses"></FilterSelectorComponent>
-          </v-col>
-        </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn rounded text color="accent" @click="resetFilterForm">Сбросить</v-btn>
-        <v-btn rounded color="primary">Применить</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn text icon color="accent"
-               @click="$emit('close-event-filter')">
-          <v-icon>close</v-icon>
-        </v-btn>
-      </v-card-actions>
-      <v-spacer></v-spacer>
-    </v-card>
+              <v-spacer />
+              <v-btn
+                @click="menuEndDate = false"
+                rounded
+                text
+                color="accent"
+              >
+                Отмена
+              </v-btn>
+              <v-btn
+                @click="$refs.menuEndDate.save(filterFormParams.endDate)"
+                rounded
+                text
+                color="secondary"
+              >
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-col
+          cols="6"
+          sm="4"
+          md="2"
+        >
+          <FilterSelectorComponent
+            :data-array="this.$store.getters.cachedStatuses"
+            :selected-elements="filterFormParams.statuses"
+            ref="statusSelector"
+            label="Статус"
+            main-property="value"
+          />
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-card-actions>
+      <v-btn
+        @click="resetFilterForm"
+        rounded
+        text
+        color="accent"
+      >Сбросить</v-btn>
+      <v-btn
+        rounded
+        color="primary"
+      >Применить</v-btn>
+      <v-spacer />
+      <v-btn
+        @click="$emit('close-event-filter')"
+        text
+        icon
+        color="accent"
+      >
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-card-actions>
+    <v-spacer />
+  </v-card>
 </template>
 <script>
 import FilterSelectorComponent from './FilterSelectorComponent'
 
 export default {
   name: 'EventFilterComponent',
-  components: {FilterSelectorComponent},
+  components: { FilterSelectorComponent },
   data () {
     return {
       menuStartDate: false,
@@ -189,9 +273,17 @@ export default {
       }
     }
   },
+  computed: {
+    formattedDateStart () {
+      return this.formatDate(this.filterFormParams.startDate)
+    },
+    formattedDateEnd () {
+      return this.formatDate(this.filterFormParams.endDate)
+    }
+  },
   methods: {
     resetFilterForm () {
-      for (let refName in this.$refs) {
+      for (const refName in this.$refs) {
         if (refName.toString().endsWith('Selector')) {
           this.$refs[refName].resetSelected()
         }
@@ -214,14 +306,6 @@ export default {
 
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
-    }
-  },
-  computed: {
-    formattedDateStart () {
-      return this.formatDate(this.filterFormParams.startDate)
-    },
-    formattedDateEnd () {
-      return this.formatDate(this.filterFormParams.endDate)
     }
   }
 }

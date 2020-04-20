@@ -1,5 +1,10 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-tabs slider-color="additional" background-color="primary" fixed-tabs class="mt-3">
+  <v-tabs
+    slider-color="additional"
+    background-color="primary"
+    fixed-tabs
+    class="mt-3"
+  >
     <!-- Вкладка участников -->
     <v-tab ripple>
       Участники
@@ -18,62 +23,98 @@
             <v-col cols="2">
               <span>Фракция</span>
             </v-col>
-            <v-col class="text-center" cols="1">
+            <v-col
+              class="text-center"
+              cols="1"
+            >
               <span>TP</span>
             </v-col>
-            <v-col class="text-center" cols="1">
+            <v-col
+              class="text-center"
+              cols="1"
+            >
               <span>VP</span>
             </v-col>
-            <v-col class="text-center" cols="1">
+            <v-col
+              class="text-center"
+              cols="1"
+            >
               <span>Diff</span>
             </v-col>
-            <v-col class="text-center" cols="3">
-              <span>Управление</span>
+            <v-col
+              class="text-center"
+              cols="3"
+            >
+              <span>Участие</span>
             </v-col>
           </v-row>
         </v-card-title>
         <!-- Body -->
         <v-card-text>
-          <v-hover v-slot:default="{ hover }" v-for="(player, index) in players" :key="index">
-            <v-row class="selected-row" dense :class="{ 'on-hover': hover }" justify="center">
-              <v-col cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{index + 1}}
+          <v-hover
+            v-slot:default="{ hover }"
+            v-for="(player, index) in players"
+            :key="index"
+          >
+            <v-row
+              :class="{ 'on-hover': hover }"
+              class="selected-row"
+              dense
+              justify="center"
+            >
+              <v-col cols="1">
+                {{ index + 1 }}
               </v-col>
-              <v-col cols="3" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.user.fullName}}
-                <em>aka <span>{{player.user.nickname}}</span></em>
+              <v-col cols="3">
+                {{ player.user.fullName }}
+                <em>aka <span>{{ player.user.nickname }}</span></em>
               </v-col>
-              <v-col cols="2" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.faction.systemName}}
+              <v-col cols="2">
+                {{ player.faction.systemName }}
               </v-col>
-              <v-col cols="1" class="text-center" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.tp}}
+              <v-col
+                cols="1"
+                class="text-center"
+              >
+                {{ player.tp }}
               </v-col>
-              <v-col class="text-center" cols="1" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.vp}}
+              <v-col
+                class="text-center"
+                cols="1"
+              >
+                {{ player.vp }}
               </v-col>
-              <v-col cols="1" class="text-center" v-bind:class="{ 'disabled-player': player.isCanceled }">
-                {{player.diff}}
+              <v-col
+                cols="1"
+                class="text-center"
+              >
+                {{ player.diff }}
               </v-col>
-              <v-col class="text-center" cols="3">
-                <v-btn text icon small class="mr-4"
-                       @click="players[index].isCanceled = !players[index].isCanceled">
-                  <v-icon v-if="!player.isCanceled" color="additional">block</v-icon>
-                  <v-icon v-else color="secondary">restore</v-icon>
-                </v-btn>
-                <v-btn text icon small @click="rageQuit(index)">
-                  <v-icon color="accent">exit_to_app</v-icon>
+              <v-col
+                class="text-center"
+                cols="3"
+              >
+                <v-btn
+                  small
+                  outlined
+                >
+                  Подтвердить
                 </v-btn>
               </v-col>
             </v-row>
           </v-hover>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn text outlined rounded color="primary"
-                 :loading="playersDataSaving"
-                 :disabled="playersDataSaving"
-                 @click="savePlayers">
+          <v-spacer />
+          <v-btn
+            :loading="playersDataSaving"
+            :disabled="playersDataSaving"
+            @click="savePlayers"
+            text
+            outlined
+            rounded
+            color="primary"
+          >
             Сохранить
             <template v-slot:loader>
               <span class="custom-loader">
@@ -86,10 +127,12 @@
     </v-tab-item>
     <!-- Вкладки раундов -->
     <template v-for="(round, index) in selectedEvent.rounds">
-      <v-tab :key="index"
-             ripple
-             @change="selectedRoundNumber = index">
-        Раунд {{index + 1}}
+      <v-tab
+        :key="index"
+        @change="selectedRoundNumber = index"
+        ripple
+      >
+        Раунд {{ index + 1 }}
       </v-tab>
       <v-tab-item :key="index">
         <!-- Round info card -->
@@ -101,21 +144,21 @@
                 <span>Дата начала:</span>
               </v-col>
               <v-col>
-                {{round.timeStart}}
+                {{ round.timeStart }}
               </v-col>
               <v-col>
                 <span>Дата окончания:</span>
               </v-col>
               <v-col>
-                {{round.timeEnd}}
+                {{ round.timeEnd }}
               </v-col>
               <v-col>
                 <span>Статус: </span>
               </v-col>
               <v-col>
-                 <span :style="{color : statusStyleByCode(round.status).color}">
-                   {{round.status.value}}
-                 </span>
+                <span :style="{color : statusStyleByCode(round.status).color}">
+                  {{ round.status.value }}
+                </span>
               </v-col>
             </v-row>
             <!--Round parameters -->
@@ -123,12 +166,12 @@
               <v-col>
                 <span>Расстановка:</span>
               </v-col>
-              <v-col>{{round.schemePool ? round.schemePool.gameDeploy.systemName : 'Не указано'}}</v-col>
+              <v-col>{{ round.schemePool ? round.schemePool.gameDeploy.systemName : 'Не указано' }}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
               </v-col>
-              <v-col>{{round.schemePool ? round.schemePool.gameStrategy.systemName : 'Не указано'}}</v-col>
+              <v-col>{{ round.schemePool ? round.schemePool.gameStrategy.systemName : 'Не указано' }}</v-col>
 
               <v-col>
                 <span>Стратегия:</span>
@@ -137,54 +180,76 @@
             </v-row>
             <v-row no-gutters>
               <v-col>
-                <v-btn v-if="round.status.code === eventStatusCodes.SCHEDULED"
-                        rounded color="additional" class="white--text"
-                        @click="roundSettingDialog = !roundSettingDialog">
+                <v-btn
+                  v-if="round.status.code === eventStatusCodes.SCHEDULED"
+                  @click="roundSettingDialog = !roundSettingDialog"
+                  rounded
+                  color="additional"
+                  class="white--text"
+                >
                   Начать раунд
                 </v-btn>
-                <v-btn v-else rounded color="accent" class="white--text">
+                <v-btn
+                  v-else
+                  rounded
+                  color="accent"
+                  class="white--text"
+                >
                   Закончить раунд
                 </v-btn>
                 <!-- TODO bug with form closing need to manage this if -->
-                <RoundSettingsComponent v-if="roundSettingDialog" :round="round"></RoundSettingsComponent>
+                <RoundSettingsComponent
+                  v-if="roundSettingDialog"
+                  :round="round"
+                />
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
         <v-row>
           <!-- Left column with tables -->
-          <v-col cols="4" v-for="(table, index) in selectedEvent.rounds[selectedRoundNumber].tables" :key="index">
-            <TablesInfoComponent :table="table"/>
+          <v-col
+            v-for="(table, index) in selectedEvent.rounds[selectedRoundNumber].tables"
+            :key="index"
+            cols="4"
+          >
+            <TablesInfoComponent :table="table" />
           </v-col>
           <!-- Right column with tables -->
           <!--<TablesInfoComponent :tables="evenTables"/>-->
         </v-row>
       </v-tab-item>
     </template>
-    <v-spacer></v-spacer>
-    <v-btn icon @click="hideEventInfo = !hideEventInfo">
-        <v-icon v-if="!hideInfoComponents">
-          keyboard_arrow_down
-        </v-icon>
-        <v-icon v-else>
-          keyboard_arrow_up
-        </v-icon>
+    <v-spacer />
+    <v-btn
+      @click="hideEventInfo = !hideEventInfo"
+      icon
+    >
+      <v-icon v-if="!hideInfoComponents">
+        keyboard_arrow_down
+      </v-icon>
+      <v-icon v-else>
+        keyboard_arrow_up
+      </v-icon>
     </v-btn>
   </v-tabs>
 </template>
 
 <script>
 import TablesInfoComponent from './TablesInfoComponent'
-import {END_POINTS} from '../../../util/constants/EndPointsConstants'
+import { END_POINTS } from '../../../util/constants/EndPointsConstants'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 import statusStyleByCode from '../../../util/statusStyleByCode'
-import {EVENT_STATUS_CODE} from '../../../util/constants/EventStatusNames'
+import { EVENT_STATUS_CODE } from '../../../util/constants/EventStatusNames'
 
 export default {
   name: 'EventInfoBodyComponent',
-  components: {RoundSettingsComponent, TablesInfoComponent},
+  components: { RoundSettingsComponent, TablesInfoComponent },
   props: {
-    selectedEvent: {}
+    selectedEvent: {
+      type: Object,
+      required: true
+    }
   },
   data () {
     return {
@@ -196,24 +261,6 @@ export default {
       // players: this.selectedEvent.players
     }
   },
-  methods: {
-    savePlayers () {
-      this.playersDataSaving = true
-      this.$http.post(END_POINTS.EVENTS.SAVE_PLAYERS, this.players)
-        .catch(error => console.log(error))
-        .finally(() => { this.playersDataSaving = false })
-    },
-    cancelReg (index) {
-      this.players[index].isCanceled = true
-    },
-    rageQuit (index) {
-      // TODO endpoint call
-      // if success - delete from UI
-    },
-    statusStyleByCode (status) {
-      return statusStyleByCode(status)
-    }
-  },
   computed: {
     eventStatusCodes () {
       return EVENT_STATUS_CODE
@@ -222,11 +269,11 @@ export default {
       return this.selectedEvent.players
     },
     evenTables () {
-      let currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
+      const currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 === 0)
     },
     oddTables () {
-      let currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
+      const currentRound = this.selectedEvent.rounds[this.selectedRoundNumber]
       return currentRound.tables.filter(table => table.tableNumber % 2 !== 0)
     },
     hideInfoComponents: {
@@ -234,6 +281,21 @@ export default {
         this.$emit('hide-info-components', this.hideEventInfo)
         return this.hideEventInfo
       }
+    }
+  },
+  methods: {
+    savePlayers () {
+      this.playersDataSaving = true
+      this.$http.post(END_POINTS.EVENTS.SAVE_PLAYERS, this.players)
+        .catch(error => console.log(error))
+        .finally(() => { this.playersDataSaving = false })
+    },
+    rageQuit (index) {
+      // TODO endpoint call
+      // if success - delete from UI
+    },
+    statusStyleByCode (status) {
+      return statusStyleByCode(status)
     }
   }
 }

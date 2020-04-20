@@ -8,29 +8,31 @@
         class="primary"
         primary-title
       >
-        <h3 style="color: white">{{headerText}}</h3>
+        <h3 style="color: white">{{ headerText }}</h3>
       </v-card-title>
 
       <v-card-text v-html="bodyText">
-        {{bodyText}}
+        {{ bodyText }}
       </v-card-text>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn v-if="isMultiAction"
-               color="primary"
-               rounded
-               text
-               @click="confirm">
+        <v-spacer />
+        <v-btn
+          v-if="isMultiAction"
+          @click="confirm"
+          color="primary"
+          rounded
+          text
+        >
           Подтвердить
         </v-btn>
         <v-btn
+          @click="cancel"
           color="accent"
           text
           rounded
-          @click="cancel"
         >
           Отмена
         </v-btn>

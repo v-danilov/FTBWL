@@ -1,21 +1,29 @@
 <template>
   <v-container>
-    <v-row  justify="center" >
+    <v-row justify="center">
       <v-col cols="7">
         <v-form
 
           v-model="formIsValid"
-          @submit.prevent="onSubmit">
-          <v-container >
+          @submit.prevent="onSubmit"
+        >
+          <v-container>
             <v-row>
-              <v-col cols="12" md="12" class="text-center">
+              <v-col
+                cols="12"
+                md="12"
+                class="text-center"
+              >
                 <v-avatar
                   :tile="false"
                   :size="300"
                   color="grey lighten-4"
                 >
                   <!--This is very strange. Doesn't work from root '/'-->
-                  <img src="../../assets/ftbwlLogo.png" alt="logo">
+                  <img
+                    src="../../assets/ftbwlLogo.png"
+                    alt="logo"
+                  >
                 </v-avatar>
               </v-col>
             </v-row>
@@ -23,109 +31,141 @@
             <!--Human data block-->
             <v-row justify="center">
               <!--Last name-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
                   v-model="userData.lastName"
                   :rules="nameRules"
                   label="Last name"
                   required
-                ></v-text-field>
+                />
               </v-col>
               <!--First name-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
                   v-model="userData.firstName"
                   :rules="nameRules"
                   label="First name"
                   required
-                ></v-text-field>
+                />
               </v-col>
               <!--City-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-combobox
                   v-model="selectedCity"
                   :search-input.sync="cityPrefix"
-                  label="City"
-                  item-text="name"
                   :items="cities"
                   :return-object="true"
-                  required>
-                </v-combobox>
+                  label="City"
+                  item-text="name"
+                  required
+                />
               </v-col>
             </v-row>
 
             <!--User data block-->
             <v-row justify="center">
               <!--Email-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
-                  type="email"
                   v-model="userData.email"
                   :rules="emailRules"
+                  type="email"
                   label="E-mail"
                   required
-                ></v-text-field>
+                />
               </v-col>
               <!--User name-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
                   v-model="userData.username"
                   :rules="userNameRules"
                   label="User name"
                   required
-                ></v-text-field>
+                />
               </v-col>
               <!--User alias-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
                   v-model="userData.alias"
                   label="Alias"
-                ></v-text-field>
+                />
               </v-col>
             </v-row>
 
             <!--Security data block-->
             <v-row justify="center">
               <!--Password-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
-                  type="password"
                   v-model="userData.password"
                   :rules="passwordRules"
+                  type="password"
                   label="Password"
                   required
-                ></v-text-field>
+                />
               </v-col>
               <!--Confirm password-->
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-text-field
                   :rules="confirmPasswordRules"
                   type="password"
                   label="Confirm password"
                   required
-                ></v-text-field>
+                />
               </v-col>
             </v-row>
 
             <v-row justify="center">
-              <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-btn
                   :disabled="!formIsValid"
                   type="submit"
                   rounded
                   large
-                  color="primary">
+                  color="primary"
+                >
                   Sign up
                 </v-btn>
               </v-col>
-                <v-col cols="12" md="4">
+              <v-col
+                cols="12"
+                md="4"
+              >
                 <v-btn
                   :depressed="true"
                   :text="true"
+                  :replace="true"
                   rounded
                   color="primary"
                   to="login"
-                  :replace="true">
+                >
                   Sign in
                 </v-btn>
               </v-col>
@@ -140,9 +180,9 @@
             >
               {{ toastBox.text }}
               <v-btn
+                @click="toastBox.isActive = false"
                 color="red"
                 text
-                @click="toastBox.isActive = false"
               >
                 Close
               </v-btn>
@@ -155,10 +195,10 @@
 </template>
 
 <script>
-import {AuthorizationTextConstants} from './constants/AuthorizationFormConstants'
-import {HTTPResponseStatusConstants} from '../util/constants/CommonConstants'
+import { AuthorizationTextConstants } from './constants/AuthorizationFormConstants'
+import { HTTPResponseStatusConstants } from '../util/constants/CommonConstants'
 import _ from 'lodash'
-import {END_POINTS} from '../util/constants/EndPointsConstants'
+import { END_POINTS } from '../util/constants/EndPointsConstants'
 
 export default {
   data: () => ({
@@ -216,8 +256,8 @@ export default {
       this.$http.get(END_POINTS.AUTHENTICATION.GET_CITIES_BY_PREFIX)
         .then(response => {
           console.log(response.data)
-          let data = response.data.payload
-          data.forEach(element => this.cities.push({id: element.cid, name: element.title}))
+          const data = response.data.payload
+          data.forEach(element => this.cities.push({ id: element.cid, name: element.title }))
           console.log(this.cities)
         })
         .catch(e => {

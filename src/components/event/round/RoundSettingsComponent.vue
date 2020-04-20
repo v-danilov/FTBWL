@@ -1,58 +1,100 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="dialog"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
+  >
     <v-card>
       <!-- Header (toolbar) -->
-      <v-app-bar app dark clipped-left color="primary">
-        <v-toolbar-title>Раунд {{round.roundNum}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon fab>
+      <v-app-bar
+        app
+        dark
+        clipped-left
+        color="primary"
+      >
+        <v-toolbar-title>Раунд {{ round.roundNum }}</v-toolbar-title>
+        <v-spacer />
+        <v-btn
+          icon
+          fab
+        >
           <v-icon color="white">
             refresh
           </v-icon>
         </v-btn>
-        <v-btn icon fab
-        @click="dialog = !dialog">
+        <v-btn
+          @click="dialog = !dialog"
+          icon
+          fab
+        >
           <v-icon color="white">
             close
           </v-icon>
         </v-btn>
-        <v-btn icon fab @click="savePairingGrid">
+        <v-btn
+          @click="savePairingGrid"
+          icon
+          fab
+        >
           <v-icon color="white">
             save
           </v-icon>
         </v-btn>
         <!-- Extension with player swap view -->
-        <template v-if="!isEmpty(firstPlayerFowSwap) || !isEmpty(secondPlayerForSwap)" #extension>
+        <template
+          v-if="!isEmpty(firstPlayerFowSwap) || !isEmpty(secondPlayerForSwap)"
+          #extension
+        >
           <v-row justify="center">
             <v-toolbar-items>
               <!-- Left player chip -->
-              <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(firstPlayerFowSwap)">
-                <v-avatar v-if="firstPlayerFowSwap.player.avatar !== null" left>
-                  <v-img :src="firstPlayerFowSwap.player.avatar"></v-img>
+              <v-chip
+                :color="clearButtonHovered ? 'additional' : 'white'"
+                v-if="!isEmpty(firstPlayerFowSwap)"
+              >
+                <v-avatar
+                  v-if="firstPlayerFowSwap.player.avatar !== null"
+                  left
+                >
+                  <v-img :src="firstPlayerFowSwap.player.avatar" />
                 </v-avatar>
-                {{firstPlayerFowSwap.player.name}} (Стол {{defineTableNumber(firstPlayerFowSwap.playerIndex)}})
+                {{ firstPlayerFowSwap.player.name }} (Стол {{ defineTableNumber(firstPlayerFowSwap.playerIndex) }})
               </v-chip>
               <!-- Swap button -->
-              <v-btn text rounded icon
-                     v-if="!isEmpty(firstPlayerFowSwap.player) && !isEmpty(secondPlayerForSwap.player)"
-                     @click="swapPlayers">
+              <v-btn
+                v-if="!isEmpty(firstPlayerFowSwap.player) && !isEmpty(secondPlayerForSwap.player)"
+                @click="swapPlayers"
+                text
+                rounded
+                icon
+              >
                 <v-icon>
                   swap_horiz
                 </v-icon>
               </v-btn>
               <!-- Right player chip -->
-              <v-chip :color="clearButtonHovered ? 'additional' : 'white'" v-if="!isEmpty(secondPlayerForSwap)">
-                <v-avatar v-if="secondPlayerForSwap.player.avatar !== null" left>
-                  <v-img :src="secondPlayerForSwap.player.avatar"></v-img>
+              <v-chip
+                :color="clearButtonHovered ? 'additional' : 'white'"
+                v-if="!isEmpty(secondPlayerForSwap)"
+              >
+                <v-avatar
+                  v-if="secondPlayerForSwap.player.avatar !== null"
+                  left
+                >
+                  <v-img :src="secondPlayerForSwap.player.avatar" />
                 </v-avatar>
-                {{secondPlayerForSwap.player.name}} (Стол
-                {{defineTableNumber(secondPlayerForSwap.playerIndex)}})
+                {{ secondPlayerForSwap.player.name }} (Стол
+                {{ defineTableNumber(secondPlayerForSwap.playerIndex) }})
               </v-chip>
               <!-- Clear button -->
-              <v-btn text icon
-                     @click="clearSwapData"
-                     @mouseover="clearButtonHovered = true"
-                     @mouseleave="clearButtonHovered = false">
+              <v-btn
+                @click="clearSwapData"
+                @mouseover="clearButtonHovered = true"
+                @mouseleave="clearButtonHovered = false"
+                text
+                icon
+              >
                 <v-icon>
                   close
                 </v-icon>
@@ -141,13 +183,15 @@
           </v-col>
         </v-row>
       </v-navigation-drawer>-->
-      <v-content id="body-container"
-                 class="pl-200 overflow-y-hidden">
-        <v-container fluid >
+      <v-content
+        id="body-container"
+        class="pl-200 overflow-y-hidden"
+      >
+        <v-container fluid>
           <PlayersPairingComponent
-            ref="playersPairingComponent"
             @swap-players="clearSwapData"
-          ></PlayersPairingComponent>
+            ref="playersPairingComponent"
+          />
         </v-container>
       </v-content>
     </v-card>
@@ -157,10 +201,10 @@
 <script>
 import PlayersPairingComponent from '../pairing/PlayersPairingComponent'
 import _ from 'lodash'
-import {HTTPResponseStatusConstants} from '../../util/constants/CommonConstants'
+import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
 export default {
   name: 'RoundSettingsComponent',
-  components: {PlayersPairingComponent},
+  components: { PlayersPairingComponent },
   props: {
     round: {
       required: true,

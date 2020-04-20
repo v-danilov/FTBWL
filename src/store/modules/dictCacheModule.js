@@ -1,4 +1,4 @@
-import {HTTPResponseStatusConstants} from '../../components/util/constants/CommonConstants'
+import { HTTPResponseStatusConstants } from '../../components/util/constants/CommonConstants'
 import axios from 'axios'
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
