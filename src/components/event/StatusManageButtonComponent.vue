@@ -47,10 +47,6 @@ export default {
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
             color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color}]
         case EVENT_STATUS_CODE.START:
-          return [{nextStateText: 'Начать игру',
-            nextStateCode: EVENT_STATUS_CODE.PLAY,
-            color: statusStyleByCode(EVENT_STATUS_CODE.PLAY).color}]
-        case EVENT_STATUS_CODE.PLAY:
           return [{nextStateText: 'Приостановить турнир',
             nextStateCode: EVENT_STATUS_CODE.PAUSE,
             color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color},
@@ -59,7 +55,7 @@ export default {
             color: statusStyleByCode(EVENT_STATUS_CODE.END).color}]
         case EVENT_STATUS_CODE.PAUSE:
           return [{nextStateText: 'Продолжить турнир',
-            nextStateCode: EVENT_STATUS_CODE.PLAY,
+            nextStateCode: EVENT_STATUS_CODE.START,
             color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color}]
         default:
           return null

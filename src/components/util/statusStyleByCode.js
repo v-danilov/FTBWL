@@ -1,6 +1,6 @@
 import { COLORS } from './constants/ColorsConstants'
 import {EVENT_STATUS_CODE} from './constants/EventStatusNames'
-import { mdiPlayCircle, mdiPauseCircle, mdiCloseCircle,
+import { mdiPauseCircle, mdiCloseCircle,
   mdiAccountClock, mdiAccountPlus, mdiAccountLock,
   mdiCards, mdiArchive, mdiClockFast} from '@mdi/js'
 
@@ -14,11 +14,9 @@ export default function statusStyleByCode (statusCode) {
     case EVENT_STATUS_CODE.REG_OFF:
       return {icon: mdiAccountLock, color: COLORS.ACCENT}
     case EVENT_STATUS_CODE.START:
-      return {icon: mdiPlayCircle, color: COLORS.SECONDARY}
+      return {icon: mdiCards, color: COLORS.SECONDARY}
     case EVENT_STATUS_CODE.CANCEL:
       return {icon: mdiCloseCircle, color: COLORS.ADDITIONAL}
-    case EVENT_STATUS_CODE.PLAY:
-      return {icon: mdiCards, color: COLORS.SECONDARY}
     case EVENT_STATUS_CODE.END:
       return {icon: mdiArchive, color: COLORS.PRIMARY}
     case EVENT_STATUS_CODE.PAUSE:
