@@ -1,8 +1,8 @@
 import { COLORS } from './constants/ColorsConstants'
 import {EVENT_STATUS_CODE} from './constants/EventStatusNames'
-import { mdiPauseCircle, mdiCloseCircle,
+import { mdiPauseCircle, mdiCalendarCheck,
   mdiAccountClock, mdiAccountPlus, mdiAccountLock,
-  mdiCards, mdiArchive, mdiClockFast} from '@mdi/js'
+  mdiCards, mdiCalendarRemove, mdiCalendarClock} from '@mdi/js'
 
 /* exported statusColorize */
 export default function statusStyleByCode (statusCode) {
@@ -16,13 +16,13 @@ export default function statusStyleByCode (statusCode) {
     case EVENT_STATUS_CODE.START:
       return {icon: mdiCards, color: COLORS.SECONDARY}
     case EVENT_STATUS_CODE.CANCEL:
-      return {icon: mdiCloseCircle, color: COLORS.ADDITIONAL}
+      return {icon: mdiCalendarRemove, color: COLORS.ADDITIONAL}
     case EVENT_STATUS_CODE.END:
-      return {icon: mdiArchive, color: COLORS.PRIMARY}
+      return {icon: mdiCalendarCheck, color: COLORS.PRIMARY}
     case EVENT_STATUS_CODE.PAUSE:
       return {icon: mdiPauseCircle, color: COLORS.ADDITIONAL}
     case EVENT_STATUS_CODE.SCHEDULED:
-      return {icon: mdiClockFast, color: COLORS.ACCENT}
+      return {icon: mdiCalendarClock, color: COLORS.ACCENT}
     default:
       console.log('WARNING: не опознан цвет для статуса ' + statusCode)
       return {icon: 'help', color: COLORS.PRIMARY}
