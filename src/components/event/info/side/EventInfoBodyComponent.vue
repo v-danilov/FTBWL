@@ -290,8 +290,13 @@ export default {
     }
   },
   methods: {
+    /**
+     * Save players on server
+     */
     savePlayers () {
+      // Show user pending request
       this.apiCallInProcess = true
+      // Prepare data for request
       const playersToPut = []
       this.playersConfirmationChangedMap.forEach((value, key) => {
         playersToPut.push({
@@ -307,9 +312,18 @@ export default {
     statusStyleByCode (status) {
       return statusStyleByCode(status)
     },
+    /**
+     * Collect only players with changed confirmation to avoid dummy updates on backend
+     * @param player with changed confirmation
+     */
     confirmPlayerParticipation (player) {
       player.confirmed = !player.confirmed
-      this.playersConfirmationChangedMap.set(player.id, player.confirmed)
+      // If key already exists => changing to initial state => delete from changes
+      if (this.playersConfirmationChangedMap.has(player.id)) {
+        this.playersConfirmationChangedMap.delete(player.id)
+      } else {
+        this.playersConfirmationChangedMap.set(player.id, player.confirmed)
+      }
     }
   }
 }
