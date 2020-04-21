@@ -62,7 +62,7 @@ export default {
     refreshEventOnStatusChanged (value) {
       this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), { code: value })
         .then(response => {
-          this.selectedEvent = response.data
+          this.selectedEvent.status = response.data.status
         })
         .catch(error => {
           console.log('Failed to refresh event. ' + error.message)
@@ -73,8 +73,8 @@ export default {
         this.$store.dispatch(ACTIONS.COMMONS.CURRENT_ACTIVE_EVENT_ID, this.eventId)
       }
     },
-    async loadEvent () {
-      await this.$http.get(END_POINTS.EVENTS.DEFAULT + this.eventId)
+    loadEvent () {
+      this.$http.get(END_POINTS.EVENTS.DEFAULT + this.eventId)
         .then(response => {
           this.selectedEvent = response.data
         })

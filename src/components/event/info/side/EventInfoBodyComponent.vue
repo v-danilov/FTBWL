@@ -96,9 +96,12 @@
               >
                 <v-btn
                   small
-                  outlined
+                  rounded
+                  :outlined="!player.confirmed"
+                  :color="player.confirmed ? 'secondary' : 'accent'"
+                  @click="confirmPlayerParticipation(player)"
                 >
-                  Подтвердить
+                  {{player.confirmed ? 'Подтверждён' : 'Подтвердить'}}
                 </v-btn>
               </v-col>
             </v-row>
@@ -107,8 +110,8 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            :loading="playersDataSaving"
-            :disabled="playersDataSaving"
+            :loading="apiCallInProcess"
+            :disabled="apiCallInProcess"
             @click="savePlayers"
             text
             outlined
@@ -237,7 +240,6 @@
 
 <script>
 import TablesInfoComponent from './TablesInfoComponent'
-import { END_POINTS } from '../../../util/constants/EndPointsConstants'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 import statusStyleByCode from '../../../util/statusStyleByCode'
 import { EVENT_STATUS_CODE } from '../../../util/constants/EventStatusNames'
@@ -251,13 +253,17 @@ export default {
       required: true
     }
   },
+  beforeMount () {
+    console.log(this)
+  },
   data () {
     return {
       vuetifyTheme: this.$vuetify.theme,
       hideEventInfo: false,
       roundSettingDialog: false,
       selectedRoundNumber: 0,
-      playersDataSaving: false
+      apiCallInProcess: false,
+      playersConfirmationChangedMap: new Map()
       // players: this.selectedEvent.players
     }
   },
@@ -285,17 +291,25 @@ export default {
   },
   methods: {
     savePlayers () {
-      this.playersDataSaving = true
-      this.$http.post(END_POINTS.EVENTS.SAVE_PLAYERS, this.players)
+      this.apiCallInProcess = true
+      const playersToPut = []
+      this.playersConfirmationChangedMap.forEach((value, key) => {
+        playersToPut.push({
+          id: key,
+          confirmed: value
+        })
+      })
+      const eventID = this.$store.getters.currentActiveEventID
+      this.$http.put(`/events/${eventID}/players/confirmation`, playersToPut)
         .catch(error => console.log(error))
-        .finally(() => { this.playersDataSaving = false })
-    },
-    rageQuit (index) {
-      // TODO endpoint call
-      // if success - delete from UI
+        .finally(() => { this.apiCallInProcess = false })
     },
     statusStyleByCode (status) {
       return statusStyleByCode(status)
+    },
+    confirmPlayerParticipation (player) {
+      player.confirmed = !player.confirmed
+      this.playersConfirmationChangedMap.set(player.id, player.confirmed)
     }
   }
 }
@@ -337,15 +351,15 @@ export default {
       transform: rotate(360deg);
     }
   }
-  .disabled-player {
-    color: var(--v-color-accent);
-    text-decoration: line-through
-  }
   .selected-row {
     color: var(--v-color-secondary);
     transition: color .3s linear
   }
   .selected-row:not(.on-hover) {
     color: #000000de;
+  }
+  .on-hover {
+    color: #000000de;
+    font-weight: bold;
   }
 </style>
