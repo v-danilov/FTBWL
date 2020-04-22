@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import dictCacheModule from './modules/dictCacheModule'
 import pairingPlayersModule from './modules/pairingPlayersModule'
 import commonModule from './modules/commonModule'
+import notifications from './modules/notifications'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export const store = new Vuex.Store({
   modules: {
     dictCacheModule,
     pairingPlayersModule,
-    commonModule
+    commonModule,
+    notifications
   }
 })

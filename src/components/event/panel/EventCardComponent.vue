@@ -81,9 +81,9 @@
 <script>
 import statusStyleByCode from '../../util/statusStyleByCode'
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
-import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 import { ACTIONS } from '../../util/constants/ActionConstants'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventCardComponent',
@@ -113,24 +113,14 @@ export default {
     emitOpenDialogEvent () {
       this.$emit('open-dialog', { id: this.event.id })
     },
-    startEvent () {
-      this.$refs.confirmationDialogComponent.pop().then(result => {
-        if (result === true) {
-          this.$http.get(END_POINTS.EVENTS.START + this.event.id).then(response => {
-            if (response.status === HTTPResponseStatusConstants.OK) {
-              // TODO create endpoint
-              this.$router.push('')
-            }
-          })
-        }
-      })
-    },
     updateEventStatus (newStatus) {
       this.$http.post(END_POINTS.EVENTS.UPDATE_STATUS, { eventId: this.event.id, status: newStatus })
         .then(response => {
-          if (response.status !== HTTPResponseStatusConstants.OK) {
-            console.log('Произошла ошибка обновления статуса турнира.')
-          }
+          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.SUCCESS, text: 'Event status updated.' })
+        })
+        .catch(err => {
+          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.ERROR, text: 'Event status update error.' })
+          console.log(err)
         })
     },
     closeEvent () {

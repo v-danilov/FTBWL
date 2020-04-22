@@ -12,6 +12,7 @@ import axios from 'axios'
 import { COLORS } from './components/util/constants/ColorsConstants'
 import { HTTPResponseStatusConstants } from './components/util/constants/CommonConstants'
 import UserCookiesClass from './store/cookie/UserCookiesClass'
+import { NOTIFICATION_TYPES } from './components/notifications/notificationTypes'
 
 axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
 Vue.prototype.$http = axios
@@ -52,6 +53,8 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN) {
+    UserCookiesClass.setToken(null) // reset token to complete dictionary downloading request
+    store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.INFO, text: 'Please, login first'})
     router.push('/login')
   }
   return Promise.reject(error)

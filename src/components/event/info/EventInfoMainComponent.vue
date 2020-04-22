@@ -17,21 +17,18 @@
         :selected-event="selectedEvent || []"
       />
     </template>
-    <template v-if="loadingError">
-      <error-component />
-    </template>
   </div>
 </template>
 
 <script>
 import EventInfoBodyComponent from './side/EventInfoBodyComponent'
 import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
-import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import StatusManageButtonComponent from '../StatusManageButtonComponent'
 import { ACTIONS } from '../../util/constants/ActionConstants'
 import ErrorComponent from '../../util/components/ErrorComponent'
 import LoadingStub from '../../util/components/LoadingStub'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventInfoComponent',
@@ -46,7 +43,6 @@ export default {
   data () {
     return {
       loading: true,
-      loadingError: false,
       selectedEvent: null,
       componentsHidden: true
     }
@@ -63,8 +59,10 @@ export default {
       this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), { code: value })
         .then(response => {
           this.selectedEvent.status = response.data.status
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCESS, text: 'Event status updated'})
         })
         .catch(error => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not update event status'})
           console.log('Failed to refresh event. ' + error.message)
         })
     },
@@ -79,10 +77,11 @@ export default {
           this.selectedEvent = response.data
         })
         .catch(error => {
-          if (error.response.status === HTTPResponseStatusConstants.NOT_FOUND) {
-            this.loadingError = true
-          }
-        }).finally(() => { this.loading = false })
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not open event'})
+          console.log(error)
+          this.$router.push('/')
+        })
+        .finally(() => { this.loading = false })
     }
   }
 }

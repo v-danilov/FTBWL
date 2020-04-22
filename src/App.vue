@@ -15,7 +15,8 @@
         </v-container>
       </v-content>
     </div>
-    <LoadingStub v-else />
+    <LoadingStub v-else/>
+    <NotificationContainer></NotificationContainer>
     <ConfirmationDialogComponent ref="confirmationDialog" />
   </v-app>
 </template>
@@ -26,10 +27,11 @@ import { END_POINTS } from './components/util/constants/EndPointsConstants'
 import { ACTIONS } from './components/util/constants/ActionConstants'
 import LoadingStub from './components/util/components/LoadingStub'
 import ConfirmationDialogComponent from './components/dialogs/ConfirmationDialogComponent'
+import NotificationContainer from './components/notifications/NotificationContainerComponent'
 
 export default {
   name: 'App',
-  components: { ConfirmationDialogComponent, LoadingStub, NavigatorComponent },
+  components: { ConfirmationDialogComponent, LoadingStub, NavigatorComponent, NotificationContainer },
   computed: {
     cssTheme () {
       const currentVTheme = this.$vuetify.theme.currentTheme

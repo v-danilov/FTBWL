@@ -201,7 +201,8 @@
 <script>
 import PlayersPairingComponent from '../pairing/PlayersPairingComponent'
 import _ from 'lodash'
-import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstants'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
+
 export default {
   name: 'RoundSettingsComponent',
   components: { PlayersPairingComponent },
@@ -252,11 +253,13 @@ export default {
     savePairingGrid () {
       this.$refs.playersPairingComponent.savePairingGrid(this.round.id)
         .then(response => {
-          if (response.status === HTTPResponseStatusConstants.OK) {
-            this.dialog = false
-          }
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Pairings saved.'})
+          this.dialog = false
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Error while saving pairings.'})
+          console.log(error)
+        })
     },
     defineTableNumber (playerIndex) {
       return playerIndex % 2 === 0 ? (playerIndex / 2 + 1) : Math.round(playerIndex / 2)

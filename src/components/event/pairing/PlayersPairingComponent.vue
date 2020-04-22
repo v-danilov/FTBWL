@@ -68,6 +68,7 @@
 <script>
 
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'PlayersPairingComponentVue',
@@ -83,18 +84,23 @@ export default {
     }
   },
   created () {
-    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.$store.getters.currentActiveEventID).then(response => {
-      response.data.players.forEach(e => {
-        // console.log(e)
-        const playerData = {
-          id: e.id,
-          name: e.user.fullName,
-          nickname: e.user.nickname,
-          avatar: null // TODO implement user avatar?
-        }
-        this.playersForPairing.push(playerData)
+    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.$store.getters.currentActiveEventID)
+      .then(response => {
+        response.data.players.forEach(e => {
+          // console.log(e)
+          const playerData = {
+            id: e.id,
+            name: e.user.fullName,
+            nickname: e.user.nickname,
+            avatar: null // TODO implement user avatar?
+          }
+          this.playersForPairing.push(playerData)
+        })
       })
-    })
+      .catch(err => {
+        this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not load players data'})
+        console.log(err)
+      })
   },
   methods: {
     swapPlayers (fIndex, sIndex) {

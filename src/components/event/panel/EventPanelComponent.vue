@@ -66,6 +66,7 @@ import { HTTPResponseStatusConstants } from '../../util/constants/CommonConstant
 import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
 import LoadingStub from '../../util/components/LoadingStub'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventPanelComponent',
@@ -101,6 +102,7 @@ export default {
         }
       })
       .catch(reason => {
+        this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not get events information'})
         console.log(reason)
       })
   },

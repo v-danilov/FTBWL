@@ -1,5 +1,7 @@
 import { HTTPResponseStatusConstants } from '../../components/util/constants/CommonConstants'
 import axios from 'axios'
+import { store } from '@/store/store.js'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
 const state = {
@@ -61,100 +63,83 @@ const mutations = {
 // this.$store.dispatch("SET_USER",user) asynchronous
 
 const actions = {
-  INIT_DICTS: async (context, url) => {
-    await axios.get(url)
+  INIT_DICTS: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_PLACES', response.data.places)
-          commitAsMap('SET_FACTIONS', 'systemName', context, response.data.factions)
-          commitAsMap('SET_FORMATS', 'code', context, response.data.eventFormats)
-          commitAsMap('SET_STATUSES', 'code', context, response.data.eventStatuses)
-          commitAsMap('SET_RULEPACKS', 'code', context, response.data.rulePacks)
-          context.commit('SET_DISCTS_LOADED_FLAG', true)
-        }
+        context.commit('SET_PLACES', response.data.places)
+        commitAsMap('SET_FACTIONS', 'systemName', context, response.data.factions)
+        commitAsMap('SET_FORMATS', 'code', context, response.data.eventFormats)
+        commitAsMap('SET_STATUSES', 'code', context, response.data.eventStatuses)
+        commitAsMap('SET_RULEPACKS', 'code', context, response.data.rulePacks)
+        context.commit('SET_DISCTS_LOADED_FLAG', true)
       }).catch(reason => {
-        console.log('Failed to cache dictionatries 🤷‍♂️' + reason)
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download dictionaries 🤷‍♂️'})
       })
   },
   INIT_GAME_SYSTEMS: (context, url) => {
     return axios.get(url).then(response => {
-      if (response.status === HTTPResponseStatusConstants.OK) {
-        commitAsMap('SET_GAME_SYSTEMS', 'code', context, response.data)
-        return response.data
-      }
+      commitAsMap('SET_GAME_SYSTEMS', 'code', context, response.data)
+      return response.data
     }).catch(reason => {
-      console.log(reason)
-      console.log('Failed to cache game systems 🤷‍♂️')
+      store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download game systems dictionary 🤷‍♂️'})
     })
   },
   INIT_FACTIONS: (context, url) => {
     axios.get(url).then(response => {
-      if (response.status === HTTPResponseStatusConstants.OK) {
-        commitAsMap('SET_FACTIONS', 'systemName', context, response.data)
-      }
+      commitAsMap('SET_FACTIONS', 'systemName', context, response.data)
     }).catch(reason => {
-      console.log('Failed to cache fractions 🤷‍♂️')
+      store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download fractions dictionary 🤷‍♂️'})
     })
   },
-  INIT_FORMATS: async (context, url) => {
-    await axios.get(url)
+  INIT_FORMATS: (context, url) => {
+    axios.get(url)
       .then(response => {
         if (response.status === HTTPResponseStatusConstants.OK) {
           commitAsMap('SET_FORMATS', 'code', context, response.data)
         }
       }).catch(reason => {
-        console.log('Failed to cache formats 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download formats dictionary 🤷‍♂️'})
       })
   },
-  INIT_COUNTRIES: async (context, url) => {
-    await axios.get(url)
+  INIT_COUNTRIES: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_COUNTRIES', response.data.payload)
-        }
+        context.commit('SET_COUNTRIES', response.data.payload)
       }).catch(reason => {
-        console.log('Failed to cache countries 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download countries dictionary 🤷‍♂️'})
       })
   },
 
-  INIT_CITIES: async (context, url) => {
-    await axios.get(url)
+  INIT_CITIES: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_CITIES', response.data.payload)
-        }
+        context.commit('SET_CITIES', response.data.payload)
       }).catch(reason => {
-        console.log('Failed to cache cities 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download cities dictionary 🤷‍♂️'})
       })
   },
-  INIT_PLACES: async (context, url) => {
-    await axios.get(url)
+  INIT_PLACES: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_PLACES', response.data.payload)
-        }
+        context.commit('SET_PLACES', response.data.payload)
       }).catch(reason => {
-        console.log('Failed to cache places 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download places dictionary 🤷‍♂️'})
       })
   },
-  INIT_ORGANIZERS: async (context, url) => {
-    await axios.get(url)
+  INIT_ORGANIZERS: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          context.commit('SET_ORGANIZERS', response.data.payload)
-        }
+        context.commit('SET_ORGANIZERS', response.data.payload)
       }).catch(reason => {
-        console.log('Failed to cache organizers 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download organizers dictionary 🤷‍♂️'})
       })
   },
-  INIT_STATUSES: async (context, url) => {
-    await axios.get(url)
+  INIT_STATUSES: (context, url) => {
+    axios.get(url)
       .then(response => {
-        if (response.status === HTTPResponseStatusConstants.OK) {
-          commitAsMap('SET_STATUSES', 'code', context, response.data)
-        }
+        commitAsMap('SET_STATUSES', 'code', context, response.data)
       }).catch(reason => {
-        console.log('Failed to cache statuses 🤷‍♂️')
+        store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to download statuses dictionary 🤷‍♂️'})
       })
   }
 }

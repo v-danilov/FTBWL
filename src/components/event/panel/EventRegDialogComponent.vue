@@ -64,6 +64,7 @@
 <script>
 
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventRegDialogComponent',
@@ -113,10 +114,10 @@ export default {
 
       this.$http.post(END_POINTS.EVENTS.REG_USER, userRegData)
         .then(response => {
-          console.log(response)
+          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.SUCCESS, text: 'You are successfully registered!' })
         })
         .catch(reason => {
-          console.log(reason)
+          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.ERROR, text: 'Error happend. Try again later.' })
         })
     }
   }

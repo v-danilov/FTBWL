@@ -81,24 +81,6 @@
                 </v-btn>
               </v-col>
             </v-row>
-
-            <!-- Toast -->
-            <v-snackbar
-              v-model="toastBox.isActive"
-              :multi-line="false"
-              :right="true"
-              :timeout="5000"
-              :top="true"
-            >
-              {{ toastBox.text }}
-              <v-btn
-                @click="toastBox.isActive = false"
-                color="red"
-                text
-              >
-                Close
-              </v-btn>
-            </v-snackbar>
           </v-container>
         </v-form>
       </v-col>
@@ -120,10 +102,6 @@ export default {
         username: '',
         password: ''
       },
-      toastBox: {
-        isActive: false,
-        text: ''
-      },
       // Rules
       checkNotEmpty: [
         v => !!v || AuthorizationTextConstants.FIELD_MUST_BE_NOT_EMPTY
@@ -131,10 +109,6 @@ export default {
     }
   },
   methods: {
-    displayToastWithMessage (message) {
-      this.toastBox.text = message
-      this.toastBox.isActive = true
-    },
     onSubmit () {
       const { username, password } = this.userData
       this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, { username, password })
@@ -143,7 +117,7 @@ export default {
             UserCookies.setToken(response.data.token)
             this.$router.push('/')
           } else {
-            this.displayToastWithMessage('Wrong credentials')
+            // TODO event emit wihtot else
           }
         })
     }

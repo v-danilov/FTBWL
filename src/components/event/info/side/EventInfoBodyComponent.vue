@@ -112,7 +112,7 @@
           <v-btn
             :loading="apiCallInProcess"
             :disabled="apiCallInProcess"
-            @click="savePlayers"
+            @click="confirmPlayers"
             text
             outlined
             rounded
@@ -243,6 +243,7 @@ import TablesInfoComponent from './TablesInfoComponent'
 import RoundSettingsComponent from '../../round/RoundSettingsComponent'
 import statusStyleByCode from '../../../util/statusStyleByCode'
 import { EVENT_STATUS_CODE } from '../../../util/constants/EventStatusNames'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventInfoBodyComponent',
@@ -291,9 +292,9 @@ export default {
   },
   methods: {
     /**
-     * Save players on server
+     * Confirm players on server
      */
-    savePlayers () {
+    confirmPlayers () {
       // Show user pending request
       this.apiCallInProcess = true
       // Prepare data for request
@@ -306,6 +307,9 @@ export default {
       })
       const eventID = this.$store.getters.currentActiveEventID
       this.$http.put(`/events/${eventID}/players/confirmation`, playersToPut)
+        .tnen(() => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCESS, text: 'Players confirmed.'})
+        })
         .catch(error => console.log(error))
         .finally(() => { this.apiCallInProcess = false })
     },

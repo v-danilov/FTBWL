@@ -281,6 +281,7 @@
 
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import { mask, tokens } from 'vue-the-mask'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventCreateComponent',
@@ -389,8 +390,9 @@ export default {
       }]
       console.log(event)
       this.$http.post(END_POINTS.EVENTS.DEFAULT, event).then(response => {
-        console.log('Event created')
+        this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Event created <link>'})
       }).catch((err) => {
+        this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Event creation error. Try again later'})
         console.log(err)
       })
     },

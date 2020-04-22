@@ -170,23 +170,6 @@
                 </v-btn>
               </v-col>
             </v-row>
-
-            <v-snackbar
-              v-model="toastBox.isActive"
-              :multi-line="false"
-              :right="true"
-              :timeout="5000"
-              :top="true"
-            >
-              {{ toastBox.text }}
-              <v-btn
-                @click="toastBox.isActive = false"
-                color="red"
-                text
-              >
-                Close
-              </v-btn>
-            </v-snackbar>
           </v-container>
         </v-form>
       </v-col>
@@ -234,11 +217,7 @@ export default {
     ],
     confirmPasswordRules: [
       // TODO
-    ],
-    toastBox: {
-      isActive: false,
-      text: ''
-    }
+    ]
   }),
   watch: {
     // TODO метод срабатывает при загрузке формы - запрашивает по пустому префиксу
@@ -268,22 +247,18 @@ export default {
     checkPasswords (password) {
       return this.userData.password === password
     },
-    displayToastWithMessage (message) {
-      this.toastBox.text = message
-      this.toastBox.isActive = true
-    },
     onSubmit () {
       this.$http.post(END_POINTS.AUTHENTICATION.SIGN_UP, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
-            this.displayToastWithMessage('Successful sign up')
+            // TODO emit
           } else {
             console.log(response)
-            this.displayToastWithMessage(response.statusText)
+            // TODO emit
           }
         })
         .catch(e => {
-          this.displayToastWithMessage('Internal error. Please contact with administrator.')
+          // TODO emit
           console.log(e)
         })
     }
