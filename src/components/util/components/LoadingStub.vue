@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center mt-3">
     <v-progress-circular
       :size="50"
       color="primary"

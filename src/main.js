@@ -7,7 +7,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-import { store } from './store/store'
+import { store } from '@/store/store.js'
 import axios from 'axios'
 import { COLORS } from './components/util/constants/ColorsConstants'
 import { HTTPResponseStatusConstants } from './components/util/constants/CommonConstants'
@@ -42,8 +42,9 @@ Vue.config.productionTip = false
 
 axios.interceptors.request.use(function (request) {
   const tokenFromCookies = UserCookiesClass.getToken()
-  const tokenForHeader = tokenFromCookies == null ? '' : tokenFromCookies
-  request.headers.Authorization = 'Bearer ' + tokenForHeader
+  if (tokenFromCookies !== null && tokenFromCookies !== '') {
+    request.headers.Authorization = 'Bearer ' + tokenFromCookies
+  }
   return request
 }, function (error) {
   return Promise.reject(error)
@@ -53,7 +54,9 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN) {
-    UserCookiesClass.setToken(null) // reset token to complete dictionary downloading request
+    console.log(store)
+    store.dispatch('saveRouteToJump', router.currentRoute.path)
+    UserCookiesClass.setToken('') // reset token to complete dictionary downloading request
     store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.INFO, text: 'Please, login first'})
     router.push('/login')
   }

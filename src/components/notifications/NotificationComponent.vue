@@ -31,9 +31,6 @@ export default {
   beforeDestroy () {
     this.remove(this.notification)
   },
-  mounted () {
-    console.log(this.notification)
-  },
   methods: mapActions('notifications', ['remove'])
 }
 </script>

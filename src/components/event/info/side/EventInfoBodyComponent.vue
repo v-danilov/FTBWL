@@ -254,9 +254,6 @@ export default {
       required: true
     }
   },
-  beforeMount () {
-    console.log(this)
-  },
   data () {
     return {
       vuetifyTheme: this.$vuetify.theme,
@@ -307,8 +304,8 @@ export default {
       })
       const eventID = this.$store.getters.currentActiveEventID
       this.$http.put(`/events/${eventID}/players/confirmation`, playersToPut)
-        .tnen(() => {
-          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCESS, text: 'Players confirmed.'})
+        .then((response) => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Players confirmed.'})
         })
         .catch(error => console.log(error))
         .finally(() => { this.apiCallInProcess = false })

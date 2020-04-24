@@ -9,9 +9,11 @@
         :selected-event="selectedEvent"
       />
       <StatusManageButton
+        v-if="!statusUpdating"
         :event-status="selectedEvent.status.code"
         @event-status-changed="refreshEventOnStatusChanged"
       />
+      <LoadingStub v-else />
       <EIBody
         @hide-info-components="changeVisibility"
         :selected-event="selectedEvent || []"
@@ -43,6 +45,7 @@ export default {
   data () {
     return {
       loading: true,
+      statusUpdating: false,
       selectedEvent: null,
       componentsHidden: true
     }
@@ -56,15 +59,17 @@ export default {
       this.componentsHidden = value
     },
     refreshEventOnStatusChanged (value) {
+      this.statusUpdating = true
       this.$http.put(END_POINTS.EVENTS.UPDATE_STATUS.replace('{id}', this.selectedEvent.id), { code: value })
         .then(response => {
           this.selectedEvent.status = response.data.status
-          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCESS, text: 'Event status updated'})
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Event status updated'})
         })
         .catch(error => {
           this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not update event status'})
           console.log('Failed to refresh event. ' + error.message)
         })
+        .finally(() => { this.statusUpdating = false })
     },
     checkCurrentEventId () {
       if (this.$store.getters.currentActiveEventID === null) {

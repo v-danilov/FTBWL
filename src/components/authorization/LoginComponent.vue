@@ -90,9 +90,9 @@
 
 <script>
 import { AuthorizationTextConstants } from './constants/AuthorizationFormConstants'
-import { HTTPResponseStatusConstants } from '../util/constants/CommonConstants'
 import { END_POINTS } from '../util/constants/EndPointsConstants'
 import UserCookies from '../../store/cookie/UserCookiesClass'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   data () {
@@ -113,12 +113,13 @@ export default {
       const { username, password } = this.userData
       this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, { username, password })
         .then(response => {
-          if (response.status === HTTPResponseStatusConstants.OK) {
-            UserCookies.setToken(response.data.token)
-            this.$router.push('/')
-          } else {
-            // TODO event emit wihtot else
-          }
+          UserCookies.setToken(response.data.token)
+          const pathToJump = this.$store.getters.routeToJump
+          this.$router.push(pathToJump)
+        })
+        .catch(err => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to authenticate.'})
+          console.log(err)
         })
     }
   }
