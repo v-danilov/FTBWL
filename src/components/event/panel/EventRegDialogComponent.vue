@@ -1,9 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-dialog
-    v-model="dialog"
-    persistent
-    max-width="500px"
-  >
+  <v-dialog v-model="dialog" persistent max-width="500px">
     <v-card>
       <v-card-title>
         <span class="headline">Регистрация на турнир</span>
@@ -19,22 +15,16 @@
                 return-object
                 item-text="name"
               >
-                <template v-slot:item = "{ item, index }">
+                <template v-slot:item="{ item }">
                   <v-avatar>
-                    <img
-                      :src="item.imgPath"
-                      alt=""
-                    >
+                    <img :src="item.imgPath" alt />
                   </v-avatar>
                   {{ item.name }}
                 </template>
-                <template v-slot:selection = "{ item, index }">
+                <template v-slot:selection="{ item }">
                   <div>
                     <v-avatar>
-                      <img
-                        :src="item.imgPath"
-                        alt=""
-                      >
+                      <img :src="item.imgPath" alt />
                     </v-avatar>
                     {{ item.name }}
                   </div>
@@ -46,24 +36,14 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn
-          @click="dialog = false"
-          color="accent"
-          text
-        >Отмена</v-btn>
-        <v-btn
-          @click="registerUser"
-          color="primary"
-          rounded
-        >Зарегистрироваться</v-btn>
+        <v-btn @click="dialog = false" color="accent" text>Отмена</v-btn>
+        <v-btn @click="registerUser" color="primary" rounded>Зарегистрироваться</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-
-import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
@@ -96,35 +76,44 @@ export default {
     storedElements () {
       const elements = this.$store.getters.cachedFactions
       const fractionsData = []
-      elements.forEach(el => fractionsData.push({ id: el.id, name: el.name, imgPath: this.generateIconLink(el.name) }))
+      elements.forEach(el =>
+        fractionsData.push({
+          systemName: el.systemName,
+          name: el.name,
+          imgPath: this.generateIconLink(el.name)
+        })
+      )
       return fractionsData
     }
   },
   methods: {
     generateIconLink (name) {
-      return require('@/assets/fractions/' + name.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/’/g, '') + '.png')
+      return require('@/assets/fractions/' +
+        name
+          .toLowerCase()
+          .replace(/ /g, '-')
+          .replace(/’/g, '') +
+        '.png')
     },
     registerUser () {
-      const userRegData = {
-        eventId: this.eventId,
-        fractionId: this.fractionId
-      }
-
-      this.$http.post(END_POINTS.EVENTS.REG_USER, userRegData)
+      this.$http.post(`/events/${this.eventId}/players`, [{factionID: this.selectedFraction.systemName}])
         .then(response => {
-          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.SUCCESS, text: 'You are successfully registered!' })
+          this.$store.dispatch('notifications/add', {
+            type: NOTIFICATION_TYPES.SUCCESS,
+            text: 'You are successfully registered!'
+          })
+          this.dialog = false
         })
         .catch(reason => {
-          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.ERROR, text: 'Error happend. Try again later.' })
+          this.$store.dispatch('notifications/add', {
+            type: NOTIFICATION_TYPES.ERROR,
+            text: 'Error happend. Try again later.'
+          })
         })
     }
   }
-
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -5,7 +5,6 @@ export const END_POINTS = {
   },
   EVENTS: {
     DEFAULT: '/events/',
-    REG_USER: '/registrationRequest',
     UPDATE_STATUS: '/events/{id}/status',
     SAVE_PLAYERS: '/event/{id}/savePlayers'
   },

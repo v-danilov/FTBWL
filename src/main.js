@@ -7,12 +7,20 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-import { store } from '@/store/store.js'
+import {
+  store
+} from '@/store/store.js'
 import axios from 'axios'
-import { COLORS } from './components/util/constants/ColorsConstants'
-import { HTTPResponseStatusConstants } from './components/util/constants/CommonConstants'
+import {
+  COLORS
+} from './components/util/constants/ColorsConstants'
+import {
+  HTTPResponseStatusConstants
+} from './components/util/constants/CommonConstants'
 import UserCookiesClass from './store/cookie/UserCookiesClass'
-import { NOTIFICATION_TYPES } from './components/notifications/notificationTypes'
+import {
+  NOTIFICATION_TYPES
+} from './components/notifications/notificationTypes'
 
 axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
 Vue.prototype.$http = axios
@@ -54,10 +62,12 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN) {
-    console.log(store)
     store.dispatch('saveRouteToJump', router.currentRoute.path)
     UserCookiesClass.setToken('') // reset token to complete dictionary downloading request
-    store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.INFO, text: 'Please, login first'})
+    store.dispatch('notifications/add', {
+      type: NOTIFICATION_TYPES.INFO,
+      text: 'Please, login first'
+    })
     router.push('/login')
   }
   return Promise.reject(error)
@@ -69,6 +79,8 @@ new Vue({
   store,
   router,
   vuetify: new Vuetify(vuetifyOpts),
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 }).$mount('#app')
