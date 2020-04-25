@@ -96,7 +96,7 @@ export default {
         '.png')
     },
     registerUser () {
-      this.$http.post(`/events/${this.eventId}/players`, [{factionID: this.selectedFraction.systemName}])
+      this.$http.post(`/events/${this.eventId}/player`, {factionID: this.selectedFraction.systemName})
         .then(response => {
           this.$store.dispatch('notifications/add', {
             type: NOTIFICATION_TYPES.SUCCESS,
