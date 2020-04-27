@@ -159,7 +159,7 @@
                 <span>Статус: </span>
               </v-col>
               <v-col>
-                <span :style="{color : statusStyleByCode(round.status).color}">
+                <span :style="{color : statusStyleByCode(round.status.code).color}">
                   {{ round.status.value }}
                 </span>
               </v-col>

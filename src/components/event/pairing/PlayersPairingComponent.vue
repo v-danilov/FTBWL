@@ -84,9 +84,11 @@ export default {
     }
   },
   created () {
-    this.$http.get(END_POINTS.EVENTS.DEFAULT + this.$store.getters.currentActiveEventID)
+    const eventID = this.$store.getters.currentActiveEventID
+    const filterRequest = 'isConfirmed:true'
+    this.$http.get(`/events/${eventID}/players?filter=${filterRequest}`)
       .then(response => {
-        response.data.players.forEach(e => {
+        response.data.forEach(e => {
           // console.log(e)
           const playerData = {
             id: e.id,

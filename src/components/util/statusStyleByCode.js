@@ -26,7 +26,8 @@ export default function statusStyleByCode (statusCode) {
     case EVENT_STATUS_CODE.SCHEDULED:
       return { icon: mdiCalendarClock, color: COLORS.ACCENT }
     default:
-      console.log('WARNING: не опознан цвет для статуса ' + statusCode)
+      console.log('WARNING: не опознан цвет для статуса: ')
+      console.log(statusCode)
       return { icon: 'help', color: COLORS.PRIMARY }
   }
 }
