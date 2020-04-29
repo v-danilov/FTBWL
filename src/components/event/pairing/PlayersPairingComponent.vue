@@ -67,7 +67,6 @@
 
 <script>
 
-import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
@@ -136,8 +135,7 @@ export default {
           tableNumber: tableCounter++
         })
       }
-      console.log(pairingDTO)
-      return this.$http.post(END_POINTS.PAIRINGS_BY_ROUND.DEFAULT + roundID, pairingDTO)
+      return this.$http.post(`/rounds/${roundID}/pairings`, pairingDTO)
     }
   }
 }

@@ -212,11 +212,11 @@
         <v-row>
           <!-- Left column with tables -->
           <v-col
-            v-for="(table, index) in selectedEvent.rounds[selectedRoundNumber].tables"
+            v-for="(pairing, index) in selectedEvent.rounds[selectedRoundNumber].pairings"
             :key="index"
             cols="4"
           >
-            <TablesInfoComponent :table="table" />
+            <TablesInfoComponent :pairing="pairing" />
           </v-col>
           <!-- Right column with tables -->
           <!--<TablesInfoComponent :tables="evenTables"/>-->

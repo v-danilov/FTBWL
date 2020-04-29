@@ -1,77 +1,66 @@
 <template>
   <v-card class="ma-1">
     <v-card-text>
-      <v-row
-        dense
-        align="center"
-        justify="center"
-      >
+      <v-row dense align="center" justify="center">
         <v-col cols="2">
-          <h3>Стол №{{ table.tableNumber }}</h3>
+          <h3>Стол №{{ pairing.tableNumber }}</h3>
         </v-col>
         <v-col>
-          <v-row
-            dense
-            align="center"
-            class="text-center"
-            justify="center"
-          >
-            <v-col>{{ table.firstPlayer.name }}</v-col>
-            <v-col
-              :style="{'color': $vuetify.theme.currentTheme.additional}"
-              cols="2"
-            >
-              {{ table.firstPlayer.tp }}
+          <v-row dense align="center" class="text-center" justify="center">
+            <v-col>
+              {{ firstUser.firstName }}
+              <span>{{ firstUser.nickname }}</span>
+              {{ firstUser.lastName }}
             </v-col>
             <v-col
-              :style="{'color': $vuetify.theme.currentTheme.secondary}"
+              :style="{ color: $vuetify.theme.currentTheme.additional }"
               cols="2"
             >
-              {{ table.firstPlayer.vp }}
+              {{ pairing.firstPlayer.tp }}
+            </v-col>
+            <v-col
+              :style="{ color: $vuetify.theme.currentTheme.secondary }"
+              cols="2"
+            >
+              {{ pairing.firstPlayer.vp }}
             </v-col>
           </v-row>
-          <v-row
-            dense
-            align="center"
-            class="text-center"
-            justify="center"
-          >
+          <v-row dense align="center" class="text-center" justify="center">
             <v-col>
               <v-divider />
             </v-col>
             <v-col
-              :style="{'color': $vuetify.theme.currentTheme.additional}"
+              :style="{ color: $vuetify.theme.currentTheme.additional }"
               cols="2"
               class="text-center"
             >
               TP
             </v-col>
             <v-col
-              :style="{'color': $vuetify.theme.currentTheme.secondary}"
+              :style="{ color: $vuetify.theme.currentTheme.secondary }"
               cols="2"
               class="text-center"
             >
               VP
             </v-col>
           </v-row>
-          <v-row
-            dense
-            align="center"
-            class="text-center"
-            justify="center"
-          >
-            <v-col class="text-center">{{ table.secondPlayer.name }}</v-col>
-            <v-col
-              :style="{'color': $vuetify.theme.currentTheme.additional}"
-              cols="2"
-            >
-              {{ table.secondPlayer.tp }}
+          <v-row dense align="center" class="text-center" justify="center">
+            <v-col class="text-center">
+              {{ secondUser.firstName }}
+              <span>{{ secondUser.nickname }} </span>
+              {{ secondUser.lastName }}
             </v-col>
             <v-col
-              :style="{'color': $vuetify.theme.currentTheme.secondary}"
+              :style="{ color: $vuetify.theme.currentTheme.additional }"
               cols="2"
             >
-              {{ table.secondPlayer.vp }}
+              {{ pairing.secondPlayer.tp }}
+            </v-col>
+            <v-col
+              :style="{ color: $vuetify.theme.currentTheme.secondary }"
+              cols="2"
+            >
+              {{ pairing.secondPlayer.vp }}
             </v-col>
           </v-row>
         </v-col>
@@ -83,9 +72,18 @@
 export default {
   name: 'TablesInfoComponent',
   props: {
-    table: {
+    pairing: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    // Note that all of these are USERS not PLAYERS
+    firstUser () {
+      return this.pairing.firstPlayer.user
+    },
+    secondUser () {
+      return this.pairing.secondPlayer.user
     }
   }
 }
