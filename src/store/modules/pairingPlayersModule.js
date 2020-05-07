@@ -1,31 +1,31 @@
 /* global state, getters, mutations, actions  */
 /* exported state, getters, mutations, actions */
 const state = {
-  firstPairingPlayer: localStorage.getItem('firstPairingPlayer') || {},
-  secondPairingPlayer: localStorage.getItem('secondPairingPlayer') || {}
+  pairingPlayerLeft: localStorage.getItem('pairingPlayerLeft') || {},
+  pairingPlayerRight: localStorage.getItem('pairingPlayerRight') || {}
 }
 const getters = {
-  firstPairingPlayer: state => state.firstPairingPlayer,
-  secondPairingPlayer: state => state.secondPairingPlayer
+  pairingPlayerLeft: state => state.pairingPlayerLeft,
+  pairingPlayerRight: state => state.pairingPlayerRight
 }
 
 // this.$store.commit(“SET_USER”, user) synchronous
 const mutations = {
-  SET_FIRST_PAIRING_PLAYER: (state, payload) => {
-    state.firstPairingPlayer = payload
+  SET_LEFT_PAIRING_PLAYER: (state, payload) => {
+    state.pairingPlayerLeft = payload
   },
-  SET_SECOND_PAIRING_PLAYER: (state, payload) => {
-    state.secondPairingPlayer = payload
+  SET_RIGHT_PAIRING_PLAYER: (state, payload) => {
+    state.pairingPlayerRight = payload
   }
 }
 
 // this.$store.dispatch("SET_USER",user) asynchronous
 const actions = {
-  INIT_FIRST_PAIRING_PLAYER: (context, data) => {
-    context.commit('SET_FIRST_PAIRING_PLAYER', data)
+  setPairingPlayerLeft: (context, data) => {
+    context.commit('SET_LEFT_PAIRING_PLAYER', data)
   },
-  INIT_SECOND_PAIRING_PLAYER: (context, data) => {
-    context.commit('SET_SECOND_PAIRING_PLAYER', data)
+  setPairingPlayerRight: (context, data) => {
+    context.commit('SET_RIGHT_PAIRING_PLAYER', data)
   }
 }
 

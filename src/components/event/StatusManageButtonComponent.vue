@@ -26,6 +26,7 @@ export default {
   name: 'StatusManageButtonComponent',
   components: { ConfirmationDialogComponent },
   props: {
+    entityKeyWord: Object,
     eventStatus: String
   },
   computed: {
@@ -40,7 +41,7 @@ export default {
             color: statusStyleByCode(EVENT_STATUS_CODE.REG_ON).color
           },
           {
-            nextStateText: 'Отменить турнир',
+            nextStateText: `Отменить ${this.entityKeyWord.humanName}}`,
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
             color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color
           }]
@@ -51,35 +52,35 @@ export default {
             color: statusStyleByCode(EVENT_STATUS_CODE.REG_OFF).color
           },
           {
-            nextStateText: 'Отменить турнир',
+            nextStateText: `Отменить ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
             color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color
           }]
         case EVENT_STATUS_CODE.REG_OFF:
           return [{
-            nextStateText: 'Начать турнир',
+            nextStateText: `Начать ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.START,
             color: statusStyleByCode(EVENT_STATUS_CODE.START).color
           },
           {
-            nextStateText: 'Отменить турнир',
+            nextStateText: `Отменить ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.CANCEL,
             color: statusStyleByCode(EVENT_STATUS_CODE.CANCEL).color
           }]
         case EVENT_STATUS_CODE.START:
           return [{
-            nextStateText: 'Приостановить турнир',
+            nextStateText: `Приостановить ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.PAUSE,
             color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color
           },
           {
-            nextStateText: 'Закончить трунир',
+            nextStateText: `Закончить ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.END,
             color: statusStyleByCode(EVENT_STATUS_CODE.END).color
           }]
         case EVENT_STATUS_CODE.PAUSE:
           return [{
-            nextStateText: 'Продолжить турнир',
+            nextStateText: `Продолжить ${this.entityKeyWord.humanName}`,
             nextStateCode: EVENT_STATUS_CODE.START,
             color: statusStyleByCode(EVENT_STATUS_CODE.PAUSE).color
           }]
@@ -92,11 +93,11 @@ export default {
     async updateStatus (newStatusCode) {
       if (newStatusCode === EVENT_STATUS_CODE.CANCEL) {
         // Do not emit refresh event if user declined cancellation
-        if (!await this.$root.$confirmationDialog.call(this, 'Подтвердите отмену турнира', 'Вы действительно хотите отменить данный турнир?')) {
+        if (!await this.$root.$confirmationDialog.call(this, `Подтвердите отмену ${this.entityKeyWord.humanName}а`, `Вы действительно хотите отменить данный ${this.entityKeyWord.humanName}?`)) {
           return
         }
       }
-      this.$emit('event-status-changed', newStatusCode)
+      this.$emit(`${this.entityKeyWord.systemName}-status-changed`, newStatusCode)
     }
   }
 }

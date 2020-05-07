@@ -83,7 +83,6 @@ import statusStyleByCode from '../../util/statusStyleByCode'
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import ConfirmationDialogComponent from '../../dialogs/ConfirmationDialogComponent'
 import { ACTIONS } from '../../util/constants/ActionConstants'
-import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventCardComponent',
@@ -112,16 +111,6 @@ export default {
     },
     emitOpenDialogEvent () {
       this.$emit('open-dialog', { id: this.event.id })
-    },
-    updateEventStatus (newStatus) {
-      this.$http.post(END_POINTS.EVENTS.UPDATE_STATUS, { eventId: this.event.id, status: newStatus })
-        .then(response => {
-          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.SUCCESS, text: 'Event status updated.' })
-        })
-        .catch(err => {
-          this.$store.dispatch('notifications/add', { type: NOTIFICATION_TYPES.ERROR, text: 'Event status update error.' })
-          console.log(err)
-        })
     },
     closeEvent () {
       console.log('Турнир закрыт. Пакеда.')

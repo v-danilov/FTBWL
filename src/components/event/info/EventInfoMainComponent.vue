@@ -10,6 +10,7 @@
       />
       <StatusManageButton
         v-if="!statusUpdating"
+        :entity-key-word="{humanName:'турнир', systemName:'event'}"
         :event-status="selectedEvent.status.code"
         @event-status-changed="refreshEventOnStatusChanged"
       />

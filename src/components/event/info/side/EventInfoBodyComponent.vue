@@ -138,77 +138,7 @@
         Раунд {{ index + 1 }}
       </v-tab>
       <v-tab-item :key="index">
-        <!-- Round info card -->
-        <v-card>
-          <v-card-text>
-            <!-- Round status -->
-            <v-row no-gutters>
-              <v-col>
-                <span>Дата начала:</span>
-              </v-col>
-              <v-col>
-                {{ round.timeStart }}
-              </v-col>
-              <v-col>
-                <span>Дата окончания:</span>
-              </v-col>
-              <v-col>
-                {{ round.timeEnd }}
-              </v-col>
-              <v-col>
-                <span>Статус: </span>
-              </v-col>
-              <v-col>
-                <span :style="{color : statusStyleByCode(round.status.code).color}">
-                  {{ round.status.value }}
-                </span>
-              </v-col>
-            </v-row>
-            <!--Round parameters -->
-            <v-row no-gutters>
-              <v-col>
-                <span>Расстановка:</span>
-              </v-col>
-              <v-col>{{ round.schemePool ? round.schemePool.gameDeploy.systemName : 'Не указано' }}</v-col>
-
-              <v-col>
-                <span>Стратегия:</span>
-              </v-col>
-              <v-col>{{ round.schemePool ? round.schemePool.gameStrategy.systemName : 'Не указано' }}</v-col>
-
-              <v-col>
-                <span>Стратегия:</span>
-              </v-col>
-              <v-col>Вы её не видите, а её и нет</v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col>
-                <v-btn
-                  v-if="round.status.code === eventStatusCodes.SCHEDULED"
-                  @click="roundSettingDialog = !roundSettingDialog"
-                  rounded
-                  color="additional"
-                  class="white--text"
-                >
-                  Начать раунд
-                </v-btn>
-                <v-btn
-                  v-else
-                  rounded
-                  color="accent"
-                  class="white--text"
-                >
-                  Закончить раунд
-                </v-btn>
-                <!-- TODO bug with form closing need to manage this if -->
-                <RoundSettingsComponent
-                  v-if="roundSettingDialog"
-                  :round="round"
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+       <Round :round="round"></Round>
         <v-row>
           <!-- Left column with tables -->
           <v-col
@@ -218,8 +148,6 @@
           >
             <TablesInfoComponent :pairing="pairing" />
           </v-col>
-          <!-- Right column with tables -->
-          <!--<TablesInfoComponent :tables="evenTables"/>-->
         </v-row>
       </v-tab-item>
     </template>
@@ -240,14 +168,12 @@
 
 <script>
 import TablesInfoComponent from './TablesInfoComponent'
-import RoundSettingsComponent from '../../round/RoundSettingsComponent'
-import statusStyleByCode from '../../../util/statusStyleByCode'
-import { EVENT_STATUS_CODE } from '../../../util/constants/EventStatusNames'
+import RoundComponent from '@/components/event/round/RoundComponent'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   name: 'EventInfoBodyComponent',
-  components: { RoundSettingsComponent, TablesInfoComponent },
+  components: { Round: RoundComponent, TablesInfoComponent },
   props: {
     selectedEvent: {
       type: Object,
@@ -258,7 +184,6 @@ export default {
     return {
       vuetifyTheme: this.$vuetify.theme,
       hideEventInfo: false,
-      roundSettingDialog: false,
       selectedRoundNumber: 0,
       apiCallInProcess: false,
       playersConfirmationChangedMap: new Map()
@@ -266,9 +191,6 @@ export default {
     }
   },
   computed: {
-    eventStatusCodes () {
-      return EVENT_STATUS_CODE
-    },
     players () {
       return this.selectedEvent.players
     },
@@ -305,13 +227,10 @@ export default {
       const eventID = this.$store.getters.currentActiveEventID
       this.$http.put(`/events/${eventID}/players/confirmation`, playersToPut)
         .then((response) => {
-          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Players confirmed.'})
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Players are confirmed.'})
         })
         .catch(error => console.log(error))
         .finally(() => { this.apiCallInProcess = false })
-    },
-    statusStyleByCode (status) {
-      return statusStyleByCode(status)
     },
     /**
      * Collect only players with changed confirmation to avoid dummy updates on backend

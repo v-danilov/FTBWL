@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="dialog"
+    v-model="value"
     fullscreen
     hide-overlay
     transition="dialog-bottom-transition"
@@ -24,7 +24,7 @@
           </v-icon>
         </v-btn>
         <v-btn
-          @click="dialog = !dialog"
+          @click="closeDialog"
           icon
           fab
         >
@@ -43,27 +43,24 @@
         </v-btn>
         <!-- Extension with player swap view -->
         <template
-          v-if="!isEmpty(firstPlayerFowSwap) || !isEmpty(secondPlayerForSwap)"
+          v-if="!isEmpty(leftPlayerForSwap) || !isEmpty(rightPlayerForSwap)"
           #extension
         >
           <v-row justify="center">
             <v-toolbar-items>
               <!-- Left player chip -->
-              <v-chip
-                :color="clearButtonHovered ? 'additional' : 'white'"
-                v-if="!isEmpty(firstPlayerFowSwap)"
-              >
+              <v-chip color="white" v-if="!isEmpty(leftPlayerForSwap)">
                 <v-avatar
-                  v-if="firstPlayerFowSwap.player.avatar !== null"
+                  v-if="leftPlayerForSwap.avatar !== null"
                   left
                 >
-                  <v-img :src="firstPlayerFowSwap.player.avatar" />
+                  <v-img :src="leftPlayerForSwap.avatar" />
                 </v-avatar>
-                {{ firstPlayerFowSwap.player.name }} (Стол {{ defineTableNumber(firstPlayerFowSwap.playerIndex) }})
+                {{ leftPlayerForSwap.name }} (Стол {{ leftPlayerForSwap.tableNumber }})
               </v-chip>
               <!-- Swap button -->
               <v-btn
-                v-if="!isEmpty(firstPlayerFowSwap.player) && !isEmpty(secondPlayerForSwap.player)"
+                v-if="!isEmpty(leftPlayerForSwap) && !isEmpty(rightPlayerForSwap)"
                 @click="swapPlayers"
                 text
                 rounded
@@ -74,18 +71,15 @@
                 </v-icon>
               </v-btn>
               <!-- Right player chip -->
-              <v-chip
-                :color="clearButtonHovered ? 'additional' : 'white'"
-                v-if="!isEmpty(secondPlayerForSwap)"
-              >
+              <v-chip color="white" v-if="!isEmpty(rightPlayerForSwap)">
                 <v-avatar
-                  v-if="secondPlayerForSwap.player.avatar !== null"
+                  v-if="rightPlayerForSwap.avatar !== null"
                   left
                 >
-                  <v-img :src="secondPlayerForSwap.player.avatar" />
+                  <v-img :src="rightPlayerForSwap.avatar" />
                 </v-avatar>
-                {{ secondPlayerForSwap.player.name }} (Стол
-                {{ defineTableNumber(secondPlayerForSwap.playerIndex) }})
+                {{ rightPlayerForSwap.name }} (Стол
+                {{ rightPlayerForSwap.tableNumber }})
               </v-chip>
               <!-- Clear button -->
               <v-btn
@@ -189,6 +183,8 @@
       >
         <v-container fluid>
           <PlayersPairingComponent
+            :round-id="round.id"
+            :pairings="round.pairings"
             @swap-players="clearSwapData"
             ref="playersPairingComponent"
           />
@@ -207,6 +203,7 @@ export default {
   name: 'RoundSettingsComponent',
   components: { PlayersPairingComponent },
   props: {
+    value: Boolean,
     round: {
       required: true,
       type: Object
@@ -219,50 +216,50 @@ export default {
     }
   },
   computed: {
-    firstPlayerFowSwap: {
+    leftPlayerForSwap: {
       get: function () {
-        return this.$store.getters.firstPairingPlayer
+        return this.$store.getters.pairingPlayerLeft
       },
       set: function (newValue) {
-        this.$store.dispatch('INIT_FIRST_PAIRING_PLAYER', {})
+        this.$store.dispatch('setPairingPlayerLeft', {})
       }
 
     },
-    secondPlayerForSwap: {
+    rightPlayerForSwap: {
       get: function () {
-        return this.$store.getters.secondPairingPlayer
+        return this.$store.getters.pairingPlayerRight
       },
       set: function (newValue) {
-        this.$store.dispatch('INIT_SECOND_PAIRING_PLAYER', {})
+        this.$store.dispatch('setPairingPlayerRight', {})
       }
     }
   },
   methods: {
     isEmpty: _.isEmpty,
+    closeDialog () {
+      this.clearSwapData()
+      this.$emit('input', false)
+    },
     clearSwapData () {
-      this.firstPlayerFowSwap = {}
-      this.secondPlayerForSwap = {}
+      this.leftPlayerForSwap = {}
+      this.rightPlayerForSwap = {}
       // Сбрасываем индекс расстановки для верного заполнения игроков при следующем выборе
       this.$refs.playersPairingComponent.nextPlayerIndex = 0
       this.clearButtonHovered = false
     },
     // Вот это мне как-то не очень нравится. Делегирование всех бизнес функций в другой компонент?
     swapPlayers () {
-      this.$refs.playersPairingComponent.swapPlayers(this.firstPlayerFowSwap.playerIndex, this.secondPlayerForSwap.playerIndex)
+      this.$refs.playersPairingComponent.swapPlayers()
     },
     savePairingGrid () {
       this.$refs.playersPairingComponent.savePairingGrid(this.round.id)
         .then(response => {
           this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Pairings saved.'})
-          this.dialog = false
         })
         .catch(error => {
           this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Error while saving pairings.'})
           console.log(error)
         })
-    },
-    defineTableNumber (playerIndex) {
-      return playerIndex % 2 === 0 ? (playerIndex / 2 + 1) : Math.round(playerIndex / 2)
     }
   }
 }
