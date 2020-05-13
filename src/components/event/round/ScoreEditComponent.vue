@@ -49,7 +49,7 @@
             </v-col>
             <v-col cols="2">
                 <v-text-field
-                    v-model="firstPlayerScore.tp"
+                    v-model.number="firstPlayerScore.tp"
                     class="centered-input"
                     single-line
                     type="number">
@@ -57,7 +57,7 @@
             </v-col>
             <v-col cols="2">
                 <v-text-field
-                    v-model="firstPlayerScore.vp"
+                    v-model.number="firstPlayerScore.vp"
                     class="centered-input"
                     single-line
                     type="number">
@@ -72,7 +72,7 @@
             </v-col>
             <v-col cols="2">
                <v-text-field
-                    v-model="secondPlayerScore.tp"
+                    v-model.number="secondPlayerScore.tp"
                     class="centered-input"
                     single-line
                     type="number">
@@ -80,7 +80,7 @@
             </v-col>
             <v-col cols="2">
                 <v-text-field
-                    v-model="secondPlayerScore.vp"
+                    v-model.number="secondPlayerScore.vp"
                     class="centered-input"
                     single-line
                     type="number">
@@ -108,12 +108,15 @@
 <script>
 import { mdiCircleEditOutline } from '@mdi/js'
 import _ from 'lodash'
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
   data () {
     return {
       editTableIcon: mdiCircleEditOutline,
-      dialog: false
+      dialog: false,
+      firstPlayerScore: Object,
+      secondPlayerScore: Object
     }
   },
   props: {
@@ -122,18 +125,12 @@ export default {
       required: true
     }
   },
-  created () {
-    console.log('rected')
-    console.log(this.firstPlayerScore)
-    console.log(this.secondPlayerScore)
+  beforeMount () {
+    // Can loose reactivity here
+    this.firstPlayerScore = {tp: this.pairing.firstPlayer.tp, vp: this.pairing.firstPlayer.vp}
+    this.secondPlayerScore = {tp: this.pairing.secondPlayer.tp, vp: this.pairing.secondPlayer.vp}
   },
   computed: {
-    firstPlayerScore () {
-      return {tp: this.pairing.firstPlayer.tp, vp: this.pairing.firstPlayer.vp}
-    },
-    secondPlayerScore () {
-      return {tp: this.pairing.secondPlayer.tp, vp: this.pairing.secondPlayer.vp}
-    },
     firstPlayerDataHasNotChanged () {
       return this.firstPlayerScore.tp === this.pairing.firstPlayer.tp && this.firstPlayerScore.vp === this.pairing.firstPlayer.vp
     },
@@ -159,7 +156,28 @@ export default {
         secondPlayer.diff = secondPlayer.tp - secondPlayer.vp
         updatedPlayers.push(secondPlayer)
       }
-      console.log(updatedPlayers)
+      this.$http.put(`/events/${this.$store.getters.currentActiveEventID}/players`, updatedPlayers)
+        .then(response => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Players score has been updated.'})
+          // If both players has been updated
+          if (response.data.length === 2) {
+            this.pairing.firstPlayer = response.data[0]
+            this.pairing.secondPlayer = response.data[1]
+          } else {
+            // If only one player has been updated
+            if (!this.firstPlayerDataHasNotChanged) {
+              this.pairing.firstPlayer = response.data
+            }
+            if (!this.secondPlayerDataHasNotChanged) {
+              this.pairing.secondPlayer = response.data
+            }
+          }
+          this.dialog = false
+        })
+        .catch(error => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Can not update players score'})
+          console.log(error)
+        })
     }
   }
 }
