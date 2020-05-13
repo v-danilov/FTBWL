@@ -7,20 +7,12 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-import {
-  store
-} from '@/store/store.js'
+import {store} from '@/store/store.js'
 import axios from 'axios'
-import {
-  COLORS
-} from './components/util/constants/ColorsConstants'
-import {
-  HTTPResponseStatusConstants
-} from './components/util/constants/CommonConstants'
+import {COLORS} from './components/util/constants/ColorsConstants'
+import {HTTPResponseStatusConstants} from './components/util/constants/CommonConstants'
 import UserCookiesClass from './store/cookie/UserCookiesClass'
-import {
-  NOTIFICATION_TYPES
-} from './components/notifications/notificationTypes'
+import {NOTIFICATION_TYPES} from './components/notifications/notificationTypes'
 
 axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
 Vue.prototype.$http = axios
@@ -38,9 +30,6 @@ const vuetifyOpts = {
       }
     }
     // If you are not designer: https://colorscheme.ru/#2x41TkdoRvymD
-  },
-  icons: {
-    iconfont: 'mdiSvg'
   }
 }
 Vue.use(Vuetify)

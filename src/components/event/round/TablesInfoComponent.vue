@@ -1,6 +1,6 @@
 <template>
   <v-card class="ma-1">
-    <v-card-text>
+    <v-card-text style="position: relative">
       <v-row dense align="center" justify="center">
         <v-col cols="2">
           <h3>Стол №{{ pairing.tableNumber }}</h3>
@@ -65,12 +65,19 @@
           </v-row>
         </v-col>
       </v-row>
+       <ScoreEdit :pairing="pairing"/>
     </v-card-text>
   </v-card>
 </template>
 <script>
+
+import ScoreEditComponent from '@/components/event/round/ScoreEditComponent'
+
 export default {
   name: 'TablesInfoComponent',
+  components: {
+    ScoreEdit: ScoreEditComponent
+  },
   props: {
     pairing: {
       type: Object,

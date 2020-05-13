@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import TablesInfoComponent from './TablesInfoComponent'
+import TablesInfoComponent from '@/components/event/round/TablesInfoComponent'
 import RoundComponent from '@/components/event/round/RoundComponent'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 

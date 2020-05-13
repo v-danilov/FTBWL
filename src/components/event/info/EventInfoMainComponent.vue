@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import EventInfoBodyComponent from './side/EventInfoBodyComponent'
-import EventInfoHeaderComponent from './side/EventInfoHeaderComponent'
-import { END_POINTS } from '../../util/constants/EndPointsConstants'
-import StatusManageButtonComponent from '../StatusManageButtonComponent'
-import { ACTIONS } from '../../util/constants/ActionConstants'
-import ErrorComponent from '../../util/components/ErrorComponent'
-import LoadingStub from '../../util/components/LoadingStub'
+import EventInfoBodyComponent from '@/components/event/info/side/EventInfoBodyComponent'
+import EventInfoHeaderComponent from '@/components/event/info/side/EventInfoHeaderComponent'
+import { END_POINTS } from '@/components/util/constants/EndPointsConstants'
+import StatusManageButtonComponent from '@/components/event/StatusManageButtonComponent'
+import { ACTIONS } from '@/components/util/constants/ActionConstants'
+import ErrorComponent from '@/components/util/components/ErrorComponent'
+import LoadingStub from '@/components/util/components/LoadingStub'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
 
 export default {
