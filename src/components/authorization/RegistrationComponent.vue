@@ -174,6 +174,7 @@
         </v-form>
       </v-col>
     </v-row>
+    <VerificationCodeDialog ref="verificationDialog"></VerificationCodeDialog>
   </v-container>
 </template>
 
@@ -182,8 +183,12 @@ import { AuthorizationTextConstants } from './constants/AuthorizationFormConstan
 import { HTTPResponseStatusConstants } from '../util/constants/CommonConstants'
 import _ from 'lodash'
 import { END_POINTS } from '../util/constants/EndPointsConstants'
+import VerificationCodeDialog from '@/components/authorization/VerificationCodeDialog'
 
 export default {
+  components: {
+    VerificationCodeDialog
+  },
   data: () => ({
     formIsValid: false,
     cityPrefix: null,
@@ -251,7 +256,7 @@ export default {
       this.$http.post(END_POINTS.AUTHENTICATION.REGISTRATION, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
-            // TODO emit
+            this.$refs.verificationDialog.openDialog({email: this.userData.email, id: response.data})
           } else {
             console.log(response)
             // TODO emit
