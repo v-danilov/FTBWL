@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export default class UserCookiesClass {
   static setToken (token) {
-    Vue.cookie.set('token', token, { expires: '1h' })
+    Vue.cookie.set('token', token, { expires: '30min' })
   }
 
   static getToken () {
