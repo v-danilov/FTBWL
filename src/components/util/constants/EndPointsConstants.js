@@ -9,7 +9,7 @@ export const END_POINTS = {
     SAVE_PLAYERS: '/event/{id}/savePlayers'
   },
   AUTHENTICATION: {
-    SIGN_UP: '/api/register',
+    REGISTRATION: '/users',
     AUTHENTICATE: '/authenticate'
   },
   PAIRINGS_BY_ROUND: {

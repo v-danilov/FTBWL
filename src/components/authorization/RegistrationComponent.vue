@@ -98,14 +98,14 @@
                   required
                 />
               </v-col>
-              <!--User alias-->
+              <!--User nickname-->
               <v-col
                 cols="12"
                 md="4"
               >
                 <v-text-field
-                  v-model="userData.alias"
-                  label="Alias"
+                  v-model="userData.nickname"
+                  label="Nickname"
                 />
               </v-col>
             </v-row>
@@ -194,7 +194,7 @@ export default {
       cityId: 0,
       email: '',
       username: '',
-      alias: '',
+      nickname: '',
       password: ''
     },
     cities: [],
@@ -212,7 +212,7 @@ export default {
     ],
     passwordRules: [
       v => !!v || AuthorizationTextConstants.PASSWORD_REQUIRED,
-      v => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/.test(v) ||
+      v => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{6,}$/.test(v) ||
           AuthorizationTextConstants.PASSWORD_NOT_VALID
     ],
     confirmPasswordRules: [
@@ -248,7 +248,7 @@ export default {
       return this.userData.password === password
     },
     onSubmit () {
-      this.$http.post(END_POINTS.AUTHENTICATION.SIGN_UP, this.userData)
+      this.$http.post(END_POINTS.AUTHENTICATION.REGISTRATION, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
             // TODO emit

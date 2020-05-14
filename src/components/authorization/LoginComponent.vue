@@ -75,7 +75,7 @@
                   :replace="true"
                   rounded
                   color="primary"
-                  to="Register"
+                  to="registration"
                 >
                   Sign up
                 </v-btn>

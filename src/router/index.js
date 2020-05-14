@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RegisterComponent from '../components/authorization/RegisterComponent'
+import RegistrationComponent from '../components/authorization/RegistrationComponent'
 import LoginComponent from '../components/authorization/LoginComponent'
 import EventPanelComponent from '../components/event/panel/EventPanelComponent'
 import EventInfoMainComponent from '../components/event/info/EventInfoMainComponent'
@@ -25,9 +25,9 @@ const router = new Router({
       }
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: RegisterComponent
+      path: '/registration',
+      name: 'RegistrationComponent',
+      component: RegistrationComponent
     },
     {
       path: '/login',
