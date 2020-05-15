@@ -4,7 +4,7 @@ import RegistrationComponent from '../components/authorization/RegistrationCompo
 import LoginComponent from '../components/authorization/LoginComponent'
 import EventPanelComponent from '../components/event/panel/EventPanelComponent'
 import EventInfoMainComponent from '../components/event/info/EventInfoMainComponent'
-import PlayersPairingComponent from '../components/event/pairing/PlayersPairingComponent'
+import UserProfileComponent from '@/components/user/UserProfileComponent'
 
 Vue.use(Router)
 
@@ -46,9 +46,9 @@ const router = new Router({
       props: true
     },
     {
-      path: '/statistic',
+      path: '/profile',
       name: 'Name',
-      component: PlayersPairingComponent
+      component: UserProfileComponent
     }
   ]
 })
