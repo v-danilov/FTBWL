@@ -146,6 +146,7 @@
               >
                 <v-btn
                   :disabled="!formIsValid"
+                  :loading="requestInProcess"
                   type="submit"
                   rounded
                   large
@@ -222,7 +223,8 @@ export default {
     ],
     confirmPasswordRules: [
       // TODO
-    ]
+    ],
+    requestInProcess: false
   }),
   watch: {
     // TODO метод срабатывает при загрузке формы - запрашивает по пустому префиксу
@@ -253,6 +255,7 @@ export default {
       return this.userData.password === password
     },
     onSubmit () {
+      this.requestInProcess = true
       this.$http.post(END_POINTS.AUTHENTICATION.REGISTRATION, this.userData)
         .then(response => {
           if (response.status === HTTPResponseStatusConstants.OK) {
@@ -265,6 +268,9 @@ export default {
         .catch(e => {
           // TODO emit
           console.log(e)
+        })
+        .finally(() => {
+          this.requestInProcess = false
         })
     }
   }

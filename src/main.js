@@ -50,8 +50,10 @@ axios.interceptors.request.use(function (request) {
 axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
-  if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN) {
-    store.dispatch('saveRouteToJump', router.currentRoute.path)
+  const currentRoutePath = router.currentRoute.path
+  // '/login' added as workaround to resolve the redirecting bug from /login to /login in case of 403
+  if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN && currentRoutePath !== '/login') {
+    store.dispatch('saveRouteToJump', currentRoutePath)
     UserCookiesClass.setToken('') // reset token to complete dictionary downloading request
     store.dispatch('notifications/add', {
       type: NOTIFICATION_TYPES.INFO,

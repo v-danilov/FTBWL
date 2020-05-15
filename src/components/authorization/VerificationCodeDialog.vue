@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
+
 export default {
   name: 'VerificationCodeDialog',
   data () {
@@ -71,10 +73,18 @@ export default {
       this.userData = userData
     },
     sendVerificationCode () {
-      console.log('sending code: ', this.verificationCode)
-      console.log('for: ', this.userData.id)
-      console.log('false')
-      // this.dialog = false
+      this.$http.post(`/users/${this.userData.id}/verification`, this.verificationCode, { headers: {
+        'Content-Type': 'application/json'
+      }})
+        .then(response => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Account confirmed.'})
+          this.dialog = false
+          this.$router.push('/login')
+        })
+        .catch(error => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.SUCCESS, text: 'Cant confirm account.'})
+          console.log(error)
+        })
     }
   }
 }
