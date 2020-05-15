@@ -24,14 +24,16 @@
   </v-navigation-drawer>
 </template>
 <script>
+import { mdiAccount } from '@mdi/js'
+
 export default {
   name: 'NavigatorComponent',
   data () {
     return {
       navigationElements: [
+        { path: '/profile', name: 'Профиль', icon: mdiAccount },
         { path: '/events', name: 'Турниры', icon: 'event_note' },
         { path: '/places', name: 'Площадки', icon: 'place' },
-        { path: '/players', name: 'Игроки', icon: 'people' },
         { path: '/ratings', name: 'Рейтинги', icon: 'star' },
         { path: '/statistic', name: 'Статистика', icon: 'bar_chart' }]
       // {path: '/help', name: 'Помощь', icon: 'help'}]
