@@ -7,8 +7,7 @@
         </v-card-title>
         <v-card-text>
           Для активации своей учётной записи, пожалуйста, введите код, который
-          был отправлен вам на электронную почту <strong>{{ userData.email || "" }}</strong> или
-          идите нахуй, пожалуйста.
+          был отправлен вам на электронную почту <strong>{{ userData.email || "" }}</strong>.
           <v-row>
             <v-col>
               <v-text-field class="centered-input" outlined v-model.number="digitCode.firstDigit"></v-text-field>
