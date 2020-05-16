@@ -54,7 +54,7 @@
           <v-col>{{ event.organizer.lastName }} {{ event.organizer.nickName }} {{ event.organizer.firstName }}</v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions class="pt-0">
+      <v-card-actions v-if="withActions" class="pt-0">
         <v-icon
           :style="{color : statusStyle.color}"
           class="mr-1"
@@ -89,7 +89,11 @@ export default {
   components: { ConfirmationDialogComponent },
   props: {
     event: Object,
-    required: true
+    required: true,
+    withActions: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {
