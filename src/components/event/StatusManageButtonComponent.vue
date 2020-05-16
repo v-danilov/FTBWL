@@ -1,8 +1,6 @@
 <template>
-  <div
-    v-if="buttonParams !== null"
-    class="mt-3"
-  >
+  <v-row v-if="buttonParams !== null">
+    <v-col>
     <v-btn
       v-for="(param, index) in buttonParams"
       :key="index"
@@ -14,7 +12,8 @@
     >
       {{ param.nextStateText }}
     </v-btn>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

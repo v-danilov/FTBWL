@@ -3,7 +3,6 @@
     slider-color="additional"
     background-color="primary"
     fixed-tabs
-    class="mt-3"
   >
     <!-- Вкладка участников -->
     <v-tab ripple>

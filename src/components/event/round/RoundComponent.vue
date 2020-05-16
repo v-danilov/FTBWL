@@ -6,72 +6,57 @@
       <v-row no-gutters>
         <v-col>
           <span>Дата начала:</span>
-        </v-col>
-        <v-col>
-          {{ round.timeStart }}
+          <div>{{round.timeStart}}</div>
         </v-col>
         <v-col>
           <span>Дата окончания:</span>
+          <div>{{ round.timeEnd }}</div>
         </v-col>
         <v-col>
-          {{ round.timeEnd }}
+          <span>Статус:</span>
+          <div>
+            <span
+              :style="{ color: statusStyleByCode(round.status.code).color }"
+            >{{ round.status.value }}</span>
+          </div>
         </v-col>
         <v-col>
-          <span>Статус: </span>
+          <span>Расстановка:</span>
+          <div>
+            {{
+            round.schemePool
+            ? round.schemePool.gameDeploy.systemName
+            : "Не указано"}}
+          </div>
         </v-col>
         <v-col>
-          <span :style="{ color: statusStyleByCode(round.status.code).color }">
-            {{ round.status.value }}
-          </span>
+          <span>Стратегия:</span>
+          <div>
+            {{
+            round.schemePool
+            ? round.schemePool.gameStrategy.systemName
+            : "Не указано"
+            }}
+          </div>
         </v-col>
       </v-row>
       <!--Round parameters -->
       <v-row no-gutters>
-        <v-col>
-          <span>Расстановка:</span>
-        </v-col>
-        <v-col>{{
-          round.schemePool
-            ? round.schemePool.gameDeploy.systemName
-            : "Не указано"
-        }}</v-col>
-
-        <v-col>
-          <span>Стратегия:</span>
-        </v-col>
-        <v-col>{{
-          round.schemePool
-            ? round.schemePool.gameStrategy.systemName
-            : "Не указано"
-        }}</v-col>
-
-        <v-col>
-          <span>Стратегия:</span>
-        </v-col>
-        <v-col>Вы её не видите, а её и нет</v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col>
           <StatusManageButton
             :entity-key-word="{ humanName: 'раунд', systemName: 'round' }"
             :event-status="round.status.code"
             @round-status-changed="updateRoundStatus"
           />
-        </v-col>
-        <v-col>
           <v-btn
             @click="roundSettingDialog = !roundSettingDialog"
             rounded
             color="primary"
-            class="white--text mt-2"
-          >
+            class="white--text mt-2">
             Паринги
           </v-btn>
-          <!-- TODO bug with form closing need to manage this if -->
-          <RoundSettings v-model="roundSettingDialog" v-if="roundSettingDialog" :round="round" />
-        </v-col>
       </v-row>
     </v-card-text>
+    <RoundSettings v-model="roundSettingDialog" v-if="roundSettingDialog" :round="round" />
   </v-card>
 </template>
 
@@ -102,9 +87,7 @@ export default {
     updateRoundStatus (value) {
       this.$http
         .put(
-          `/events/${this.$store.getters.currentActiveEventID}/rounds/${
-            this.round.id
-          }/status`,
+          `/events/${this.$store.getters.currentActiveEventID}/rounds/${this.round.id}/status`,
           { code: value }
         )
         .then(response => {
