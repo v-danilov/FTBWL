@@ -15,7 +15,7 @@ import UserCookiesClass from './store/cookie/UserCookiesClass'
 import {NOTIFICATION_TYPES} from './components/notifications/notificationTypes'
 
 axios.defaults.baseURL = '/api' + '/v0' // TODO read from config
-axios.defaults.timeout = 2500
+// axios.defaults.timeout = 2500
 Vue.prototype.$http = axios
 
 const vuetifyOpts = {
