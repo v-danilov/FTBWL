@@ -113,13 +113,27 @@ export default {
       const { username, password } = this.userData
       this.$http.post(END_POINTS.AUTHENTICATION.AUTHENTICATE, { username, password })
         .then(response => {
+          // save user token
           UserCookies.setToken(response.data.token)
+          // save user data
+          this.setAuthenticatedUser()
+          // check path to jump if previous user request aborted by invalid permissions
           const pathToJump = this.$store.getters.routeToJump
           this.$router.push(pathToJump)
         })
         .catch(err => {
           this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to authenticate.'})
           console.log(err)
+        })
+    },
+    setAuthenticatedUser () {
+      this.$http.get('/users/current')
+        .then(response => {
+          UserCookies.setAutheticatedUser(response.data)
+        })
+        .catch(error => {
+          this.$store.dispatch('notifications/add', {type: NOTIFICATION_TYPES.ERROR, text: 'Failed to authenticate. Cannot read user.'})
+          console.log(error)
         })
     }
   }

@@ -120,7 +120,7 @@
             <v-col cols="8">
               <v-text-field
                 disabled
-                value="Параллельный 'Мерзкий' Лион"
+                :value="organizerName"
                 label="Организатор"
               />
             </v-col>
@@ -282,6 +282,7 @@
 import { END_POINTS } from '../../util/constants/EndPointsConstants'
 import { mask, tokens } from 'vue-the-mask'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
+import UserCookiesClass from '../../../store/cookie/UserCookiesClass'
 
 export default {
   name: 'EventCreateComponent',
@@ -329,7 +330,7 @@ export default {
       return Array.from(this.$store.getters.cachedFormats.values())
     },
     rulePacksFromCache () {
-      console.log(this.$store.getters.cachedRulePacks)
+      console.log(this.$store.getters)
       return Array.from(this.$store.getters.cachedRulePacks.values())
     },
     placesFromCache () {
@@ -339,6 +340,10 @@ export default {
       const startSplitted = this.parseTime(this.timeStart)
       const endSplitted = this.parseTime(this.timeEnd)
       return (Number(startSplitted.hours + startSplitted.minutes) >= Number(endSplitted.hours + endSplitted.minutes)) // revert because of 'disabled' property
+    },
+    organizerName () {
+      let userOrganizer = UserCookiesClass.getAutheticatedUser()
+      return userOrganizer.firstName + ' \'' + userOrganizer.nickname + '\' ' + userOrganizer.lastName
     }
   },
   created () {

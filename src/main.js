@@ -7,6 +7,8 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import VueCookies from 'vue-cookies'
+
 import {store} from '@/store/store.js'
 import axios from 'axios'
 import {COLORS} from './components/util/constants/ColorsConstants'
@@ -34,8 +36,7 @@ const vuetifyOpts = {
   }
 }
 Vue.use(Vuetify)
-const VueCookie = require('vue-cookie')
-Vue.use(VueCookie)
+Vue.use(VueCookies)
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(function (request) {
@@ -53,9 +54,12 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   const currentRoutePath = router.currentRoute.path
   // '/login' added as workaround to resolve the redirecting bug from /login to /login in case of 403
+  console.log('main')
+  console.log(error)
   if (error.response.status === HTTPResponseStatusConstants.FORBIDDEN && currentRoutePath !== '/login') {
     store.dispatch('saveRouteToJump', currentRoutePath)
     UserCookiesClass.setToken('') // reset token to complete dictionary downloading request
+    UserCookiesClass.setAutheticatedUser(null) // reset user data
     store.dispatch('notifications/add', {
       type: NOTIFICATION_TYPES.INFO,
       text: 'Please, login first'
