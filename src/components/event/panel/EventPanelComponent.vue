@@ -22,7 +22,7 @@
         </v-col>
         <v-col cols="3">
           <v-btn
-            @click="showEventCreationDialog = !showEventCreationDialog"
+            @click="openEventCreationDialog()"
             color="primary"
             rounded
           >
@@ -44,7 +44,7 @@
         >
           <EventCard
             :event="eventElement"
-            v-on:open-dialog="openDialog"
+            v-on:open-dialog="openEventDialog"
           />
         </v-col>
         <RegDialog
@@ -67,6 +67,7 @@ import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
 import LoadingStub from '../../util/components/LoadingStub'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
+import UserCookiesClass from '../../../store/cookie/UserCookiesClass'
 
 export default {
   name: 'EventPanelComponent',
@@ -107,9 +108,21 @@ export default {
       })
   },
   methods: {
-    openDialog (event) {
+    openEventDialog (event) {
       this.focusedEventId = event.id
       this.showRegForm = true
+    },
+    openEventCreationDialog () {
+      const userData = UserCookiesClass.getAutheticatedUser()
+      if (userData === null) {
+        this.$store.dispatch('notifications/add', {
+          type: NOTIFICATION_TYPES.INFO,
+          text: 'Please, login to create an event'
+        })
+        this.$router.push('/login')
+      } else {
+        this.showEventCreationDialog = true
+      }
     }
   }
 }

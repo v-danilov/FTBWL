@@ -128,10 +128,8 @@
                   <v-menu
                     v-model="menu"
                     :close-on-content-click="false"
-                    ref="menu"
                     transition="scale-transition"
                     offset-y
-                    full-width
                     min-width="290px"
                   >
                     <template v-slot:activator="{ on }">
@@ -145,20 +143,9 @@
                     <v-date-picker
                       v-model="date"
                       no-title
-                      scrollable
+                      @input="menu = false"
                       color="secondary"
                     >
-                      <v-spacer />
-                      <v-btn @click="menu = false" text rounded color="accent"
-                        >Отмена</v-btn
-                      >
-                      <v-btn
-                        @click="$refs.menu.save(date)"
-                        text
-                        rounded
-                        color="secondary"
-                        >OK</v-btn
-                      >
                     </v-date-picker>
                   </v-menu>
                 </v-col>
@@ -206,9 +193,7 @@
                 >
                   <v-list-item-content>
                     <v-list-item-title
-                      v-text="
-                        roundTimeBoundToString(rounDate.start, rounDate.end)
-                      "
+                      v-text="roundTimeBoundToString(rounDate.start, rounDate.end)"
                     ></v-list-item-title>
                     <v-list-item-subtitle
                       v-text="rounDate.end.toDateString()"
@@ -430,8 +415,11 @@ export default {
       return d instanceof Date && !isNaN(d)
     },
     roundTimeBoundToString (startDate, endDate) {
-      const start = startDate.getHours() + ':' + startDate.getMinutes()
-      const end = endDate.getHours() + ':' + endDate.getMinutes()
+      const prependZero = number => {
+        return number > 9 ? '' + number : '0' + number
+      }
+      const start = startDate.getHours() + ':' + prependZero(startDate.getMinutes())
+      const end = endDate.getHours() + ':' + prependZero(endDate.getMinutes())
       return start + ' - ' + end
     }
   }
