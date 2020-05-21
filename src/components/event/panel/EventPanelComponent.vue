@@ -114,7 +114,7 @@ export default {
     },
     openEventCreationDialog () {
       const userData = UserCookiesClass.getAutheticatedUser()
-      if (userData === null) {
+      if (userData == null) {
         this.$store.dispatch('notifications/add', {
           type: NOTIFICATION_TYPES.INFO,
           text: 'Please, login to create an event'

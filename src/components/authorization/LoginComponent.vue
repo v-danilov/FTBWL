@@ -119,6 +119,7 @@ export default {
           this.setAuthenticatedUser()
           // check path to jump if previous user request aborted by invalid permissions
           const pathToJump = this.$store.getters.routeToJump
+          console.log(pathToJump)
           this.$router.push(pathToJump)
         })
         .catch(err => {
