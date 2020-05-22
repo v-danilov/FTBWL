@@ -56,8 +56,7 @@
 </template>
 <script>
 import { mdiAccount } from '@mdi/js'
-import UserCookiesClass from '@/store/cookie/UserCookiesClass'
-import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
+import SecurityModule from '@/components/util/SecurityModule'
 
 export default {
   name: 'NavigatorComponent',
@@ -71,19 +70,10 @@ export default {
       this.$router.replace(path)
     },
     openProfile () {
-      const userData = UserCookiesClass.getAutheticatedUser()
-      console.log(userData)
-      console.log(userData == null)
-      if (userData == null) {
-        this.$store.dispatch('saveRouteToJump', '/profile')
-        this.$store.dispatch('notifications/add', {
-          type: NOTIFICATION_TYPES.INFO,
-          text: 'Please, login to create an event'
-        })
-        this.$router.push('/login')
-      } else {
-        this.navigate('/profile')
-      }
+      this.$store.dispatch('saveRouteToJump', '/profile')
+      // TODO this need to moove into 'beforeRouter' action
+      const actionFunc = function (vm) { vm.navigate('/profile') }
+      SecurityModule.doActionIfUserIsAuthenticated(actionFunc, this)
     }
   }
 }

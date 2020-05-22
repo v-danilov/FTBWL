@@ -67,7 +67,7 @@ import EventRegDialogComponent from './EventRegDialogComponent'
 import EventCreateComponent from './EventCreateComponent'
 import LoadingStub from '../../util/components/LoadingStub'
 import { NOTIFICATION_TYPES } from '@/components/notifications/notificationTypes'
-import UserCookiesClass from '../../../store/cookie/UserCookiesClass'
+import SecurityModule from '@/components/util/SecurityModule'
 
 export default {
   name: 'EventPanelComponent',
@@ -113,16 +113,8 @@ export default {
       this.showRegForm = true
     },
     openEventCreationDialog () {
-      const userData = UserCookiesClass.getAutheticatedUser()
-      if (userData == null) {
-        this.$store.dispatch('notifications/add', {
-          type: NOTIFICATION_TYPES.INFO,
-          text: 'Please, login to create an event'
-        })
-        this.$router.push('/login')
-      } else {
-        this.showEventCreationDialog = true
-      }
+      const actionFunc = function (vm) { vm.showEventCreationDialog = true }
+      SecurityModule.doActionIfUserIsAuthenticated(actionFunc, this)
     }
   }
 }
