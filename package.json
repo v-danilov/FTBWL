@@ -21,7 +21,7 @@
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.7.0",
     "vue-jsonp": "^0.1.8",
-    "vue-loader": "^15.9.2",
+    "vue-loader": "^14.2.4",
     "vue-lodash": "^2.0.0",
     "vue-router": "^3.0.1",
     "vue-the-mask": "^0.11.1",
